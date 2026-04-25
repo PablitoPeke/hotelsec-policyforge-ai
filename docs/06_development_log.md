@@ -27,3 +27,20 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Crear repositorio en GitHub.
 - Preparar backend base.
 - Preparar frontend base.
+
+## 2026-04-25 - Backend base
+
+### Trabajo realizado
+
+- Creación de la estructura inicial del backend con FastAPI.
+- Separación de módulos por API, configuración, esquemas y servicios.
+- Creación del endpoint `GET /api/v1/health`.
+- Creación de `requirements.txt` con dependencias iniciales.
+- Creación de prueba básica para comprobar el endpoint de salud.
+- Actualización de variables de entorno de ejemplo.
+
+### Decisiones tomadas
+
+- Usar FastAPI porque ofrece una API moderna, documentación automática y buena integración con validación de datos.
+- Usar Pydantic Settings para centralizar la configuración y evitar secretos dentro del código.
+- Crear una estructura modular desde el principio para poder añadir scoring, riesgos, IA, base de datos y PDF sin reordenar el proyecto más adelante.
