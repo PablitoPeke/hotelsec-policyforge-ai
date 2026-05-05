@@ -44,3 +44,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Usar FastAPI porque ofrece una API moderna, documentación automática y buena integración con validación de datos.
 - Usar Pydantic Settings para centralizar la configuración y evitar secretos dentro del código.
 - Crear una estructura modular desde el principio para poder añadir scoring, riesgos, IA, base de datos y PDF sin reordenar el proyecto más adelante.
+
+## 2026-05-05 - Analizador inicial de hoteles
+
+### Trabajo realizado
+
+- Creación de schemas para el perfil del hotel y los controles de seguridad.
+- Creación del primer motor de scoring de madurez.
+- Detección inicial de riesgos de ciberseguridad frecuentes en hoteles.
+- Creación del endpoint `POST /api/v1/assessments/analyze`.
+- Creación de tests para perfiles con seguridad débil y fuerte.
+
+### Decisiones tomadas
+
+- Empezar sin base de datos para validar primero la lógica del análisis.
+- Mantener el scoring separado del endpoint para facilitar pruebas y futuras mejoras.
+- Usar reglas deterministas antes de incorporar IA, evitando que la puntuación dependa solo de un modelo generativo.

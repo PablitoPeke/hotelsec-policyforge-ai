@@ -57,3 +57,17 @@ GET /api/v1/health
 ```
 
 Devuelve el estado básico de la API.
+
+## Analizador inicial
+
+```http
+POST /api/v1/assessments/analyze
+```
+
+Recibe el perfil de un hotel y sus controles de seguridad básicos. Devuelve:
+
+- Puntuación global de madurez.
+- Nivel de riesgo.
+- Puntuaciones por área.
+- Riesgos detectados.
+- Próximos pasos recomendados.
