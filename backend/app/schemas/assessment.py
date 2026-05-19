@@ -21,19 +21,31 @@ class HotelProfile(BaseModel):
     permanent_employees: int = Field(ge=0, le=500)
     temporary_employees: int = Field(ge=0, le=500)
     has_external_it_provider: bool
+    uses_pms: bool
+    offers_guest_wifi: bool
+    handles_card_payments: bool
+    stores_guest_documents: bool
 
 
 class SecurityControls(BaseModel):
     uses_mfa: bool
     uses_password_manager: bool
     shared_accounts: bool
+    pms_individual_users: bool
+    employee_offboarding_process: bool
     backup_frequency: Literal["none", "monthly", "weekly", "daily"]
     backups_tested: bool
     has_antivirus: bool
     systems_updated: bool
     guest_wifi_separated: bool
+    payment_terminal_isolated: bool
+    cctv_or_iot_devices: bool
+    iot_network_separated: bool
+    supplier_remote_access: bool
+    supplier_access_controlled: bool
     has_incident_response_plan: bool
     has_rgpd_breach_protocol: bool
+    rgpd_processing_register: bool
     staff_phishing_training: bool
 
 

@@ -87,6 +87,7 @@ La versión actual del frontend muestra un dashboard inicial con:
 - Estado del backend.
 - Comprobación real del endpoint `GET /api/v1/health`.
 - Formulario inicial de análisis hotelero.
+- Campos específicos de hoteles: PMS, WiFi de huéspedes, pagos, RGPD, proveedores, TPV e IoT/CCTV.
 - Conexión real con el endpoint `POST /api/v1/assessments/analyze`.
 - Visualización de puntuación, áreas de madurez y riesgos detectados.
 - Estructura modular separada en componentes, API, datos y tipos.

@@ -2,6 +2,7 @@ from app.schemas.assessment import (
     AreaScore,
     AssessmentRequest,
     AssessmentResponse,
+    HotelProfile,
     RiskFinding,
     RiskLevel,
     SecurityControls,
@@ -10,9 +11,10 @@ from app.schemas.assessment import (
 
 def analyze_assessment(payload: AssessmentRequest) -> AssessmentResponse:
     controls = payload.security_controls
-    area_scores = _calculate_area_scores(controls)
+    profile = payload.hotel_profile
+    area_scores = _calculate_area_scores(profile, controls)
     overall_score = round(sum(area.score for area in area_scores) / len(area_scores))
-    risks = _detect_risks(controls)
+    risks = _detect_risks(profile, controls)
 
     return AssessmentResponse(
         business_name=payload.hotel_profile.business_name,
@@ -24,7 +26,9 @@ def analyze_assessment(payload: AssessmentRequest) -> AssessmentResponse:
     )
 
 
-def _calculate_area_scores(controls: SecurityControls) -> list[AreaScore]:
+def _calculate_area_scores(
+    profile: HotelProfile, controls: SecurityControls
+) -> list[AreaScore]:
     backup_score = 0
     if controls.backup_frequency == "daily":
         backup_score += 70
@@ -43,6 +47,12 @@ def _calculate_area_scores(controls: SecurityControls) -> list[AreaScore]:
                     controls.uses_mfa,
                     controls.uses_password_manager,
                     not controls.shared_accounts,
+                    controls.employee_offboarding_process,
+                    *(
+                        [controls.pms_individual_users]
+                        if profile.uses_pms
+                        else []
+                    ),
                 ]
             ),
         ),
@@ -52,8 +62,38 @@ def _calculate_area_scores(controls: SecurityControls) -> list[AreaScore]:
             score=_score_booleans([controls.has_antivirus, controls.systems_updated]),
         ),
         AreaScore(
-            area="Seguridad de red",
-            score=100 if controls.guest_wifi_separated else 25,
+            area="Seguridad de red y sistemas hoteleros",
+            score=_score_booleans(
+                [
+                    *(
+                        [controls.guest_wifi_separated]
+                        if profile.offers_guest_wifi
+                        else []
+                    ),
+                    *(
+                        [controls.payment_terminal_isolated]
+                        if profile.handles_card_payments
+                        else []
+                    ),
+                    *(
+                        [controls.iot_network_separated]
+                        if controls.cctv_or_iot_devices
+                        else []
+                    ),
+                ],
+            ),
+        ),
+        AreaScore(
+            area="Proveedores y accesos remotos",
+            score=_score_booleans(
+                [
+                    (
+                        controls.supplier_access_controlled
+                        if controls.supplier_remote_access
+                        else True
+                    )
+                ]
+            ),
         ),
         AreaScore(
             area="Respuesta a incidentes",
@@ -61,6 +101,11 @@ def _calculate_area_scores(controls: SecurityControls) -> list[AreaScore]:
                 [
                     controls.has_incident_response_plan,
                     controls.has_rgpd_breach_protocol,
+                    *(
+                        [controls.rgpd_processing_register]
+                        if profile.stores_guest_documents
+                        else []
+                    ),
                 ]
             ),
         ),
@@ -72,10 +117,13 @@ def _calculate_area_scores(controls: SecurityControls) -> list[AreaScore]:
 
 
 def _score_booleans(values: list[bool]) -> int:
+    if not values:
+        return 100
+
     return round((sum(1 for value in values if value) / len(values)) * 100)
 
 
-def _detect_risks(controls: SecurityControls) -> list[RiskFinding]:
+def _detect_risks(profile: HotelProfile, controls: SecurityControls) -> list[RiskFinding]:
     risks: list[RiskFinding] = []
 
     if not controls.uses_mfa:
@@ -104,6 +152,32 @@ def _detect_risks(controls: SecurityControls) -> list[RiskFinding]:
             )
         )
 
+    if profile.uses_pms and not controls.pms_individual_users:
+        risks.append(
+            RiskFinding(
+                title="PMS sin usuarios individuales",
+                description=(
+                    "El sistema de gestión hotelera concentra reservas, datos de clientes "
+                    "y facturación. Si se usa con cuentas genéricas, se pierde trazabilidad."
+                ),
+                severity="high",
+                recommendation="Configurar usuarios individuales y perfiles por rol en el PMS.",
+            )
+        )
+
+    if not controls.employee_offboarding_process:
+        risks.append(
+            RiskFinding(
+                title="Baja de empleados sin proceso de retirada de accesos",
+                description=(
+                    "En negocios con personal temporal, un acceso olvidado puede seguir "
+                    "activo después de finalizar la relación laboral."
+                ),
+                severity="medium",
+                recommendation="Crear una lista de baja para correo, PMS, llaves digitales y aplicaciones internas.",
+            )
+        )
+
     if controls.backup_frequency == "none":
         risks.append(
             RiskFinding(
@@ -129,7 +203,7 @@ def _detect_risks(controls: SecurityControls) -> list[RiskFinding]:
             )
         )
 
-    if not controls.guest_wifi_separated:
+    if profile.offers_guest_wifi and not controls.guest_wifi_separated:
         risks.append(
             RiskFinding(
                 title="WiFi de huéspedes no separada",
@@ -139,6 +213,45 @@ def _detect_risks(controls: SecurityControls) -> list[RiskFinding]:
                 ),
                 severity="high",
                 recommendation="Separar la red de huéspedes de la red interna mediante VLAN o red independiente.",
+            )
+        )
+
+    if profile.handles_card_payments and not controls.payment_terminal_isolated:
+        risks.append(
+            RiskFinding(
+                title="Terminales de pago no aislados",
+                description=(
+                    "Los TPV y sistemas de pago deben estar separados de redes de clientes "
+                    "y de equipos no necesarios para reducir el riesgo sobre datos de pago."
+                ),
+                severity="high",
+                recommendation="Separar TPV y equipos de pago en una red propia o segmento restringido.",
+            )
+        )
+
+    if controls.cctv_or_iot_devices and not controls.iot_network_separated:
+        risks.append(
+            RiskFinding(
+                title="Cámaras o dispositivos IoT en la red principal",
+                description=(
+                    "Cámaras, cerraduras inteligentes o domótica pueden tener vulnerabilidades "
+                    "y conviene aislarlos de recepción, administración y sistemas críticos."
+                ),
+                severity="medium",
+                recommendation="Crear una red separada para CCTV, cerraduras, domótica y otros dispositivos IoT.",
+            )
+        )
+
+    if controls.supplier_remote_access and not controls.supplier_access_controlled:
+        risks.append(
+            RiskFinding(
+                title="Acceso remoto de proveedores sin control suficiente",
+                description=(
+                    "Los proveedores de PMS, mantenimiento o soporte pueden convertirse en "
+                    "una vía de entrada si sus accesos no se revisan ni se limitan."
+                ),
+                severity="high",
+                recommendation="Limitar accesos remotos por proveedor, horario, MFA y registro de actividad.",
             )
         )
 
@@ -152,6 +265,19 @@ def _detect_risks(controls: SecurityControls) -> list[RiskFinding]:
                 ),
                 severity="medium",
                 recommendation="Definir un procedimiento de detección, evaluación y notificación de brechas.",
+            )
+        )
+
+    if profile.stores_guest_documents and not controls.rgpd_processing_register:
+        risks.append(
+            RiskFinding(
+                title="Registro RGPD de tratamientos incompleto",
+                description=(
+                    "Los alojamientos suelen tratar documentos de identidad, reservas y datos "
+                    "de contacto. Sin registro, es más difícil demostrar cumplimiento."
+                ),
+                severity="medium",
+                recommendation="Documentar tratamientos, finalidades, bases legales, plazos de conservación y encargados.",
             )
         )
 

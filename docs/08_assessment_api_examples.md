@@ -28,8 +28,11 @@ Ejemplos de reglas:
 
 - Si no hay doble factor de autenticación, aparece un riesgo alto.
 - Si se comparten cuentas, aparece un riesgo alto.
+- Si el PMS usa cuentas genéricas, aparece un riesgo alto.
 - Si no hay copias de seguridad, aparece un riesgo crítico.
 - Si la WiFi de huéspedes no está separada, aparece un riesgo alto.
+- Si los TPV o dispositivos IoT no están aislados, aparece un riesgo medio o alto.
+- Si los proveedores tienen acceso remoto sin control, aparece un riesgo alto.
 - Si no existe protocolo de brechas RGPD, aparece un riesgo medio.
 - Si el personal no recibe formación contra phishing, aparece un riesgo medio.
 
@@ -44,19 +47,31 @@ Ejemplos de reglas:
     "rooms_count": 42,
     "permanent_employees": 12,
     "temporary_employees": 8,
-    "has_external_it_provider": true
+    "has_external_it_provider": true,
+    "uses_pms": true,
+    "offers_guest_wifi": true,
+    "handles_card_payments": true,
+    "stores_guest_documents": true
   },
   "security_controls": {
     "uses_mfa": false,
     "uses_password_manager": false,
     "shared_accounts": true,
+    "pms_individual_users": false,
+    "employee_offboarding_process": false,
     "backup_frequency": "none",
     "backups_tested": false,
     "has_antivirus": true,
     "systems_updated": false,
     "guest_wifi_separated": false,
+    "payment_terminal_isolated": false,
+    "cctv_or_iot_devices": true,
+    "iot_network_separated": false,
+    "supplier_remote_access": true,
+    "supplier_access_controlled": false,
     "has_incident_response_plan": false,
     "has_rgpd_breach_protocol": false,
+    "rgpd_processing_register": false,
     "staff_phishing_training": false
   }
 }
@@ -85,8 +100,12 @@ La respuesta exacta puede cambiar si se ajustan las reglas, pero tendrá esta es
       "score": 50
     },
     {
-      "area": "Seguridad de red",
-      "score": 25
+      "area": "Seguridad de red y sistemas hoteleros",
+      "score": 0
+    },
+    {
+      "area": "Proveedores y accesos remotos",
+      "score": 0
     },
     {
       "area": "Respuesta a incidentes",
@@ -115,6 +134,12 @@ La respuesta exacta puede cambiar si se ajustan las reglas, pero tendrá esta es
       "description": "Un incidente de ransomware, borrado accidental o fallo técnico podría provocar pérdida de reservas, facturación o documentación de clientes.",
       "severity": "critical",
       "recommendation": "Implantar copias de seguridad automáticas y mantener al menos una copia aislada."
+    },
+    {
+      "title": "Terminales de pago no aislados",
+      "description": "Los TPV y sistemas de pago deben estar separados de redes de clientes y de equipos no necesarios para reducir el riesgo sobre datos de pago.",
+      "severity": "high",
+      "recommendation": "Separar TPV y equipos de pago en una red propia o segmento restringido."
     }
   ],
   "next_steps": [
@@ -153,18 +178,30 @@ $body = @{
     permanent_employees = 12
     temporary_employees = 8
     has_external_it_provider = $true
+    uses_pms = $true
+    offers_guest_wifi = $true
+    handles_card_payments = $true
+    stores_guest_documents = $true
   }
   security_controls = @{
     uses_mfa = $false
     uses_password_manager = $false
     shared_accounts = $true
+    pms_individual_users = $false
+    employee_offboarding_process = $false
     backup_frequency = "none"
     backups_tested = $false
     has_antivirus = $true
     systems_updated = $false
     guest_wifi_separated = $false
+    payment_terminal_isolated = $false
+    cctv_or_iot_devices = $true
+    iot_network_separated = $false
+    supplier_remote_access = $true
+    supplier_access_controlled = $false
     has_incident_response_plan = $false
     has_rgpd_breach_protocol = $false
+    rgpd_processing_register = $false
     staff_phishing_training = $false
   }
 } | ConvertTo-Json -Depth 5
@@ -181,4 +218,3 @@ Invoke-RestMethod `
 Una explicación sencilla sería:
 
 > Esta primera parte del backend analiza el perfil de seguridad de un hotel. Todavía no usa inteligencia artificial; primero aplica reglas claras de ciberseguridad para calcular madurez y riesgos. Después, en fases posteriores, la IA usará estos resultados para generar políticas, recomendaciones e informes.
-

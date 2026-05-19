@@ -141,3 +141,20 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Dividir el frontend antes de añadir más campos para que el proyecto sea más fácil de mantener.
 - Mantener los componentes en archivos pequeños para que se puedan explicar mejor en la defensa de la práctica.
 - No añadir librerías nuevas todavía porque React, TypeScript y CSS propio siguen siendo suficientes para esta fase.
+
+## 2026-05-19 - Ampliación del analizador hotelero
+
+### Trabajo realizado
+
+- Añadidos campos específicos para hoteles y pymes turísticas: PMS, WiFi de huéspedes, pagos con tarjeta, documentación de clientes, proveedores, TPV e IoT/CCTV.
+- Ampliado el motor de scoring del backend para tener en cuenta esos nuevos campos.
+- Añadidos nuevos riesgos: PMS sin usuarios individuales, TPV no aislados, IoT/CCTV en red principal, accesos remotos de proveedores y registro RGPD incompleto.
+- Actualizados los tests del backend con un perfil débil y un perfil fuerte.
+- Actualizado el formulario del frontend para enviar los nuevos campos al backend.
+- Actualizada la documentación de uso del endpoint.
+
+### Decisiones tomadas
+
+- Mantener el análisis basado en reglas para que sea explicable y verificable antes de integrar IA.
+- Separar campos de perfil del hotel y controles de seguridad para que el análisis entienda cuándo aplica cada riesgo.
+- Priorizar riesgos reales del sector hotelero frente a una lista genérica de controles de ciberseguridad.

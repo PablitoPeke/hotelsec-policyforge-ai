@@ -64,7 +64,7 @@ Devuelve el estado básico de la API.
 POST /api/v1/assessments/analyze
 ```
 
-Recibe el perfil de un hotel y sus controles de seguridad básicos. Devuelve:
+Recibe el perfil de un hotel y sus controles de seguridad. El perfil ya contempla elementos propios del sector turístico, como PMS, WiFi de huéspedes, pagos con tarjeta, documentación de clientes, accesos de proveedores y dispositivos IoT/CCTV. Devuelve:
 
 - Puntuación global de madurez.
 - Nivel de riesgo.

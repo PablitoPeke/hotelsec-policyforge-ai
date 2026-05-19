@@ -19,18 +19,30 @@ export type AssessmentRequest = {
     permanent_employees: number
     temporary_employees: number
     has_external_it_provider: boolean
+    uses_pms: boolean
+    offers_guest_wifi: boolean
+    handles_card_payments: boolean
+    stores_guest_documents: boolean
   }
   security_controls: {
     uses_mfa: boolean
     uses_password_manager: boolean
     shared_accounts: boolean
+    pms_individual_users: boolean
+    employee_offboarding_process: boolean
     backup_frequency: BackupFrequency
     backups_tested: boolean
     has_antivirus: boolean
     systems_updated: boolean
     guest_wifi_separated: boolean
+    payment_terminal_isolated: boolean
+    cctv_or_iot_devices: boolean
+    iot_network_separated: boolean
+    supplier_remote_access: boolean
+    supplier_access_controlled: boolean
     has_incident_response_plan: boolean
     has_rgpd_breach_protocol: boolean
+    rgpd_processing_register: boolean
     staff_phishing_training: boolean
   }
 }

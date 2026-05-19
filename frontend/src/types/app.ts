@@ -14,16 +14,28 @@ export type FormState = {
   permanentEmployees: number
   temporaryEmployees: number
   hasExternalItProvider: boolean
+  usesPms: boolean
+  offersGuestWifi: boolean
+  handlesCardPayments: boolean
+  storesGuestDocuments: boolean
   usesMfa: boolean
   usesPasswordManager: boolean
   sharedAccounts: boolean
+  pmsIndividualUsers: boolean
+  employeeOffboardingProcess: boolean
   backupFrequency: BackupFrequency
   backupsTested: boolean
   hasAntivirus: boolean
   systemsUpdated: boolean
   guestWifiSeparated: boolean
+  paymentTerminalIsolated: boolean
+  cctvOrIotDevices: boolean
+  iotNetworkSeparated: boolean
+  supplierRemoteAccess: boolean
+  supplierAccessControlled: boolean
   hasIncidentResponsePlan: boolean
   hasRgpdBreachProtocol: boolean
+  rgpdProcessingRegister: boolean
   staffPhishingTraining: boolean
 }
 

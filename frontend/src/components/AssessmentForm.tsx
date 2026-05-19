@@ -15,29 +15,53 @@ const checkboxFields: Array<{
   key: keyof Pick<
     FormState,
     | 'hasExternalItProvider'
+    | 'usesPms'
+    | 'offersGuestWifi'
+    | 'handlesCardPayments'
+    | 'storesGuestDocuments'
     | 'usesMfa'
     | 'usesPasswordManager'
     | 'sharedAccounts'
+    | 'pmsIndividualUsers'
+    | 'employeeOffboardingProcess'
     | 'backupsTested'
     | 'hasAntivirus'
     | 'systemsUpdated'
     | 'guestWifiSeparated'
+    | 'paymentTerminalIsolated'
+    | 'cctvOrIotDevices'
+    | 'iotNetworkSeparated'
+    | 'supplierRemoteAccess'
+    | 'supplierAccessControlled'
     | 'hasIncidentResponsePlan'
     | 'hasRgpdBreachProtocol'
+    | 'rgpdProcessingRegister'
     | 'staffPhishingTraining'
   >
   label: string
 }> = [
   { key: 'hasExternalItProvider', label: 'Proveedor IT externo' },
+  { key: 'usesPms', label: 'Usa PMS o channel manager' },
+  { key: 'offersGuestWifi', label: 'Ofrece WiFi a huéspedes' },
+  { key: 'handlesCardPayments', label: 'Acepta pagos con tarjeta' },
+  { key: 'storesGuestDocuments', label: 'Guarda documentación de huéspedes' },
   { key: 'usesMfa', label: 'Usa doble factor' },
   { key: 'usesPasswordManager', label: 'Usa gestor de contraseñas' },
   { key: 'sharedAccounts', label: 'Comparte cuentas' },
+  { key: 'pmsIndividualUsers', label: 'PMS con usuarios individuales' },
+  { key: 'employeeOffboardingProcess', label: 'Proceso de baja de empleados' },
   { key: 'backupsTested', label: 'Prueba restauración de backups' },
   { key: 'hasAntivirus', label: 'Tiene antivirus/EDR' },
   { key: 'systemsUpdated', label: 'Sistemas actualizados' },
   { key: 'guestWifiSeparated', label: 'WiFi de huéspedes separada' },
+  { key: 'paymentTerminalIsolated', label: 'TPV/red de pagos aislada' },
+  { key: 'cctvOrIotDevices', label: 'Usa cámaras, domótica o IoT' },
+  { key: 'iotNetworkSeparated', label: 'IoT/CCTV en red separada' },
+  { key: 'supplierRemoteAccess', label: 'Proveedores con acceso remoto' },
+  { key: 'supplierAccessControlled', label: 'Acceso remoto de proveedores controlado' },
   { key: 'hasIncidentResponsePlan', label: 'Plan de respuesta a incidentes' },
   { key: 'hasRgpdBreachProtocol', label: 'Protocolo de brechas RGPD' },
+  { key: 'rgpdProcessingRegister', label: 'Registro RGPD de tratamientos' },
   { key: 'staffPhishingTraining', label: 'Formación contra phishing' },
 ]
 
