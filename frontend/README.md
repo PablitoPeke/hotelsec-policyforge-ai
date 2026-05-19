@@ -19,6 +19,14 @@ El frontend será la interfaz principal para que un hotel pueda:
 - TypeScript.
 - CSS propio en `src/index.css`.
 
+## Estructura principal
+
+- `src/App.tsx`: coordina el estado de la pantalla, llama a la API y une los componentes.
+- `src/api`: contiene las funciones que hablan con el backend FastAPI.
+- `src/components`: contiene las piezas visuales reutilizables del dashboard.
+- `src/data`: contiene datos iniciales y etiquetas compartidas.
+- `src/types`: contiene tipos internos del frontend.
+
 ## Por qué usamos estas herramientas
 
 - **React** permite construir una interfaz por componentes.
@@ -81,5 +89,6 @@ La versión actual del frontend muestra un dashboard inicial con:
 - Formulario inicial de análisis hotelero.
 - Conexión real con el endpoint `POST /api/v1/assessments/analyze`.
 - Visualización de puntuación, áreas de madurez y riesgos detectados.
+- Estructura modular separada en componentes, API, datos y tipos.
 
-En la siguiente fase se ampliará el formulario y se preparará una estructura de componentes más modular.
+En la siguiente fase se ampliará el formulario con más campos específicos para hoteles y pymes turísticas.

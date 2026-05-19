@@ -124,3 +124,20 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mantener el formulario en una sola pantalla para validar primero el flujo completo.
 - Usar estado local de React antes de introducir librerías como React Hook Form o Zod.
 - No añadir nuevas dependencias en esta fase para que el commit sea fácil de revisar.
+
+## 2026-05-19 - Refactor del frontend en componentes
+
+### Trabajo realizado
+
+- Separación de la pantalla principal en componentes reutilizables.
+- Creación de componentes para la barra lateral, estado de API, métricas, formulario y resultados.
+- Creación de una carpeta `data` para valores iniciales y etiquetas compartidas.
+- Creación de una carpeta `types` para tipos internos de la aplicación.
+- Simplificación de `App.tsx` para que se encargue principalmente de coordinar estado, llamadas API y renderizado.
+- Verificación con `npm run typecheck` y `npm run build`.
+
+### Decisiones tomadas
+
+- Dividir el frontend antes de añadir más campos para que el proyecto sea más fácil de mantener.
+- Mantener los componentes en archivos pequeños para que se puedan explicar mejor en la defensa de la práctica.
+- No añadir librerías nuevas todavía porque React, TypeScript y CSS propio siguen siendo suficientes para esta fase.
