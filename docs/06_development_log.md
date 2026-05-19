@@ -74,3 +74,21 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 
 - Documentar cada funcionalidad pequeña antes de pasar al frontend.
 - Mantener ejemplos claros para poder usarlos después en la presentación oral y en el informe final.
+
+## 2026-05-19 - Frontend base
+
+### Trabajo realizado
+
+- Creación del proyecto frontend con React, Vite y TypeScript.
+- Ajuste de versiones para mantener compatibilidad con el entorno local.
+- Sustitución de la pantalla inicial de Vite por un dashboard propio de HotelSec PolicyForge AI.
+- Creación de una primera navegación lateral.
+- Creación de métricas visuales de ejemplo.
+- Creación de una tabla de riesgos de demostración.
+- Verificación con `npm run typecheck` y `npm run build`.
+
+### Decisiones tomadas
+
+- Empezar con un dashboard funcional en vez de una landing page.
+- No conectar todavía el backend para mantener este commit pequeño y fácil de revisar.
+- Usar CSS propio en esta primera fase para evitar añadir más dependencias antes de tener clara la estructura visual.

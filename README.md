@@ -35,12 +35,12 @@ Combina varias funcionalidades:
 - React
 - Vite
 - TypeScript
-- Tailwind CSS
-- React Router
-- React Hook Form
-- Zod
-- Recharts
-- Lucide React
+- CSS propio en la primera fase
+- Tailwind CSS previsto para fases posteriores si compensa
+- React Router previsto para navegación real
+- React Hook Form y Zod previstos para el formulario de análisis
+- Recharts previsto para gráficas del dashboard
+- Lucide React previsto para iconos de acciones
 
 ### Backend
 
@@ -90,7 +90,10 @@ Fase inicial del proyecto:
 - Idea definida.
 - Propuesta PDF creada.
 - Estructura base del repositorio preparada.
-- Documentación inicial en progreso.
+- Documentación inicial creada.
+- Backend base con FastAPI creado.
+- Endpoint de análisis inicial creado.
+- Frontend base con React/Vite creado.
 
 ## Entregables finales
 
