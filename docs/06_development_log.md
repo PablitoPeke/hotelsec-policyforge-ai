@@ -60,3 +60,17 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Empezar sin base de datos para validar primero la lógica del análisis.
 - Mantener el scoring separado del endpoint para facilitar pruebas y futuras mejoras.
 - Usar reglas deterministas antes de incorporar IA, evitando que la puntuación dependa solo de un modelo generativo.
+
+## 2026-05-19 - Documentación del endpoint de análisis
+
+### Trabajo realizado
+
+- Creación de documentación específica para el endpoint `POST /api/v1/assessments/analyze`.
+- Inclusión de un ejemplo completo de petición JSON.
+- Inclusión de un ejemplo de respuesta con puntuación, riesgos y próximos pasos.
+- Inclusión de instrucciones para probar el endpoint desde Swagger y PowerShell.
+
+### Decisiones tomadas
+
+- Documentar cada funcionalidad pequeña antes de pasar al frontend.
+- Mantener ejemplos claros para poder usarlos después en la presentación oral y en el informe final.
