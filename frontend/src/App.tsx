@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+
+import { fetchHealthStatus, type HealthStatus } from './api/health'
+
 const riskRows = [
   {
     name: 'Doble factor desactivado',
@@ -19,7 +23,46 @@ const riskRows = [
   },
 ]
 
+type ApiConnectionState =
+  | { status: 'checking' }
+  | { status: 'online'; data: HealthStatus }
+  | { status: 'offline'; message: string }
+
 function App() {
+  const [apiConnection, setApiConnection] = useState<ApiConnectionState>({
+    status: 'checking',
+  })
+
+  useEffect(() => {
+    let ignore = false
+
+    fetchHealthStatus()
+      .then((data) => {
+        if (!ignore) {
+          setApiConnection({ status: 'online', data })
+        }
+      })
+      .catch((error: unknown) => {
+        if (!ignore) {
+          setApiConnection({
+            status: 'offline',
+            message: error instanceof Error ? error.message : 'No se pudo conectar con la API',
+          })
+        }
+      })
+
+    return () => {
+      ignore = true
+    }
+  }, [])
+
+  const apiStatusText =
+    apiConnection.status === 'online'
+      ? `Backend online · ${apiConnection.data.version}`
+      : apiConnection.status === 'offline'
+        ? 'Backend offline'
+        : 'Comprobando backend'
+
   return (
     <main className="app-shell">
       <aside className="sidebar" aria-label="Navegación principal">
@@ -44,7 +87,9 @@ function App() {
             <p className="eyebrow">MVP Práctica 1</p>
             <h1>Panel inicial de madurez hotelera</h1>
           </div>
-          <span className="status-pill">Backend preparado</span>
+          <span className={`status-pill status-${apiConnection.status}`}>
+            {apiStatusText}
+          </span>
         </header>
 
         <section className="metric-grid" aria-label="Indicadores principales">
@@ -64,9 +109,15 @@ function App() {
             <p>Pendiente de IA</p>
           </article>
           <article className="metric-card">
-            <span>Informe PDF</span>
-            <strong>No</strong>
-            <p>Módulo futuro</p>
+            <span>API</span>
+            <strong>{apiConnection.status === 'online' ? 'OK' : 'No'}</strong>
+            <p>
+              {apiConnection.status === 'online'
+                ? apiConnection.data.service
+                : apiConnection.status === 'offline'
+                  ? apiConnection.message
+                  : 'Esperando respuesta'}
+            </p>
           </article>
         </section>
 

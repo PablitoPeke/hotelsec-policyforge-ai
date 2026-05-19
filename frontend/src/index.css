@@ -158,6 +158,21 @@ h2 {
   color: var(--primary);
 }
 
+.status-checking {
+  background: var(--surface-muted);
+  color: var(--muted);
+}
+
+.status-online {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.status-offline {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
 .metric-grid {
   display: grid;
   gap: 16px;

@@ -45,6 +45,24 @@ La aplicación se abrirá en:
 http://localhost:5173
 ```
 
+## Configuración
+
+El frontend lee la URL del backend desde la variable:
+
+```text
+VITE_API_URL=http://localhost:8000
+```
+
+Puedes copiar `frontend/.env.example` a `frontend/.env` si necesitas cambiarla en local.
+
+En esta fase la pantalla principal llama a:
+
+```http
+GET /api/v1/health
+```
+
+Con eso muestra si el backend está online u offline.
+
 ## Comprobaciones
 
 ```bash
@@ -59,6 +77,7 @@ La primera versión del frontend muestra un dashboard inicial con:
 - Navegación lateral.
 - Métricas de ejemplo.
 - Estado del backend.
+- Comprobación real del endpoint `GET /api/v1/health`.
 - Tabla de riesgos de demostración.
 - Referencia al endpoint `POST /api/v1/assessments/analyze`.
 

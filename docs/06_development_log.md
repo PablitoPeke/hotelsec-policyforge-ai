@@ -92,3 +92,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Empezar con un dashboard funcional en vez de una landing page.
 - No conectar todavía el backend para mantener este commit pequeño y fácil de revisar.
 - Usar CSS propio en esta primera fase para evitar añadir más dependencias antes de tener clara la estructura visual.
+
+## 2026-05-19 - Conexión frontend-backend inicial
+
+### Trabajo realizado
+
+- Creación de un cliente API mínimo en el frontend usando `fetch`.
+- Conexión del frontend con el endpoint `GET /api/v1/health`.
+- Visualización del estado del backend en el dashboard.
+- Creación de `frontend/.env.example` con la variable `VITE_API_URL`.
+- Actualización de documentación del frontend.
+
+### Decisiones tomadas
+
+- Usar `fetch` nativo para evitar añadir una dependencia extra antes de necesitar un cliente HTTP más completo.
+- Conectar primero un endpoint simple antes de construir el formulario de análisis.
+- Mantener la URL del backend en variable de entorno para facilitar local, Docker y despliegue.
