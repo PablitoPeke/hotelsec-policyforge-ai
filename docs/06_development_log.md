@@ -108,3 +108,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Usar `fetch` nativo para evitar añadir una dependencia extra antes de necesitar un cliente HTTP más completo.
 - Conectar primero un endpoint simple antes de construir el formulario de análisis.
 - Mantener la URL del backend en variable de entorno para facilitar local, Docker y despliegue.
+
+## 2026-05-19 - Formulario inicial de análisis
+
+### Trabajo realizado
+
+- Creación del cliente API para `POST /api/v1/assessments/analyze`.
+- Creación del primer formulario funcional de análisis hotelero.
+- Envío de datos reales desde React al backend FastAPI.
+- Visualización de puntuación global, puntuaciones por área y riesgos detectados.
+- Gestión de estados de carga y error en el frontend.
+
+### Decisiones tomadas
+
+- Mantener el formulario en una sola pantalla para validar primero el flujo completo.
+- Usar estado local de React antes de introducir librerías como React Hook Form o Zod.
+- No añadir nuevas dependencias en esta fase para que el commit sea fácil de revisar.

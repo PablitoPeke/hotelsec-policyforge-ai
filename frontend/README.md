@@ -72,13 +72,14 @@ npm run build
 
 ## Estado actual
 
-La primera versión del frontend muestra un dashboard inicial con:
+La versión actual del frontend muestra un dashboard inicial con:
 
 - Navegación lateral.
 - Métricas de ejemplo.
 - Estado del backend.
 - Comprobación real del endpoint `GET /api/v1/health`.
-- Tabla de riesgos de demostración.
-- Referencia al endpoint `POST /api/v1/assessments/analyze`.
+- Formulario inicial de análisis hotelero.
+- Conexión real con el endpoint `POST /api/v1/assessments/analyze`.
+- Visualización de puntuación, áreas de madurez y riesgos detectados.
 
-En la siguiente fase se conectará esta interfaz con el backend real.
+En la siguiente fase se ampliará el formulario y se preparará una estructura de componentes más modular.
