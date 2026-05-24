@@ -71,3 +71,20 @@ Recibe el perfil de un hotel y sus controles de seguridad. El perfil ya contempl
 - Puntuaciones por área.
 - Riesgos detectados.
 - Próximos pasos recomendados.
+
+## Generador de políticas
+
+```http
+POST /api/v1/policies/generate
+```
+
+Recibe el mismo perfil de evaluación y genera un pack inicial de políticas:
+
+- Política de contraseñas y accesos.
+- Política de copias de seguridad.
+- Política de uso de dispositivos.
+- Política de red, WiFi e IoT.
+- Política de respuesta a incidentes y RGPD.
+- Política de proveedores y accesos remotos.
+
+En esta fase se genera con reglas propias para que el resultado sea estable y explicable en la demostración.

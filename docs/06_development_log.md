@@ -158,3 +158,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mantener el análisis basado en reglas para que sea explicable y verificable antes de integrar IA.
 - Separar campos de perfil del hotel y controles de seguridad para que el análisis entienda cuándo aplica cada riesgo.
 - Priorizar riesgos reales del sector hotelero frente a una lista genérica de controles de ciberseguridad.
+
+## 2026-05-24 - Generador backend de políticas
+
+### Trabajo realizado
+
+- Creación del endpoint `POST /api/v1/policies/generate`.
+- Creación de schemas específicos para políticas, controles y pack generado.
+- Creación del servicio backend que genera políticas a partir del perfil del hotel y los controles de seguridad.
+- Inclusión de políticas de accesos, backups, dispositivos, red/IoT, incidentes/RGPD y proveedores.
+- Creación de test automático para validar que el endpoint devuelve un pack completo.
+
+### Decisiones tomadas
+
+- Generar las políticas con reglas propias en esta fase para que la demo sea estable aunque no haya API externa de IA configurada.
+- Reutilizar el analizador de madurez para que las políticas estén alineadas con el nivel de riesgo.
+- Mantener el diseño preparado para sustituir o complementar las reglas con IA en una fase posterior.
