@@ -1,12 +1,17 @@
 import { riskLabels } from '../data/assessmentDefaults'
-import type { ApiConnectionState, AssessmentState } from '../types/app'
+import type { ApiConnectionState, AssessmentState, PolicyPackState } from '../types/app'
 
 type DashboardMetricsProps = {
   apiConnection: ApiConnectionState
   assessment: AssessmentState
+  policyPack: PolicyPackState
 }
 
-export function DashboardMetrics({ apiConnection, assessment }: DashboardMetricsProps) {
+export function DashboardMetrics({
+  apiConnection,
+  assessment,
+  policyPack,
+}: DashboardMetricsProps) {
   const activeRisks = assessment?.risks ?? []
   const highOrCriticalRisks = activeRisks.filter(
     (risk) => risk.severity === 'high' || risk.severity === 'critical',
@@ -26,8 +31,8 @@ export function DashboardMetrics({ apiConnection, assessment }: DashboardMetrics
       </article>
       <article className="metric-card">
         <span>Políticas</span>
-        <strong>0</strong>
-        <p>Pendiente de IA</p>
+        <strong>{policyPack ? policyPack.policies.length : 0}</strong>
+        <p>{policyPack ? 'Pack generado' : 'Pendiente de análisis'}</p>
       </article>
       <article className="metric-card">
         <span>API</span>

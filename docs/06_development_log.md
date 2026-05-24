@@ -174,3 +174,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Generar las políticas con reglas propias en esta fase para que la demo sea estable aunque no haya API externa de IA configurada.
 - Reutilizar el analizador de madurez para que las políticas estén alineadas con el nivel de riesgo.
 - Mantener el diseño preparado para sustituir o complementar las reglas con IA en una fase posterior.
+
+## 2026-05-24 - Conexión del generador de políticas al frontend
+
+### Trabajo realizado
+
+- Creación del cliente frontend para `POST /api/v1/policies/generate`.
+- Ejecución en paralelo del análisis de madurez y la generación del pack de políticas.
+- Creación del componente visual `PolicyPackPanel`.
+- Actualización de las métricas del dashboard para mostrar cuántas políticas se han generado.
+- Añadido del bloque de orden de implantación para explicar qué debería hacer primero el hotel.
+
+### Decisiones tomadas
+
+- Mostrar las políticas en la misma pantalla del análisis para que la demo sea directa.
+- Ejecutar análisis y generación de políticas en paralelo para que la respuesta sea más rápida.
+- Mantener textos generados por reglas para que la entrega no dependa de claves externas.

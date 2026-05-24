@@ -6,9 +6,11 @@ import {
   type AssessmentResponse,
 } from './api/assessment'
 import { fetchHealthStatus } from './api/health'
+import { generatePolicyPack, type PolicyPackResponse } from './api/policies'
 import { AssessmentForm } from './components/AssessmentForm'
 import { AssessmentResults } from './components/AssessmentResults'
 import { DashboardMetrics } from './components/DashboardMetrics'
+import { PolicyPackPanel } from './components/PolicyPackPanel'
 import { Sidebar } from './components/Sidebar'
 import { StatusPill } from './components/StatusPill'
 import { initialFormState } from './data/assessmentDefaults'
@@ -20,6 +22,7 @@ function App() {
   })
   const [formState, setFormState] = useState<FormState>(initialFormState)
   const [assessment, setAssessment] = useState<AssessmentResponse | null>(null)
+  const [policyPack, setPolicyPack] = useState<PolicyPackResponse | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [assessmentError, setAssessmentError] = useState<string | null>(null)
 
@@ -57,6 +60,7 @@ function App() {
     event.preventDefault()
     setIsAnalyzing(true)
     setAssessmentError(null)
+    setPolicyPack(null)
 
     const payload: AssessmentRequest = {
       hotel_profile: {
@@ -96,8 +100,12 @@ function App() {
     }
 
     try {
-      const result = await analyzeHotelAssessment(payload)
+      const [result, generatedPolicies] = await Promise.all([
+        analyzeHotelAssessment(payload),
+        generatePolicyPack(payload),
+      ])
       setAssessment(result)
+      setPolicyPack(generatedPolicies)
     } catch (error) {
       setAssessmentError(
         error instanceof Error ? error.message : 'No se pudo completar el análisis',
@@ -120,7 +128,11 @@ function App() {
           <StatusPill connection={apiConnection} />
         </header>
 
-        <DashboardMetrics apiConnection={apiConnection} assessment={assessment} />
+        <DashboardMetrics
+          apiConnection={apiConnection}
+          assessment={assessment}
+          policyPack={policyPack}
+        />
 
         <section className="content-grid content-grid-wide">
           <AssessmentForm
@@ -132,6 +144,8 @@ function App() {
           />
           <AssessmentResults assessment={assessment} />
         </section>
+
+        <PolicyPackPanel policyPack={policyPack} />
       </section>
     </main>
   )

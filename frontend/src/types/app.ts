@@ -1,5 +1,6 @@
 import type { AssessmentResponse, BackupFrequency, BusinessType } from '../api/assessment'
 import type { HealthStatus } from '../api/health'
+import type { PolicyPackResponse } from '../api/policies'
 
 export type ApiConnectionState =
   | { status: 'checking' }
@@ -40,3 +41,5 @@ export type FormState = {
 }
 
 export type AssessmentState = AssessmentResponse | null
+
+export type PolicyPackState = PolicyPackResponse | null
