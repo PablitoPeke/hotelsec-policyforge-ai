@@ -138,6 +138,11 @@ def _call_openai_description_parser(
                 "permanent_employees": payload.permanent_employees,
                 "temporary_employees": payload.temporary_employees,
                 "description": payload.description,
+                "base_assessment": (
+                    payload.base_assessment.model_dump()
+                    if payload.base_assessment
+                    else None
+                ),
                 "required_schema": {
                     "hotel_profile": {
                         "has_external_it_provider": "boolean",
@@ -188,6 +193,7 @@ def _call_openai_description_parser(
     profile_data = parsed["hotel_profile"]
     controls_data = parsed["security_controls"]
 
+    base = payload.base_assessment
     return AssessmentRequest(
         hotel_profile=HotelProfile(
             business_name=payload.business_name,
@@ -196,42 +202,102 @@ def _call_openai_description_parser(
             rooms_count=payload.rooms_count,
             permanent_employees=payload.permanent_employees,
             temporary_employees=payload.temporary_employees,
-            has_external_it_provider=_as_bool(profile_data.get("has_external_it_provider")),
-            uses_pms=_as_bool(profile_data.get("uses_pms")),
-            offers_guest_wifi=_as_bool(profile_data.get("offers_guest_wifi")),
-            handles_card_payments=_as_bool(profile_data.get("handles_card_payments")),
-            stores_guest_documents=_as_bool(profile_data.get("stores_guest_documents")),
+            has_external_it_provider=_merge_bool(
+                base.hotel_profile.has_external_it_provider if base else False,
+                profile_data.get("has_external_it_provider"),
+            ),
+            uses_pms=_merge_bool(base.hotel_profile.uses_pms if base else False, profile_data.get("uses_pms")),
+            offers_guest_wifi=_merge_bool(
+                base.hotel_profile.offers_guest_wifi if base else False,
+                profile_data.get("offers_guest_wifi"),
+            ),
+            handles_card_payments=_merge_bool(
+                base.hotel_profile.handles_card_payments if base else False,
+                profile_data.get("handles_card_payments"),
+            ),
+            stores_guest_documents=_merge_bool(
+                base.hotel_profile.stores_guest_documents if base else False,
+                profile_data.get("stores_guest_documents"),
+            ),
         ),
         security_controls=SecurityControls(
-            uses_mfa=_as_bool(controls_data.get("uses_mfa")),
-            uses_password_manager=_as_bool(controls_data.get("uses_password_manager")),
-            shared_accounts=_as_bool(controls_data.get("shared_accounts")),
-            pms_individual_users=_as_bool(controls_data.get("pms_individual_users")),
-            employee_offboarding_process=_as_bool(
+            uses_mfa=_merge_bool(base.security_controls.uses_mfa if base else False, controls_data.get("uses_mfa")),
+            uses_password_manager=_merge_bool(
+                base.security_controls.uses_password_manager if base else False,
+                controls_data.get("uses_password_manager"),
+            ),
+            shared_accounts=_merge_bool(
+                base.security_controls.shared_accounts if base else False,
+                controls_data.get("shared_accounts"),
+            ),
+            pms_individual_users=_merge_bool(
+                base.security_controls.pms_individual_users if base else False,
+                controls_data.get("pms_individual_users"),
+            ),
+            employee_offboarding_process=_merge_bool(
+                base.security_controls.employee_offboarding_process if base else False,
                 controls_data.get("employee_offboarding_process")
             ),
             backup_frequency=_backup_frequency(
-                str(controls_data.get("backup_frequency", "none"))
+                str(
+                    controls_data.get(
+                        "backup_frequency",
+                        base.security_controls.backup_frequency if base else "none",
+                    )
+                )
             ),
-            backups_tested=_as_bool(controls_data.get("backups_tested")),
-            has_antivirus=_as_bool(controls_data.get("has_antivirus")),
-            systems_updated=_as_bool(controls_data.get("systems_updated")),
-            guest_wifi_separated=_as_bool(controls_data.get("guest_wifi_separated")),
-            payment_terminal_isolated=_as_bool(controls_data.get("payment_terminal_isolated")),
-            cctv_or_iot_devices=_as_bool(controls_data.get("cctv_or_iot_devices")),
-            iot_network_separated=_as_bool(controls_data.get("iot_network_separated")),
-            supplier_remote_access=_as_bool(controls_data.get("supplier_remote_access")),
-            supplier_access_controlled=_as_bool(
-                controls_data.get("supplier_access_controlled")
+            backups_tested=_merge_bool(
+                base.security_controls.backups_tested if base else False,
+                controls_data.get("backups_tested"),
             ),
-            has_incident_response_plan=_as_bool(
-                controls_data.get("has_incident_response_plan")
+            has_antivirus=_merge_bool(
+                base.security_controls.has_antivirus if base else False,
+                controls_data.get("has_antivirus"),
             ),
-            has_rgpd_breach_protocol=_as_bool(
-                controls_data.get("has_rgpd_breach_protocol")
+            systems_updated=_merge_bool(
+                base.security_controls.systems_updated if base else False,
+                controls_data.get("systems_updated"),
             ),
-            rgpd_processing_register=_as_bool(controls_data.get("rgpd_processing_register")),
-            staff_phishing_training=_as_bool(controls_data.get("staff_phishing_training")),
+            guest_wifi_separated=_merge_bool(
+                base.security_controls.guest_wifi_separated if base else False,
+                controls_data.get("guest_wifi_separated"),
+            ),
+            payment_terminal_isolated=_merge_bool(
+                base.security_controls.payment_terminal_isolated if base else False,
+                controls_data.get("payment_terminal_isolated"),
+            ),
+            cctv_or_iot_devices=_merge_bool(
+                base.security_controls.cctv_or_iot_devices if base else False,
+                controls_data.get("cctv_or_iot_devices"),
+            ),
+            iot_network_separated=_merge_bool(
+                base.security_controls.iot_network_separated if base else False,
+                controls_data.get("iot_network_separated"),
+            ),
+            supplier_remote_access=_merge_bool(
+                base.security_controls.supplier_remote_access if base else False,
+                controls_data.get("supplier_remote_access"),
+            ),
+            supplier_access_controlled=_merge_bool(
+                base.security_controls.supplier_access_controlled if base else False,
+                controls_data.get("supplier_access_controlled"),
+            ),
+            has_incident_response_plan=_merge_bool(
+                base.security_controls.has_incident_response_plan if base else False,
+                controls_data.get("has_incident_response_plan"),
+            ),
+            has_rgpd_breach_protocol=_merge_bool(
+                base.security_controls.has_rgpd_breach_protocol if base else False,
+                controls_data.get("has_rgpd_breach_protocol"),
+            ),
+            rgpd_processing_register=_merge_bool(
+                base.security_controls.rgpd_processing_register if base else False,
+                controls_data.get("rgpd_processing_register"),
+            ),
+            staff_phishing_training=_merge_bool(
+                base.security_controls.staff_phishing_training if base else False,
+                controls_data.get("staff_phishing_training"),
+            ),
         ),
     )
 
@@ -271,7 +337,8 @@ def _build_assessment_from_description_rules(
         ["cuenta compartida", "cuentas compartidas", "usuario generico", "misma cuenta"],
     )
 
-    return AssessmentRequest(
+    base = payload.base_assessment
+    inferred = AssessmentRequest(
         hotel_profile=HotelProfile(
             business_name=payload.business_name,
             municipality=payload.municipality,
@@ -335,6 +402,8 @@ def _build_assessment_from_description_rules(
         ),
     )
 
+    return _merge_assessments(base, inferred) if base else inferred
+
 
 def _build_fallback_summary(payload: AiExecutiveSummaryRequest) -> str:
     assessment = payload.assessment
@@ -391,3 +460,81 @@ def _as_bool(value: object) -> bool:
     if isinstance(value, str):
         return value.lower() in {"true", "yes", "si", "sí", "1"}
     return bool(value)
+
+
+def _merge_bool(base_value: bool, inferred_value: object) -> bool:
+    return base_value or _as_bool(inferred_value)
+
+
+def _merge_assessments(
+    base: AssessmentRequest | None,
+    inferred: AssessmentRequest,
+) -> AssessmentRequest:
+    if not base:
+        return inferred
+
+    return AssessmentRequest(
+        hotel_profile=HotelProfile(
+            business_name=inferred.hotel_profile.business_name,
+            municipality=inferred.hotel_profile.municipality,
+            business_type=inferred.hotel_profile.business_type,
+            rooms_count=inferred.hotel_profile.rooms_count,
+            permanent_employees=inferred.hotel_profile.permanent_employees,
+            temporary_employees=inferred.hotel_profile.temporary_employees,
+            has_external_it_provider=base.hotel_profile.has_external_it_provider
+            or inferred.hotel_profile.has_external_it_provider,
+            uses_pms=base.hotel_profile.uses_pms or inferred.hotel_profile.uses_pms,
+            offers_guest_wifi=base.hotel_profile.offers_guest_wifi
+            or inferred.hotel_profile.offers_guest_wifi,
+            handles_card_payments=base.hotel_profile.handles_card_payments
+            or inferred.hotel_profile.handles_card_payments,
+            stores_guest_documents=base.hotel_profile.stores_guest_documents
+            or inferred.hotel_profile.stores_guest_documents,
+        ),
+        security_controls=SecurityControls(
+            uses_mfa=base.security_controls.uses_mfa or inferred.security_controls.uses_mfa,
+            uses_password_manager=base.security_controls.uses_password_manager
+            or inferred.security_controls.uses_password_manager,
+            shared_accounts=base.security_controls.shared_accounts
+            or inferred.security_controls.shared_accounts,
+            pms_individual_users=base.security_controls.pms_individual_users
+            or inferred.security_controls.pms_individual_users,
+            employee_offboarding_process=base.security_controls.employee_offboarding_process
+            or inferred.security_controls.employee_offboarding_process,
+            backup_frequency=_strongest_backup_frequency(
+                base.security_controls.backup_frequency,
+                inferred.security_controls.backup_frequency,
+            ),
+            backups_tested=base.security_controls.backups_tested
+            or inferred.security_controls.backups_tested,
+            has_antivirus=base.security_controls.has_antivirus
+            or inferred.security_controls.has_antivirus,
+            systems_updated=base.security_controls.systems_updated
+            or inferred.security_controls.systems_updated,
+            guest_wifi_separated=base.security_controls.guest_wifi_separated
+            or inferred.security_controls.guest_wifi_separated,
+            payment_terminal_isolated=base.security_controls.payment_terminal_isolated
+            or inferred.security_controls.payment_terminal_isolated,
+            cctv_or_iot_devices=base.security_controls.cctv_or_iot_devices
+            or inferred.security_controls.cctv_or_iot_devices,
+            iot_network_separated=base.security_controls.iot_network_separated
+            or inferred.security_controls.iot_network_separated,
+            supplier_remote_access=base.security_controls.supplier_remote_access
+            or inferred.security_controls.supplier_remote_access,
+            supplier_access_controlled=base.security_controls.supplier_access_controlled
+            or inferred.security_controls.supplier_access_controlled,
+            has_incident_response_plan=base.security_controls.has_incident_response_plan
+            or inferred.security_controls.has_incident_response_plan,
+            has_rgpd_breach_protocol=base.security_controls.has_rgpd_breach_protocol
+            or inferred.security_controls.has_rgpd_breach_protocol,
+            rgpd_processing_register=base.security_controls.rgpd_processing_register
+            or inferred.security_controls.rgpd_processing_register,
+            staff_phishing_training=base.security_controls.staff_phishing_training
+            or inferred.security_controls.staff_phishing_training,
+        ),
+    )
+
+
+def _strongest_backup_frequency(base_frequency: str, inferred_frequency: str) -> str:
+    order = {"none": 0, "monthly": 1, "weekly": 2, "daily": 3}
+    return base_frequency if order[base_frequency] >= order[inferred_frequency] else inferred_frequency

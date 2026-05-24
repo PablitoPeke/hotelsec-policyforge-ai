@@ -101,4 +101,4 @@ Recibe el resultado del análisis y el pack de políticas. Si existe `OPENAI_API
 POST /api/v1/ai/analyze-description
 ```
 
-Recibe una descripción libre escrita por el cliente y la convierte en un análisis completo: controles normalizados, puntuación de madurez, riesgos, políticas y resumen ejecutivo.
+Recibe una descripción libre escrita por el cliente y, si se envía `base_assessment`, la combina con el formulario ya marcado. Devuelve un análisis completo: controles normalizados, puntuación de madurez, riesgos, políticas y resumen ejecutivo.

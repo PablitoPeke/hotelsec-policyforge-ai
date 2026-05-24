@@ -17,6 +17,7 @@ export type AiDescriptionAnalysisRequest = {
   permanent_employees: number
   temporary_employees: number
   description: string
+  base_assessment: AssessmentRequest
 }
 
 export type AiDescriptionAnalysisResponse = {

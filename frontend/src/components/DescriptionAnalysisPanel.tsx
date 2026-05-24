@@ -20,7 +20,7 @@ export function DescriptionAnalysisPanel({
       <div className="panel-header">
         <div>
           <p className="eyebrow">Análisis por descripción</p>
-          <h2>Cuéntalo con tus palabras</h2>
+          <h2>Complementa el formulario con tus palabras</h2>
         </div>
         <code>POST /api/v1/ai/analyze-description</code>
       </div>
@@ -30,14 +30,14 @@ export function DescriptionAnalysisPanel({
           Descripción libre del alojamiento
           <textarea
             minLength={20}
-            placeholder="Ejemplo: usamos PMS externo, la WiFi de clientes comparte router con recepción, los proveedores entran por AnyDesk, hacemos copias semanales pero nunca hemos probado restaurarlas..."
+            placeholder="Ejemplo: además de lo marcado arriba, los proveedores entran por AnyDesk, la WiFi de clientes comparte router con recepción y hacemos copias semanales pero nunca hemos probado restaurarlas..."
             rows={7}
             value={description}
             onChange={(event) => onDescriptionChange(event.target.value)}
           />
         </label>
         <button className="secondary-button" disabled={isAnalyzing} type="submit">
-          {isAnalyzing ? 'Analizando descripción...' : 'Analizar descripción con IA'}
+          {isAnalyzing ? 'Fusionando datos...' : 'Combinar formulario + descripción'}
         </button>
         {error ? <p className="form-error">{error}</p> : null}
       </form>

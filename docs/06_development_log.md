@@ -269,3 +269,18 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mantener el formulario estructurado y añadir la descripción libre como modo complementario.
 - Reutilizar el motor de scoring existente para que los resultados sean comparables.
 - Diseñar el flujo para que funcione con OpenAI real y también sin clave externa.
+
+## 2026-05-24 - Fusión de formulario y descripción libre
+
+### Trabajo realizado
+
+- Modificación del análisis por descripción para que use el formulario como base.
+- Envío desde el frontend de `base_assessment` junto con el texto libre.
+- Fusión backend de controles manuales e inferidos por IA/reglas.
+- Añadido test que valida que los datos manuales se conservan y la descripción suma información nueva.
+
+### Decisiones tomadas
+
+- No sustituir el checklist manual por el texto libre.
+- Mantener marcados los controles positivos ya introducidos por el usuario.
+- Usar la descripción como complemento para detectar contexto adicional.

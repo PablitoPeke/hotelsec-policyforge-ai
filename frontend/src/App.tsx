@@ -70,14 +70,8 @@ function App() {
     }))
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setIsAnalyzing(true)
-    setAssessmentError(null)
-    setPolicyPack(null)
-    setAiSummary(null)
-
-    const payload: AssessmentRequest = {
+  function buildAssessmentPayload(): AssessmentRequest {
+    return {
       hotel_profile: {
         business_name: formState.businessName,
         municipality: formState.municipality,
@@ -113,6 +107,16 @@ function App() {
         staff_phishing_training: formState.staffPhishingTraining,
       },
     }
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsAnalyzing(true)
+    setAssessmentError(null)
+    setPolicyPack(null)
+    setAiSummary(null)
+
+    const payload = buildAssessmentPayload()
 
     try {
       const [result, generatedPolicies] = await Promise.all([
@@ -152,6 +156,7 @@ function App() {
         permanent_employees: formState.permanentEmployees,
         temporary_employees: formState.temporaryEmployees,
         description: freeTextDescription,
+        base_assessment: buildAssessmentPayload(),
       })
       setAssessment(result.assessment)
       setPolicyPack(result.policy_pack)

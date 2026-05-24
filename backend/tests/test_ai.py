@@ -80,3 +80,61 @@ def test_ai_description_analysis_returns_assessment_from_free_text():
     assert body["policy_pack"]["policies"]
     assert body["normalized_assessment"]["hotel_profile"]["uses_pms"] is True
     assert body["normalized_assessment"]["security_controls"]["shared_accounts"] is True
+
+
+def test_ai_description_analysis_merges_manual_assessment_with_free_text():
+    payload = {
+        "business_name": "Hotel Mixto",
+        "municipality": "Yaiza",
+        "business_type": "hotel",
+        "rooms_count": 20,
+        "permanent_employees": 6,
+        "temporary_employees": 2,
+        "description": "Usamos PMS y proveedores entran por AnyDesk.",
+        "base_assessment": {
+            "hotel_profile": {
+                "business_name": "Hotel Mixto",
+                "municipality": "Yaiza",
+                "business_type": "hotel",
+                "rooms_count": 20,
+                "permanent_employees": 6,
+                "temporary_employees": 2,
+                "has_external_it_provider": True,
+                "uses_pms": False,
+                "offers_guest_wifi": True,
+                "handles_card_payments": True,
+                "stores_guest_documents": True,
+            },
+            "security_controls": {
+                "uses_mfa": True,
+                "uses_password_manager": True,
+                "shared_accounts": False,
+                "pms_individual_users": True,
+                "employee_offboarding_process": True,
+                "backup_frequency": "daily",
+                "backups_tested": True,
+                "has_antivirus": True,
+                "systems_updated": True,
+                "guest_wifi_separated": True,
+                "payment_terminal_isolated": True,
+                "cctv_or_iot_devices": False,
+                "iot_network_separated": False,
+                "supplier_remote_access": False,
+                "supplier_access_controlled": False,
+                "has_incident_response_plan": True,
+                "has_rgpd_breach_protocol": True,
+                "rgpd_processing_register": True,
+                "staff_phishing_training": True,
+            },
+        },
+    }
+
+    response = client.post("/api/v1/ai/analyze-description", json=payload)
+
+    assert response.status_code == 200
+    body = response.json()
+    normalized = body["normalized_assessment"]
+    assert normalized["security_controls"]["uses_mfa"] is True
+    assert normalized["security_controls"]["backup_frequency"] == "daily"
+    assert normalized["hotel_profile"]["uses_pms"] is True
+    assert normalized["security_controls"]["supplier_remote_access"] is True

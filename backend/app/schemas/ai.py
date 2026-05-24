@@ -32,6 +32,7 @@ class AiDescriptionAnalysisRequest(BaseModel):
     permanent_employees: int
     temporary_employees: int
     description: str
+    base_assessment: AssessmentRequest | None = None
 
 
 class AiDescriptionAnalysisResponse(BaseModel):
