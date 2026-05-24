@@ -207,3 +207,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Usar Render como opción rápida de entrega porque permite publicar frontend y backend desde GitHub con poca configuración.
 - Mantener Dockerfile del backend para no cerrar la puerta a Google Cloud Run, Hetzner u otros proveedores.
 - Documentar que Google puede tardar en indexar aunque la URL pública esté disponible inmediatamente.
+
+## 2026-05-24 - Mejora visual y resumen ejecutivo
+
+### Trabajo realizado
+
+- Rediseño de la cabecera principal con un panel de resumen más visual.
+- Mejora de la jerarquía visual del dashboard, sidebar, métricas y tarjetas.
+- Añadido panel de resumen ejecutivo para la demostración.
+- Añadida exportación del resultado en formato JSON desde el navegador.
+- Añadida lista de prioridades, riesgos clave y evidencias a recopilar.
+
+### Decisiones tomadas
+
+- Mantener la pantalla como herramienta operativa, no como landing page.
+- Añadir una exportación simple y estable antes de crear PDF real.
+- Usar los datos ya generados por backend para no duplicar lógica en la interfaz.

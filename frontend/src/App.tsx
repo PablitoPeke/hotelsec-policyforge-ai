@@ -10,6 +10,7 @@ import { generatePolicyPack, type PolicyPackResponse } from './api/policies'
 import { AssessmentForm } from './components/AssessmentForm'
 import { AssessmentResults } from './components/AssessmentResults'
 import { DashboardMetrics } from './components/DashboardMetrics'
+import { ExecutiveReportPanel } from './components/ExecutiveReportPanel'
 import { HeroPanel } from './components/HeroPanel'
 import { PolicyPackPanel } from './components/PolicyPackPanel'
 import { Sidebar } from './components/Sidebar'
@@ -150,6 +151,7 @@ function App() {
         </section>
 
         <PolicyPackPanel policyPack={policyPack} />
+        <ExecutiveReportPanel assessment={assessment} policyPack={policyPack} />
       </section>
     </main>
   )

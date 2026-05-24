@@ -92,5 +92,6 @@ La versión actual del frontend muestra un dashboard inicial con:
 - Visualización de puntuación, áreas de madurez y riesgos detectados.
 - Estructura modular separada en componentes, API, datos y tipos.
 - Generación de un pack de políticas desde el endpoint `POST /api/v1/policies/generate`.
+- Resumen ejecutivo con prioridades, evidencias y descarga de informe JSON.
 
 En la siguiente fase se preparará el despliegue público del frontend y backend.
