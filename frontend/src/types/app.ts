@@ -1,4 +1,5 @@
 import type { AssessmentResponse, BackupFrequency, BusinessType } from '../api/assessment'
+import type { AiExecutiveSummaryResponse } from '../api/ai'
 import type { HealthStatus } from '../api/health'
 import type { PolicyPackResponse } from '../api/policies'
 
@@ -43,3 +44,5 @@ export type FormState = {
 export type AssessmentState = AssessmentResponse | null
 
 export type PolicyPackState = PolicyPackResponse | null
+
+export type AiSummaryState = AiExecutiveSummaryResponse | null

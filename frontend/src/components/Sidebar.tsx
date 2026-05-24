@@ -15,6 +15,7 @@ export function Sidebar() {
         <a href="#analisis">Análisis</a>
         <a href="#riesgos">Riesgos</a>
         <a href="#politicas">Políticas</a>
+        <a href="#ia">IA</a>
         <a href="#informe">Informe</a>
       </nav>
       <div className="sidebar-footer">

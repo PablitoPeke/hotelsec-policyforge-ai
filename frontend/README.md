@@ -93,5 +93,6 @@ La versión actual del frontend muestra un dashboard inicial con:
 - Estructura modular separada en componentes, API, datos y tipos.
 - Generación de un pack de políticas desde el endpoint `POST /api/v1/policies/generate`.
 - Resumen ejecutivo con prioridades, evidencias y descarga de informe PDF.
+- Resumen inteligente desde `POST /api/v1/ai/executive-summary`, con OpenAI opcional y fallback por reglas.
 
 En la siguiente fase se preparará el despliegue público del frontend y backend.

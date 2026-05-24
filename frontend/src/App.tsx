@@ -5,8 +5,10 @@ import {
   type AssessmentRequest,
   type AssessmentResponse,
 } from './api/assessment'
+import { generateAiExecutiveSummary, type AiExecutiveSummaryResponse } from './api/ai'
 import { fetchHealthStatus } from './api/health'
 import { generatePolicyPack, type PolicyPackResponse } from './api/policies'
+import { AiSummaryPanel } from './components/AiSummaryPanel'
 import { AssessmentForm } from './components/AssessmentForm'
 import { AssessmentResults } from './components/AssessmentResults'
 import { DashboardMetrics } from './components/DashboardMetrics'
@@ -25,7 +27,9 @@ function App() {
   const [formState, setFormState] = useState<FormState>(initialFormState)
   const [assessment, setAssessment] = useState<AssessmentResponse | null>(null)
   const [policyPack, setPolicyPack] = useState<PolicyPackResponse | null>(null)
+  const [aiSummary, setAiSummary] = useState<AiExecutiveSummaryResponse | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [isGeneratingAiSummary, setIsGeneratingAiSummary] = useState(false)
   const [assessmentError, setAssessmentError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -63,6 +67,7 @@ function App() {
     setIsAnalyzing(true)
     setAssessmentError(null)
     setPolicyPack(null)
+    setAiSummary(null)
 
     const payload: AssessmentRequest = {
       hotel_profile: {
@@ -108,12 +113,16 @@ function App() {
       ])
       setAssessment(result)
       setPolicyPack(generatedPolicies)
+      setIsGeneratingAiSummary(true)
+      const generatedSummary = await generateAiExecutiveSummary(result, generatedPolicies)
+      setAiSummary(generatedSummary)
     } catch (error) {
       setAssessmentError(
         error instanceof Error ? error.message : 'No se pudo completar el análisis',
       )
     } finally {
       setIsAnalyzing(false)
+      setIsGeneratingAiSummary(false)
     }
   }
 
@@ -151,6 +160,7 @@ function App() {
         </section>
 
         <PolicyPackPanel policyPack={policyPack} />
+        <AiSummaryPanel aiSummary={aiSummary} isLoading={isGeneratingAiSummary} />
         <ExecutiveReportPanel assessment={assessment} policyPack={policyPack} />
       </section>
     </main>

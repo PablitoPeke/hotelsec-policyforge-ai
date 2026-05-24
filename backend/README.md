@@ -88,3 +88,11 @@ Recibe el mismo perfil de evaluación y genera un pack inicial de políticas:
 - Política de proveedores y accesos remotos.
 
 En esta fase se genera con reglas propias para que el resultado sea estable y explicable en la demostración.
+
+## Resumen ejecutivo con IA
+
+```http
+POST /api/v1/ai/executive-summary
+```
+
+Recibe el resultado del análisis y el pack de políticas. Si existe `OPENAI_API_KEY`, genera un resumen ejecutivo usando OpenAI. Si no existe, devuelve un resumen de respaldo basado en reglas para que la demo siga funcionando.

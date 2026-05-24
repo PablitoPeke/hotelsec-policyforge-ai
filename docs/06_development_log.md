@@ -236,3 +236,19 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 
 - Generar el PDF en el navegador para evitar dependencias adicionales y mantener el despliegue rápido.
 - Mantener el JSON interno como estructura de datos, pero entregar al usuario final un PDF más cómodo para cliente.
+
+## 2026-05-24 - Integración inicial de IA
+
+### Trabajo realizado
+
+- Creación del endpoint `POST /api/v1/ai/executive-summary`.
+- Integración opcional con OpenAI mediante la Responses API.
+- Añadido fallback por reglas cuando no existe `OPENAI_API_KEY`.
+- Creación del panel frontend de resumen inteligente.
+- Añadido test backend para comprobar que el endpoint funciona sin clave externa.
+
+### Decisiones tomadas
+
+- Mantener la IA como opcional para que la aplicación desplegada no falle si no se configura una clave.
+- Usar `httpx`, ya presente en el backend, para evitar añadir dependencias nuevas.
+- Enviar a la IA solo los resultados del análisis y políticas, no datos innecesarios.
