@@ -1,8 +1,10 @@
+import { BrandLogo } from './BrandLogo'
+
 export function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Navegación principal">
       <div className="brand">
-        <span className="brand-mark">H</span>
+        <BrandLogo />
         <div>
           <strong>HotelSec</strong>
           <span>PolicyForge AI</span>
