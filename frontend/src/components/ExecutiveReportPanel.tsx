@@ -1,5 +1,6 @@
 import { riskLabels } from '../data/assessmentDefaults'
 import type { AssessmentState, PolicyPackState } from '../types/app'
+import { buildExecutiveReportPdf } from '../utils/pdfReport'
 
 type ExecutiveReportPanelProps = {
   assessment: AssessmentState
@@ -20,26 +21,13 @@ export function ExecutiveReportPanel({
       return
     }
 
-    const report = {
-      generated_at: new Date().toISOString(),
-      business_name: assessment.business_name,
-      overall_score: assessment.overall_score,
-      risk_level: assessment.risk_level,
-      risks: assessment.risks,
-      area_scores: assessment.area_scores,
-      implementation_order: policyPack.implementation_order,
-      policies: policyPack.policies,
-    }
-
-    const blob = new Blob([JSON.stringify(report, null, 2)], {
-      type: 'application/json',
-    })
+    const blob = buildExecutiveReportPdf(assessment, policyPack)
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
     link.download = `hotelsec-informe-${assessment.business_name
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')}.json`
+      .replace(/[^a-z0-9]+/g, '-')}.pdf`
     link.click()
     URL.revokeObjectURL(url)
   }
@@ -57,7 +45,7 @@ export function ExecutiveReportPanel({
           type="button"
           onClick={downloadReport}
         >
-          Descargar JSON
+          Descargar PDF
         </button>
       </div>
 
@@ -106,7 +94,7 @@ export function ExecutiveReportPanel({
       ) : (
         <p>
           Ejecuta el análisis para generar un resumen ejecutivo con prioridades,
-          evidencias y exportación del resultado.
+          evidencias y exportación del resultado en PDF.
         </p>
       )}
     </article>

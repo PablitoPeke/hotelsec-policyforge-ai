@@ -223,3 +223,16 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mantener la pantalla como herramienta operativa, no como landing page.
 - Añadir una exportación simple y estable antes de crear PDF real.
 - Usar los datos ya generados por backend para no duplicar lógica en la interfaz.
+
+## 2026-05-24 - Exportación de informe en PDF
+
+### Trabajo realizado
+
+- Sustitución de la descarga JSON por una descarga directa en PDF.
+- Creación de un generador PDF ligero en el frontend sin dependencias externas.
+- Inclusión en el PDF de puntuación global, nivel de riesgo, áreas, riesgos principales, prioridades, políticas y evidencias.
+
+### Decisiones tomadas
+
+- Generar el PDF en el navegador para evitar dependencias adicionales y mantener el despliegue rápido.
+- Mantener el JSON interno como estructura de datos, pero entregar al usuario final un PDF más cómodo para cliente.
