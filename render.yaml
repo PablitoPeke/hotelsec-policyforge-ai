@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: hotelsec-policyforge-api
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_URL
+        value: https://hotelsec-policyforge-web.onrender.com
+      - key: CORS_ORIGINS
+        value: https://hotelsec-policyforge-web.onrender.com
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+
+  - type: web
+    name: hotelsec-policyforge-web
+    env: static
+    rootDir: frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://hotelsec-policyforge-api.onrender.com

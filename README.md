@@ -94,6 +94,17 @@ Fase inicial del proyecto:
 - Backend base con FastAPI creado.
 - Endpoint de análisis inicial creado.
 - Frontend base con React/Vite creado.
+- Formulario conectado al backend.
+- Generador de políticas inicial creado.
+- Configuración de despliegue público con Render preparada.
+
+## Documentación útil
+
+- [Arquitectura](docs/02_architecture.md)
+- [Funcionalidades](docs/03_features.md)
+- [Diario de desarrollo](docs/06_development_log.md)
+- [Ejemplos del analizador](docs/08_assessment_api_examples.md)
+- [Guía de despliegue público](docs/09_deployment_guide.md)
 
 ## Entregables finales
 

@@ -190,3 +190,20 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mostrar las políticas en la misma pantalla del análisis para que la demo sea directa.
 - Ejecutar análisis y generación de políticas en paralelo para que la respuesta sea más rápida.
 - Mantener textos generados por reglas para que la entrega no dependa de claves externas.
+
+## 2026-05-24 - Preparación de despliegue público
+
+### Trabajo realizado
+
+- Añadido endpoint raíz `/` en FastAPI para mostrar metadatos públicos de la API.
+- Añadido `Dockerfile` del backend para despliegues en contenedor.
+- Añadido `render.yaml` para desplegar backend y frontend desde GitHub.
+- Añadidos metadatos SEO básicos en `frontend/index.html`.
+- Añadido `robots.txt` para permitir indexación.
+- Creada guía de despliegue público en `docs/09_deployment_guide.md`.
+
+### Decisiones tomadas
+
+- Usar Render como opción rápida de entrega porque permite publicar frontend y backend desde GitHub con poca configuración.
+- Mantener Dockerfile del backend para no cerrar la puerta a Google Cloud Run, Hetzner u otros proveedores.
+- Documentar que Google puede tardar en indexar aunque la URL pública esté disponible inmediatamente.

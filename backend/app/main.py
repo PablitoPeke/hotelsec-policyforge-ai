@@ -28,6 +28,16 @@ def create_app() -> FastAPI:
 
     app.include_router(api_router, prefix=settings.api_v1_prefix)
 
+    @app.get("/")
+    def read_root() -> dict[str, str]:
+        return {
+            "service": settings.app_name,
+            "version": settings.app_version,
+            "environment": settings.app_env,
+            "docs": "/docs",
+            "health": f"{settings.api_v1_prefix}/health",
+        }
+
     return app
 
 
