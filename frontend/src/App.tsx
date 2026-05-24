@@ -5,13 +5,18 @@ import {
   type AssessmentRequest,
   type AssessmentResponse,
 } from './api/assessment'
-import { generateAiExecutiveSummary, type AiExecutiveSummaryResponse } from './api/ai'
+import {
+  analyzeDescriptionWithAi,
+  generateAiExecutiveSummary,
+  type AiExecutiveSummaryResponse,
+} from './api/ai'
 import { fetchHealthStatus } from './api/health'
 import { generatePolicyPack, type PolicyPackResponse } from './api/policies'
 import { AiSummaryPanel } from './components/AiSummaryPanel'
 import { AssessmentForm } from './components/AssessmentForm'
 import { AssessmentResults } from './components/AssessmentResults'
 import { DashboardMetrics } from './components/DashboardMetrics'
+import { DescriptionAnalysisPanel } from './components/DescriptionAnalysisPanel'
 import { ExecutiveReportPanel } from './components/ExecutiveReportPanel'
 import { HeroPanel } from './components/HeroPanel'
 import { PolicyPackPanel } from './components/PolicyPackPanel'
@@ -28,9 +33,12 @@ function App() {
   const [assessment, setAssessment] = useState<AssessmentResponse | null>(null)
   const [policyPack, setPolicyPack] = useState<PolicyPackResponse | null>(null)
   const [aiSummary, setAiSummary] = useState<AiExecutiveSummaryResponse | null>(null)
+  const [freeTextDescription, setFreeTextDescription] = useState('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [isAnalyzingDescription, setIsAnalyzingDescription] = useState(false)
   const [isGeneratingAiSummary, setIsGeneratingAiSummary] = useState(false)
   const [assessmentError, setAssessmentError] = useState<string | null>(null)
+  const [descriptionError, setDescriptionError] = useState<string | null>(null)
 
   useEffect(() => {
     let ignore = false
@@ -126,6 +134,37 @@ function App() {
     }
   }
 
+  async function handleDescriptionSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsAnalyzingDescription(true)
+    setDescriptionError(null)
+    setAssessmentError(null)
+    setAssessment(null)
+    setPolicyPack(null)
+    setAiSummary(null)
+
+    try {
+      const result = await analyzeDescriptionWithAi({
+        business_name: formState.businessName,
+        municipality: formState.municipality,
+        business_type: formState.businessType,
+        rooms_count: formState.roomsCount,
+        permanent_employees: formState.permanentEmployees,
+        temporary_employees: formState.temporaryEmployees,
+        description: freeTextDescription,
+      })
+      setAssessment(result.assessment)
+      setPolicyPack(result.policy_pack)
+      setAiSummary(result.ai_summary)
+    } catch (error) {
+      setDescriptionError(
+        error instanceof Error ? error.message : 'No se pudo analizar la descripción',
+      )
+    } finally {
+      setIsAnalyzingDescription(false)
+    }
+  }
+
   return (
     <main className="app-shell">
       <Sidebar />
@@ -158,6 +197,14 @@ function App() {
           />
           <AssessmentResults assessment={assessment} />
         </section>
+
+        <DescriptionAnalysisPanel
+          description={freeTextDescription}
+          error={descriptionError}
+          isAnalyzing={isAnalyzingDescription}
+          onDescriptionChange={setFreeTextDescription}
+          onSubmit={handleDescriptionSubmit}
+        />
 
         <PolicyPackPanel policyPack={policyPack} />
         <AiSummaryPanel aiSummary={aiSummary} isLoading={isGeneratingAiSummary} />

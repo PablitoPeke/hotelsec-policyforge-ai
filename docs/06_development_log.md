@@ -252,3 +252,20 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - Mantener la IA como opcional para que la aplicación desplegada no falle si no se configura una clave.
 - Usar `httpx`, ya presente en el backend, para evitar añadir dependencias nuevas.
 - Enviar a la IA solo los resultados del análisis y políticas, no datos innecesarios.
+
+## 2026-05-24 - Análisis por descripción libre
+
+### Trabajo realizado
+
+- Creación del endpoint `POST /api/v1/ai/analyze-description`.
+- Conversión de texto libre del cliente en controles normalizados de ciberseguridad.
+- Ejecución automática de madurez, riesgos, políticas y resumen ejecutivo a partir de la descripción.
+- Añadido fallback por reglas cuando la IA no está disponible.
+- Creación de un panel frontend para que el cliente explique su situación con sus propias palabras.
+- Añadido test backend para validar el flujo de análisis por descripción.
+
+### Decisiones tomadas
+
+- Mantener el formulario estructurado y añadir la descripción libre como modo complementario.
+- Reutilizar el motor de scoring existente para que los resultados sean comparables.
+- Diseñar el flujo para que funcione con OpenAI real y también sin clave externa.

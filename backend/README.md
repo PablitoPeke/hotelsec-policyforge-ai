@@ -96,3 +96,9 @@ POST /api/v1/ai/executive-summary
 ```
 
 Recibe el resultado del análisis y el pack de políticas. Si existe `OPENAI_API_KEY`, genera un resumen ejecutivo usando OpenAI. Si no existe, devuelve un resumen de respaldo basado en reglas para que la demo siga funcionando.
+
+```http
+POST /api/v1/ai/analyze-description
+```
+
+Recibe una descripción libre escrita por el cliente y la convierte en un análisis completo: controles normalizados, puntuación de madurez, riesgos, políticas y resumen ejecutivo.

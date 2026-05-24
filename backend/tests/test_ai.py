@@ -55,3 +55,28 @@ def test_ai_summary_endpoint_returns_fallback_without_api_key():
     assert body["generated_by_ai"] is False
     assert body["provider"] in {"rules", "rules-fallback"}
     assert "Hotel Demo Lanzarote" in body["summary"]
+
+
+def test_ai_description_analysis_returns_assessment_from_free_text():
+    payload = {
+        "business_name": "Hotel Texto Libre",
+        "municipality": "Tías",
+        "business_type": "hotel",
+        "rooms_count": 30,
+        "permanent_employees": 8,
+        "temporary_employees": 4,
+        "description": (
+            "Tenemos PMS de reservas, WiFi para clientes en la misma red que recepcion, "
+            "TPV con tarjeta, camaras CCTV, usamos cuentas compartidas y no hacemos copias."
+        ),
+    }
+
+    response = client.post("/api/v1/ai/analyze-description", json=payload)
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["assessment"]["business_name"] == "Hotel Texto Libre"
+    assert body["assessment"]["risk_level"] == "critical"
+    assert body["policy_pack"]["policies"]
+    assert body["normalized_assessment"]["hotel_profile"]["uses_pms"] is True
+    assert body["normalized_assessment"]["security_controls"]["shared_accounts"] is True

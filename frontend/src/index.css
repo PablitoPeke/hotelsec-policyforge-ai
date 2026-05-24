@@ -658,6 +658,38 @@ code {
   margin-top: 18px;
 }
 
+.description-panel {
+  margin-top: 18px;
+}
+
+.description-form {
+  display: grid;
+  gap: 14px;
+}
+
+.description-form label {
+  color: var(--text);
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 8px;
+}
+
+.description-form textarea {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 150px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.description-form textarea:focus {
+  border-color: var(--primary);
+  outline: 3px solid rgba(15, 118, 110, 0.14);
+}
+
 .ai-badge {
   background: var(--surface-muted);
   border: 1px solid var(--border);
