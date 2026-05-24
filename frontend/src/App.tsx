@@ -10,6 +10,7 @@ import { generatePolicyPack, type PolicyPackResponse } from './api/policies'
 import { AssessmentForm } from './components/AssessmentForm'
 import { AssessmentResults } from './components/AssessmentResults'
 import { DashboardMetrics } from './components/DashboardMetrics'
+import { HeroPanel } from './components/HeroPanel'
 import { PolicyPackPanel } from './components/PolicyPackPanel'
 import { Sidebar } from './components/Sidebar'
 import { StatusPill } from './components/StatusPill'
@@ -121,12 +122,15 @@ function App() {
 
       <section className="workspace" id="dashboard">
         <header className="topbar">
-          <div>
-            <p className="eyebrow">MVP Práctica 1</p>
-            <h1>Panel inicial de madurez hotelera</h1>
-          </div>
+          <span>HotelSec PolicyForge AI</span>
           <StatusPill connection={apiConnection} />
         </header>
+
+        <HeroPanel
+          apiConnection={apiConnection}
+          assessment={assessment}
+          policyPack={policyPack}
+        />
 
         <DashboardMetrics
           apiConnection={apiConnection}

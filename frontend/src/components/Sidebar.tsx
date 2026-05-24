@@ -14,6 +14,10 @@ export function Sidebar() {
         <a href="#riesgos">Riesgos</a>
         <a href="#politicas">Políticas</a>
       </nav>
+      <div className="sidebar-footer">
+        <span>Entrega pública</span>
+        <strong>Render · FastAPI · React</strong>
+      </div>
     </aside>
   )
 }
