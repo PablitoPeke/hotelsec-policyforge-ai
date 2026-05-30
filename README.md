@@ -105,6 +105,16 @@ Fase inicial del proyecto:
 - [Diario de desarrollo](docs/06_development_log.md)
 - [Ejemplos del analizador](docs/08_assessment_api_examples.md)
 - [Guía de despliegue público](docs/09_deployment_guide.md)
+- [Guía de despliegue en Hetzner](docs/10_hetzner_deployment.md)
+- [Roadmap de mejora para la Práctica 2](docs/11_practica2_roadmap.md)
+
+## Entregables de la práctica
+
+- Aplicación web pública desplegada: frontend en Render y backend FastAPI en Render.
+- Código versionado en GitHub con commits pequeños y descriptivos.
+- Configuración preparada para Hetzner VPS con Docker Compose y Nginx.
+- Informe final profesional generado en `HotelSec_PolicyForge_AI_informe_final.pdf`.
+- Documentación de arquitectura, desarrollo, despliegue, uso y roadmap dentro de `docs/`.
 
 ## Entregables finales
 

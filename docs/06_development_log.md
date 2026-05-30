@@ -284,3 +284,22 @@ Este archivo se usará para documentar el proceso de desarrollo fase a fase. Ser
 - No sustituir el checklist manual por el texto libre.
 - Mantener marcados los controles positivos ya introducidos por el usuario.
 - Usar la descripción como complemento para detectar contexto adicional.
+
+## 2026-05-30 - Preparación de entrega final
+
+### Trabajo realizado
+
+- Creación de la configuración de despliegue para Hetzner VPS con Docker Compose.
+- Creación del contenedor de frontend con Nginx para servir la aplicación React compilada.
+- Creación de una configuración Nginx de reverse proxy para unir frontend y backend bajo el mismo dominio.
+- Creación de una guía específica de despliegue en Hetzner en `docs/10_hetzner_deployment.md`.
+- Creación del roadmap detallado para la Práctica 2 en `docs/11_practica2_roadmap.md`.
+- Creación del generador `generate_final_report.py` para producir el informe final de documentación.
+- Generación del entregable `HotelSec_PolicyForge_AI_informe_final.pdf`.
+
+### Decisiones tomadas
+
+- Usar Docker Compose para que el despliegue sea reproducible y fácil de explicar en la defensa.
+- Separar backend, frontend y proxy Nginx en servicios distintos para que la arquitectura sea clara.
+- Mantener Render como despliegue público ya operativo y preparar Hetzner como despliegue exigido por la práctica.
+- Generar el informe final desde código para poder actualizarlo si cambia el proyecto antes de la entrega.
