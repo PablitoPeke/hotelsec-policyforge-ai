@@ -36,6 +36,8 @@ Thumbs.db
 *.log
 coverage/
 htmlcov/
+entrega_google_classroom/
+HotelSec_PolicyForge_AI_entrega_google_classroom.zip
 
 # Local database / uploads
 *.sqlite3
