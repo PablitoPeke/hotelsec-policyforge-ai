@@ -2,6 +2,15 @@
 
 Esta guía cubre el requisito de despliegue en un servidor Hetzner Cloud VPS usando Docker Compose.
 
+## Despliegue realizado
+
+- Servidor: Hetzner Cloud VPS.
+- IP pública: `178.105.149.202`.
+- Panel web: `http://178.105.149.202`.
+- API health check: `http://178.105.149.202/api/v1/health`.
+- Servicios Docker activos: `api`, `web` y `nginx`.
+- Firewall básico: puertos `22`, `80` y `443`.
+
 ## Arquitectura de despliegue
 
 ```text
@@ -93,6 +102,6 @@ docker compose -f docker-compose.hetzner.yml --env-file .env up -d --build
 
 ## URLs esperadas
 
-- Panel web: `https://tu-dominio.com`
-- API health: `https://tu-dominio.com/api/v1/health`
-- Swagger: `https://tu-dominio.com/docs`
+- Panel web: `http://178.105.149.202`
+- API health: `http://178.105.149.202/api/v1/health`
+- Swagger: `http://178.105.149.202/docs`

@@ -159,7 +159,8 @@ def build_story():
                 ["Autor", "Pablo / PablitoPeke"],
                 ["Fecha", "30/05/2026"],
                 ["Repositorio", "https://github.com/PablitoPeke/hotelsec-policyforge-ai"],
-                ["URL publica", "https://hotelsec-policyforge-ai-1.onrender.com/"],
+                ["URL publica Hetzner", "http://178.105.149.202"],
+                ["URL publica Render", "https://hotelsec-policyforge-ai-1.onrender.com/"],
             ],
             [4 * cm, 12 * cm],
         )
@@ -256,7 +257,7 @@ Dashboard + Riesgos + Politicas + Informe PDF""",
                 ["Politicas", "Endpoint POST /api/v1/policies/generate"],
                 ["IA", "Endpoints POST /api/v1/ai/executive-summary y /ai/analyze-description"],
                 ["Frontend", "Dashboard publico con formulario, riesgos, politicas, IA e informe"],
-                ["Despliegue", "URL publica en Render y configuracion Docker/Hetzner"],
+                ["Despliegue", "URL publica en Hetzner y despliegue adicional en Render"],
             ],
             [4.2 * cm, 11.8 * cm],
         )
@@ -290,7 +291,7 @@ def analyze_free_text_description(payload: AiDescriptionAnalysisRequest):
     story.append(p("6. Guia de despliegue paso a paso", s["h1"]))
     story.append(
         p(
-            "La aplicacion se encuentra desplegada publicamente en Render. Para cubrir el requisito de servidor VPS, el repositorio incluye una configuracion alternativa para Hetzner con Docker Compose y Nginx.",
+            "La aplicacion se encuentra desplegada publicamente en Hetzner Cloud VPS mediante Docker Compose y Nginx. Durante el desarrollo tambien se preparo un despliegue adicional en Render para pruebas rapidas y disponibilidad alternativa.",
             s["body"],
         )
     )
@@ -300,7 +301,7 @@ def analyze_free_text_description(payload: AiDescriptionAnalysisRequest):
 cd hotelsec-policyforge-ai
 cp infra/.env.hetzner.example .env
 docker compose -f docker-compose.hetzner.yml --env-file .env up -d --build
-curl http://localhost/api/v1/health""",
+curl http://178.105.149.202/api/v1/health""",
             s["code"],
         )
     )

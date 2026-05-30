@@ -110,9 +110,10 @@ Fase inicial del proyecto:
 
 ## Entregables de la práctica
 
-- Aplicación web pública desplegada: frontend en Render y backend FastAPI en Render.
+- Aplicación web pública desplegada en Hetzner: `http://178.105.149.202`.
+- Despliegue adicional en Render usado durante la fase de pruebas.
 - Código versionado en GitHub con commits pequeños y descriptivos.
-- Configuración preparada para Hetzner VPS con Docker Compose y Nginx.
+- Configuración de Hetzner VPS con Docker Compose, Nginx y firewall básico.
 - Informe final profesional generado en `HotelSec_PolicyForge_AI_informe_final.pdf`.
 - Documentación de arquitectura, desarrollo, despliegue, uso y roadmap dentro de `docs/`.
 
