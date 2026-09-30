@@ -100,6 +100,7 @@ Fase inicial del proyecto:
 
 ## Documentación útil
 
+- [Práctica 3: revisión inicial, requisitos y plan de trabajo](docs/practica3/README.md)
 - [Arquitectura](docs/02_architecture.md)
 - [Funcionalidades](docs/03_features.md)
 - [Diario de desarrollo](docs/06_development_log.md)

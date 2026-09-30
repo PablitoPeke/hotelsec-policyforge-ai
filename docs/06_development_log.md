@@ -1,5 +1,17 @@
 # 06. Diario de desarrollo
 
+## 2026-09-30 - Inicio de la Practica 3
+
+- Leido el nuevo enunciado (12 paginas): entrega el 16/10/2026, memoria de 20-40 paginas, video minimo de 10 minutos y GitHub con tag final.
+- Revisados memoria/propuesta de Practica 1, requisitos previstos y codigo actual.
+- El alumno confirma equipo individual, nota anterior 9/10 y ausencia de comentarios docentes.
+- Creada revision inicial, matriz numerada y plan de pruebas en `docs/practica3/`.
+- Detectadas carencias de persistencia, historial, permisos, politicas IA, plan de accion, PDF completo y fusion de datos contradictorios.
+- Restaurado el entorno virtual local con las dependencias existentes; no se cambiaron versiones declaradas.
+- Comprobacion actual: backend 8 tests superados y frontend TypeScript correcto. Avisos de cache/deprecacion documentados.
+- Proximo paso: persistencia PostgreSQL y migraciones; despues autenticacion antes de publicar historiales.
+- No se verifico ni modifico el VPS en este paso. No se generan evidencias finales ni resultados de pruebas que aun no se han ejecutado.
+
 Este archivo se usará para documentar el proceso de desarrollo fase a fase. Servirá como evidencia para el informe final.
 
 ## 2026-04-25
