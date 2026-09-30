@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "format": "prettier --write src/App.tsx src/api/product.ts src/utils/formAdapter.ts src/product.css e2e/product.spec.ts playwright.config.ts vite.config.ts"
   },
   "dependencies": {
     "lucide-react": "^1.49.0",
@@ -20,6 +22,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.1.1",
+    "prettier": "^3.9.9",
     "typescript": "^7.0.2",
     "vite": "^8.3.1"
   }

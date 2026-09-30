@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     )
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
     access_token_expire_minutes: int = Field(
-        default=60,
+        default=60, ge=5, le=1440,
         alias="ACCESS_TOKEN_EXPIRE_MINUTES",
     )
 
@@ -61,7 +61,7 @@ class Settings(BaseSettings):
                 raise ValueError("Production requires HTTPS APP_URL and COOKIE_SECURE=true.")
             if any(not origin.startswith("https://") for origin in self.cors_origins):
                 raise ValueError("Production CORS origins must use HTTPS.")
-            if "change_me" in self.database_url:
+            if any(marker in self.database_url for marker in ("change_me", "replace_with")):
                 raise ValueError("Production requires a private database password.")
         return self
 

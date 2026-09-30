@@ -38,7 +38,7 @@ def test_login_origin_rate_limit_and_revoke(logged_client):
 
 
 def test_account_erasure(logged_client, isolated_database):
-    assert logged_client.request("DELETE", "/api/v1/auth/account", json={"password": "Wrong-password-123"}).status_code == 401
+    assert logged_client.request("DELETE", "/api/v1/auth/account", json={"password": "Wrong-password-123"}).status_code == 403
     assert logged_client.request("DELETE", "/api/v1/auth/account", json={"password": "Demo-password-123"}).status_code == 204
     assert logged_client.get("/api/v1/auth/me").status_code == 401
     with Session(isolated_database) as db:

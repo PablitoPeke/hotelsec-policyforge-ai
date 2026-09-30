@@ -41,6 +41,11 @@ def test_full_flow_persistence_pdf_progress_and_delete(logged_client, isolated_d
     assert "Plan de accion" in text and "teletrabajo" in text and "AEPD" in text
     for risk in record["assessment"]["risks"]:
         assert risk["title"] in text
+    normalized_text = ' '.join(text.split())
+    for policy in record['policy_pack']['policies']:
+        assert policy['name'] in text
+        for control in policy['controls']:
+            assert ' '.join(control['description'].split()) in normalized_text
     assert logged_client.delete(f"/api/v1/records/{record_id}").status_code == 204
     assert logged_client.get(f"/api/v1/records/{record_id}").status_code == 404
 

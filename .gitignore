@@ -37,6 +37,7 @@ pnpm-debug.log*
 Thumbs.db
 
 # Generated files
+tmp/pdfs/
 *.log
 coverage/
 htmlcov/

@@ -1,15 +1,93 @@
 import type { AssessmentRequest } from '../api/assessment'
 import type { FormState } from '../types/app'
 
-const profileKeys = { businessName: 'business_name', municipality: 'municipality', businessType: 'business_type', roomsCount: 'rooms_count', permanentEmployees: 'permanent_employees', temporaryEmployees: 'temporary_employees', hasExternalItProvider: 'has_external_it_provider', usesPms: 'uses_pms', offersGuestWifi: 'offers_guest_wifi', handlesCardPayments: 'handles_card_payments', storesGuestDocuments: 'stores_guest_documents' } as const
-const controlKeys = { usesMfa: 'uses_mfa', usesPasswordManager: 'uses_password_manager', sharedAccounts: 'shared_accounts', pmsIndividualUsers: 'pms_individual_users', employeeOffboardingProcess: 'employee_offboarding_process', backupFrequency: 'backup_frequency', backupsTested: 'backups_tested', hasAntivirus: 'has_antivirus', systemsUpdated: 'systems_updated', guestWifiSeparated: 'guest_wifi_separated', paymentTerminalIsolated: 'payment_terminal_isolated', cctvOrIotDevices: 'cctv_or_iot_devices', iotNetworkSeparated: 'iot_network_separated', supplierRemoteAccess: 'supplier_remote_access', supplierAccessControlled: 'supplier_access_controlled', hasIncidentResponsePlan: 'has_incident_response_plan', hasRgpdBreachProtocol: 'has_rgpd_breach_protocol', rgpdProcessingRegister: 'rgpd_processing_register', staffPhishingTraining: 'staff_phishing_training' } as const
+const profileKeys = {
+  businessName: 'business_name',
+  municipality: 'municipality',
+  businessType: 'business_type',
+  roomsCount: 'rooms_count',
+  permanentEmployees: 'permanent_employees',
+  temporaryEmployees: 'temporary_employees',
+  hasExternalItProvider: 'has_external_it_provider',
+  usesPms: 'uses_pms',
+  offersGuestWifi: 'offers_guest_wifi',
+  handlesCardPayments: 'handles_card_payments',
+  storesGuestDocuments: 'stores_guest_documents',
+} as const
+const controlKeys = {
+  usesMfa: 'uses_mfa',
+  usesPasswordManager: 'uses_password_manager',
+  sharedAccounts: 'shared_accounts',
+  pmsIndividualUsers: 'pms_individual_users',
+  employeeOffboardingProcess: 'employee_offboarding_process',
+  backupFrequency: 'backup_frequency',
+  backupsTested: 'backups_tested',
+  hasAntivirus: 'has_antivirus',
+  systemsUpdated: 'systems_updated',
+  guestWifiSeparated: 'guest_wifi_separated',
+  paymentTerminalIsolated: 'payment_terminal_isolated',
+  cctvOrIotDevices: 'cctv_or_iot_devices',
+  iotNetworkSeparated: 'iot_network_separated',
+  supplierRemoteAccess: 'supplier_remote_access',
+  supplierAccessControlled: 'supplier_access_controlled',
+  hasIncidentResponsePlan: 'has_incident_response_plan',
+  hasRgpdBreachProtocol: 'has_rgpd_breach_protocol',
+  rgpdProcessingRegister: 'rgpd_processing_register',
+  staffPhishingTraining: 'staff_phishing_training',
+} as const
 export const extraControls: Record<string, string> = {
-  password_policy: 'Politica de contrasenas', firewall_enabled: 'Firewall configurado', supplier_contracts: 'Contratos con proveedores', data_retention_defined: 'Plazos de conservacion definidos', byod_policy: 'Normas de dispositivos personales', remote_work_policy: 'Normas de teletrabajo', secure_messaging: 'Mensajeria corporativa segura', business_continuity_plan: 'Plan de continuidad', manual_checkin_procedure: 'Check-in manual de emergencia', incident_responsible_assigned: 'Responsable de incidentes', temporary_staff_onboarding: 'Formacion de empleados temporales', can_operate_offline: 'Puede operar sin conexion',
+  password_policy: 'Politica de contrasenas',
+  firewall_enabled: 'Firewall configurado',
+  supplier_contracts: 'Contratos con proveedores',
+  data_retention_defined: 'Plazos de conservacion definidos',
+  byod_policy: 'Normas de dispositivos personales',
+  remote_work_policy: 'Normas de teletrabajo',
+  secure_messaging: 'Mensajeria corporativa segura',
+  business_continuity_plan: 'Plan de continuidad',
+  manual_checkin_procedure: 'Check-in manual de emergencia',
+  incident_responsible_assigned: 'Responsable de incidentes',
+  temporary_staff_onboarding: 'Formacion de empleados temporales',
+  can_operate_offline: 'Puede operar sin conexion',
 }
-export function toPayload(form: FormState, extra: Record<string, boolean | null>, context: { season: string; inventory: string; categories: string; retention: number; response: number }): AssessmentRequest {
-  const map = <T>(keys: Record<string, string>): T => Object.fromEntries(Object.entries(keys).map(([a, b]) => [b, form[a as keyof FormState]])) as T
-  return { hotel_profile: { ...map<AssessmentRequest['hotel_profile']>(profileKeys), high_season: context.season, technology_inventory: context.inventory.split(',').map(s => s.trim()).filter(Boolean), personal_data_categories: context.categories.split(',').map(s => s.trim()).filter(Boolean), retention_days: context.retention, it_response_hours: context.response }, security_controls: { ...map<AssessmentRequest['security_controls']>(controlKeys), ...extra } }
+export function toPayload(
+  form: FormState,
+  extra: Record<string, boolean | null>,
+  context: {
+    season: string
+    inventory: string
+    categories: string
+    retention: number
+    response: number
+  },
+): AssessmentRequest {
+  const map = <T>(keys: Record<string, string>): T =>
+    Object.fromEntries(
+      Object.entries(keys).map(([a, b]) => [b, form[a as keyof FormState]]),
+    ) as T
+  return {
+    hotel_profile: {
+      ...map<AssessmentRequest['hotel_profile']>(profileKeys),
+      high_season: context.season,
+      technology_inventory: context.inventory
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
+      personal_data_categories: context.categories
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
+      retention_days: context.retention,
+      it_response_hours: context.response,
+    },
+    security_controls: {
+      ...map<AssessmentRequest['security_controls']>(controlKeys),
+      ...extra,
+    },
+  }
 }
 export function fromPayload(input: AssessmentRequest): FormState {
-  return Object.fromEntries([...Object.entries(profileKeys).map(([a, b]) => [a, input.hotel_profile[b]]), ...Object.entries(controlKeys).map(([a, b]) => [a, input.security_controls[b]])]) as FormState
+  return Object.fromEntries([
+    ...Object.entries(profileKeys).map(([a, b]) => [a, input.hotel_profile[b]]),
+    ...Object.entries(controlKeys).map(([a, b]) => [a, input.security_controls[b]]),
+  ]) as FormState
 }

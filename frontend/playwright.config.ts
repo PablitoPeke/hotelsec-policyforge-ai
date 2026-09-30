@@ -1,6 +1,11 @@
 import { defineConfig } from '@playwright/test'
 export default defineConfig({
-  testDir: './e2e', workers: 1, timeout: 60000,
-  use: { baseURL: process.env.E2E_URL ?? 'http://localhost:8085', trace: 'retain-on-failure' },
+  testDir: './e2e',
+  workers: 1,
+  timeout: 60000,
+  use: {
+    baseURL: process.env.E2E_URL ?? 'http://localhost:8085',
+    trace: 'retain-on-failure',
+  },
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
 })

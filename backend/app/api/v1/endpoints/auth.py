@@ -69,7 +69,7 @@ def logout(request: Request, response: Response, user: User = Depends(get_curren
 @router.delete("/account", status_code=204)
 def delete_account(payload: DeleteAccount, response: Response, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     if not verify_password(payload.password, user.password_hash):
-        raise HTTPException(401, "Contrasena incorrecta.")
+        raise HTTPException(403, "Contrasena incorrecta.")
     db.delete(user)
     db.commit()
     response.delete_cookie(COOKIE, path="/")

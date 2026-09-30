@@ -1,0 +1,22 @@
+FIELDS = {
+    'business_name': 'Nombre del alojamiento', 'municipality': 'Municipio', 'business_type': 'Tipo de alojamiento',
+    'rooms_count': 'Habitaciones', 'permanent_employees': 'Empleados fijos', 'temporary_employees': 'Empleados temporales',
+    'has_external_it_provider': 'Proveedor IT externo', 'uses_pms': 'PMS o channel manager', 'offers_guest_wifi': 'WiFi para huespedes',
+    'handles_card_payments': 'Pagos con tarjeta', 'stores_guest_documents': 'Documentacion de huespedes',
+    'high_season': 'Temporada alta', 'technology_inventory': 'Inventario de sistemas', 'personal_data_categories': 'Categorias de datos',
+    'retention_days': 'Conservacion declarada (dias)', 'it_response_hours': 'Respuesta IT (horas)', 'uses_mfa': 'Doble factor de autenticacion',
+    'uses_password_manager': 'Gestor de contrasenas', 'shared_accounts': 'Cuentas compartidas', 'pms_individual_users': 'Usuarios individuales PMS',
+    'employee_offboarding_process': 'Retirada de accesos al causar baja', 'backup_frequency': 'Frecuencia de copias', 'backups_tested': 'Restauracion probada',
+    'has_antivirus': 'Antivirus o EDR', 'systems_updated': 'Sistemas actualizados', 'guest_wifi_separated': 'Red de huespedes separada',
+    'payment_terminal_isolated': 'TPV aislado', 'cctv_or_iot_devices': 'CCTV, domotica o IoT', 'iot_network_separated': 'IoT en red separada',
+    'supplier_remote_access': 'Acceso remoto de proveedores', 'supplier_access_controlled': 'Acceso de proveedores controlado',
+    'has_incident_response_plan': 'Plan de respuesta a incidentes', 'has_rgpd_breach_protocol': 'Protocolo de brechas RGPD',
+    'rgpd_processing_register': 'Registro de tratamientos', 'staff_phishing_training': 'Formacion contra phishing',
+    'password_policy': 'Politica de contrasenas', 'firewall_enabled': 'Firewall configurado', 'supplier_contracts': 'Contratos con proveedores',
+    'data_retention_defined': 'Plazos de conservacion definidos', 'byod_policy': 'Dispositivos personales', 'remote_work_policy': 'Normas de teletrabajo',
+    'secure_messaging': 'Mensajeria segura', 'business_continuity_plan': 'Plan de continuidad', 'manual_checkin_procedure': 'Check-in manual de emergencia',
+    'incident_responsible_assigned': 'Responsable de incidentes', 'temporary_staff_onboarding': 'Formacion de temporales', 'can_operate_offline': 'Operacion sin conexion',
+}
+VALUES = {'low': 'Bajo', 'medium': 'Medio', 'high': 'Alto', 'critical': 'Critico', 'pending': 'Pendiente',
+          'in_progress': 'En curso', 'done': 'Completada', 'none': 'No se realizan', 'daily': 'Diaria', 'weekly': 'Semanal', 'monthly': 'Mensual',
+          'rules': 'Reglas locales', 'rules-fallback': 'Reglas de respaldo', 'openai': 'OpenAI'}
