@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     openai_model: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL")
 
     reports_dir: str = Field(default="reports/generated", alias="REPORTS_DIR")
+    cookie_secure: bool = Field(default=False, alias="COOKIE_SECURE")
+    ai_requests_per_hour: int = Field(default=20, ge=1, le=500, alias="AI_REQUESTS_PER_HOUR")
 
     model_config = SettingsConfigDict(
         env_file=".env",

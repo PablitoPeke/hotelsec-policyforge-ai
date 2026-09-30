@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+**/.venv
+**/.deps
+**/node_modules
+**/__pycache__
+**/dist
+*.pdf
+*.zip
+docs
+entrega_google_classroom
