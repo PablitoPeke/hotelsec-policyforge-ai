@@ -25,6 +25,11 @@ class HotelProfile(BaseModel):
     offers_guest_wifi: bool
     handles_card_payments: bool
     stores_guest_documents: bool
+    high_season: str = Field(default="Todo el ano", max_length=80)
+    technology_inventory: list[str] = Field(default_factory=list, max_length=20)
+    personal_data_categories: list[str] = Field(default_factory=list, max_length=12)
+    retention_days: int = Field(default=180, ge=0, le=36500)
+    it_response_hours: int = Field(default=24, ge=0, le=720)
 
 
 class SecurityControls(BaseModel):
@@ -47,6 +52,18 @@ class SecurityControls(BaseModel):
     has_rgpd_breach_protocol: bool
     rgpd_processing_register: bool
     staff_phishing_training: bool
+    password_policy: bool | None = None
+    firewall_enabled: bool | None = None
+    supplier_contracts: bool | None = None
+    data_retention_defined: bool | None = None
+    byod_policy: bool | None = None
+    remote_work_policy: bool | None = None
+    secure_messaging: bool | None = None
+    business_continuity_plan: bool | None = None
+    manual_checkin_procedure: bool | None = None
+    incident_responsible_assigned: bool | None = None
+    temporary_staff_onboarding: bool | None = None
+    can_operate_offline: bool | None = None
 
 
 class AssessmentRequest(BaseModel):
@@ -64,6 +81,9 @@ class RiskFinding(BaseModel):
     description: str
     severity: RiskLevel
     recommendation: str
+    probability: int = Field(default=3, ge=1, le=5)
+    impact: int = Field(default=3, ge=1, le=5)
+    rationale: str = "Estimacion orientativa por reglas; no es una medicion de incidentes."
 
 
 class AssessmentResponse(BaseModel):

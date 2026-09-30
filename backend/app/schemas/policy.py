@@ -29,3 +29,6 @@ class PolicyPackResponse(BaseModel):
     risk_level: RiskLevel
     policies: list[GeneratedPolicy]
     implementation_order: list[str]
+    generated_by_ai: bool = False
+    provider: str = "rules"
+    prompt_version: str = "policies-v2"

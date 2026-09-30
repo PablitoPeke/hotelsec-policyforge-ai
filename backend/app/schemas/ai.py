@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Literal
 
 from app.schemas.assessment import AssessmentRequest, AssessmentResponse
@@ -18,8 +18,8 @@ class AiExecutiveSummaryResponse(BaseModel):
 
 
 class AiDescriptionAnalysisRequest(BaseModel):
-    business_name: str
-    municipality: str
+    business_name: str = Field(min_length=2, max_length=120)
+    municipality: str = Field(min_length=2, max_length=80)
     business_type: Literal[
         "hotel",
         "apartahotel",
@@ -28,11 +28,12 @@ class AiDescriptionAnalysisRequest(BaseModel):
         "alquiler_vacacional",
         "agencia_turistica",
     ]
-    rooms_count: int
-    permanent_employees: int
-    temporary_employees: int
-    description: str
+    rooms_count: int = Field(ge=1, le=1000)
+    permanent_employees: int = Field(ge=0, le=500)
+    temporary_employees: int = Field(ge=0, le=500)
+    description: str = Field(min_length=10, max_length=6000)
     base_assessment: AssessmentRequest | None = None
+    conflict_resolution: Literal["manual", "text"] = "manual"
 
 
 class AiDescriptionAnalysisResponse(BaseModel):
@@ -41,3 +42,4 @@ class AiDescriptionAnalysisResponse(BaseModel):
     policy_pack: PolicyPackResponse
     ai_summary: AiExecutiveSummaryResponse
     generated_by_ai: bool
+    conflicts: list[dict] = Field(default_factory=list)

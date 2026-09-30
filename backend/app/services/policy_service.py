@@ -31,6 +31,15 @@ def generate_policy_pack(payload: AssessmentRequest) -> PolicyPackResponse:
         ),
     ]
 
+    for name, scope, instructions in [
+        ("Politica de teletrabajo", "Personal que accede fuera del alojamiento", "Acceder mediante canales corporativos con MFA; usar equipos actualizados y cifrados."),
+        ("Politica de correo y mensajeria", "Recepcion, administracion y reservas", "Verificar solicitudes de pagos por un segundo canal; usar correo corporativo y no enviar documentos de clientes por cuentas personales."),
+        ("Politica de PMS y reservas", "PMS, channel manager y portales de reservas", "Crear usuarios individuales, permisos minimos, revisar altas y bajas y registrar cambios sobre reservas."),
+        ("Politica de continuidad del negocio", "Direccion, recepcion y proveedor IT", "Mantener contactos de emergencia, prioridades de recuperacion, check-in manual y ensayo anual de perdida de conectividad."),
+    ]:
+        policies.append(GeneratedPolicy(name=name, objective=f"Reducir el riesgo operativo en {profile.business_name}.", scope=scope,
+            controls=[_control("Procedimiento operativo", instructions, "high")],
+            evidence=["Procedimiento aprobado por direccion", "Registro de revision y ejercicio practico"], review_frequency="Trimestral y tras cambios relevantes."))
     return PolicyPackResponse(
         business_name=profile.business_name,
         municipality=profile.municipality,

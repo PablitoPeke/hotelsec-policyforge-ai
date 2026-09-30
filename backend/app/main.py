@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_router
@@ -27,6 +28,21 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(api_router, prefix=settings.api_v1_prefix)
+    @app.middleware("http")
+    async def security_headers(request: Request, call_next):
+        length = request.headers.get("content-length", "0")
+        if not length.isdigit() or int(length) > 100000:
+            return JSONResponse({"detail": "Peticion demasiado grande o invalida."}, status_code=413)
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "same-origin"
+        response.headers["Cache-Control"] = "no-store"
+        return response
+
+    @app.exception_handler(Exception)
+    async def unexpected_error(request: Request, exception: Exception):
+        return JSONResponse({"detail": "Error interno. Reintenta o contacta con soporte."}, status_code=500)
 
     @app.get("/")
     def read_root() -> dict[str, str]:

@@ -52,6 +52,6 @@ def test_policy_generator_returns_policy_pack_for_hotel_profile():
     body = response.json()
     assert body["business_name"] == "Hotel Demo Lanzarote"
     assert body["risk_level"] == "critical"
-    assert len(body["policies"]) == 6
+    assert len(body["policies"]) == 10
     assert body["implementation_order"][0].startswith("Activar MFA")
     assert any(policy["name"] == "Política de copias de seguridad" for policy in body["policies"])

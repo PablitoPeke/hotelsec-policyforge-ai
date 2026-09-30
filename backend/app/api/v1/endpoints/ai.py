@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from app.core.security import ai_quota
 
 from app.schemas.ai import (
     AiDescriptionAnalysisRequest,
@@ -9,7 +10,7 @@ from app.schemas.ai import (
 from app.services.ai_service import analyze_description_with_ai, generate_ai_executive_summary
 
 
-router = APIRouter(prefix="/ai")
+router = APIRouter(prefix="/ai", dependencies=[Depends(ai_quota)])
 
 
 @router.post("/executive-summary", response_model=AiExecutiveSummaryResponse)

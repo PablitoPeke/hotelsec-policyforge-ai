@@ -15,6 +15,37 @@ def analyze_assessment(payload: AssessmentRequest) -> AssessmentResponse:
     area_scores = _calculate_area_scores(profile, controls)
     overall_score = round(sum(area.score for area in area_scores) / len(area_scores))
     risks = _detect_risks(profile, controls)
+    extended_groups = {
+        "Proteccion de datos": [controls.supplier_contracts, controls.data_retention_defined, controls.secure_messaging],
+        "Continuidad del negocio": [controls.business_continuity_plan, controls.manual_checkin_procedure, controls.can_operate_offline, controls.incident_responsible_assigned],
+        "Gobierno y trabajo remoto": [controls.password_policy, controls.firewall_enabled, controls.byod_policy, controls.remote_work_policy, controls.temporary_staff_onboarding],
+    }
+    for name, values in extended_groups.items():
+        applicable = [value for value in values if value is not None]
+        if applicable:
+            area_scores.append(AreaScore(area=name, score=_score_booleans(applicable)))
+    definitions = [
+        ("password_policy", "Politica de contrasenas no definida", "Definir longitud minima, MFA y usuarios individuales.", "medium"),
+        ("firewall_enabled", "Firewall sin verificar", "Activar firewall y limitar servicios expuestos.", "high"),
+        ("supplier_contracts", "Contratos de encargados sin verificar", "Inventariar proveedores y revisar contratos de tratamiento de datos.", "medium"),
+        ("data_retention_defined", "Conservacion de datos sin procedimiento", "Documentar finalidades, plazos y borrado de cada categoria de datos.", "medium"),
+        ("byod_policy", "Dispositivos personales sin politica", "Definir cifrado, bloqueo, actualizaciones y separacion de datos laborales.", "medium"),
+        ("remote_work_policy", "Teletrabajo sin politica", "Definir MFA, canales autorizados y equipos de acceso remoto.", "medium"),
+        ("secure_messaging", "Correo y mensajeria sin controles", "Usar canales corporativos, verificar destinatarios y evitar documentos de clientes en mensajeria personal.", "high"),
+        ("business_continuity_plan", "Continuidad sin plan", "Definir recuperacion de reservas, responsables y procedimientos alternativos.", "high"),
+        ("manual_checkin_procedure", "Check-in manual no preparado", "Preparar un procedimiento temporal de recepcion ante caidas del PMS.", "medium"),
+        ("incident_responsible_assigned", "Incidentes sin responsable", "Designar responsable y contactos de emergencia.", "high"),
+        ("temporary_staff_onboarding", "Personal temporal sin incorporacion segura", "Formar al personal y entregar accesos individuales antes del alta.", "medium"),
+        ("can_operate_offline", "Operacion dependiente de Internet", "Ensayar un procedimiento de continuidad ante corte de conectividad.", "medium"),
+    ]
+    for field, title, recommendation, severity in definitions:
+        if getattr(controls, field) is False:
+            risks.append(RiskFinding(title=title, description="El cuestionario declara este control ausente. Debe validarse con evidencias del alojamiento.", severity=severity, recommendation=recommendation))
+    levels = {"critical": (4, 5), "high": (4, 4), "medium": (3, 3), "low": (2, 2)}
+    for risk in risks:
+        risk.probability, risk.impact = levels[risk.severity]
+    risks.sort(key=lambda risk: risk.probability * risk.impact, reverse=True)
+    overall_score = round(sum(area.score for area in area_scores) / len(area_scores))
 
     return AssessmentResponse(
         business_name=payload.hotel_profile.business_name,
