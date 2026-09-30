@@ -1,0 +1,173 @@
+{
+  "pdf": "output\\pdf\\HotelSec_P3_Memoria_borrador.pdf",
+  "total_pages": 27,
+  "content_pages": 23,
+  "content_start": 3,
+  "annex_start": 26,
+  "body_font_size": 11,
+  "draft": true,
+  "sections": [
+    {
+      "title": "HotelSec PolicyForge AI",
+      "section": "Portada",
+      "kind": "front",
+      "page": 1
+    },
+    {
+      "title": "Indice de contenidos",
+      "section": "Indice",
+      "kind": "front",
+      "page": 2
+    },
+    {
+      "title": "De prototipo a producto trazable",
+      "section": "1. Resumen ejecutivo",
+      "kind": "content",
+      "page": 3
+    },
+    {
+      "title": "Revision de la Practica 1",
+      "section": "2. Punto de partida",
+      "kind": "content",
+      "page": 4
+    },
+    {
+      "title": "Requisitos funcionales numerados",
+      "section": "3. Requisitos",
+      "kind": "content",
+      "page": 5
+    },
+    {
+      "title": "Calidad y entregables",
+      "section": "3. Requisitos",
+      "kind": "content",
+      "page": 6
+    },
+    {
+      "title": "Separacion de responsabilidades",
+      "section": "4. Arquitectura y decisiones",
+      "kind": "content",
+      "page": 7
+    },
+    {
+      "title": "Modelo de datos y migraciones",
+      "section": "4. Arquitectura y decisiones",
+      "kind": "content",
+      "page": 8
+    },
+    {
+      "title": "Tecnologias elegidas y alternativas",
+      "section": "4. Arquitectura y decisiones",
+      "kind": "content",
+      "page": 9
+    },
+    {
+      "title": "Perfil hotelero ampliado",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 10
+    },
+    {
+      "title": "Madurez y riesgos comprensibles",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 11
+    },
+    {
+      "title": "Historial, empresa y comparativa",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 12
+    },
+    {
+      "title": "Plan de mejora con seguimiento",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 13
+    },
+    {
+      "title": "Politicas, fuentes e informe completo",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 14
+    },
+    {
+      "title": "Texto libre e IA en un unico flujo",
+      "section": "5. Funcionalidades",
+      "kind": "content",
+      "page": 15
+    },
+    {
+      "title": "Modelo de amenazas STRIDE",
+      "section": "6. Seguridad",
+      "kind": "content",
+      "page": 16
+    },
+    {
+      "title": "Autenticacion, acceso y errores",
+      "section": "6. Seguridad",
+      "kind": "content",
+      "page": 17
+    },
+    {
+      "title": "Datos, secretos y conservacion",
+      "section": "6. Seguridad",
+      "kind": "content",
+      "page": 18
+    },
+    {
+      "title": "Resultados automatizados reales",
+      "section": "7. Pruebas y evidencias",
+      "kind": "content",
+      "page": 19
+    },
+    {
+      "title": "Instalacion, fallos y correcciones",
+      "section": "7. Pruebas y evidencias",
+      "kind": "content",
+      "page": 20
+    },
+    {
+      "title": "Funcionalidades: codigo, prueba y figura",
+      "section": "8. Matriz de trazabilidad",
+      "kind": "content",
+      "page": 21
+    },
+    {
+      "title": "Calidad y entregables: pendientes visibles",
+      "section": "8. Matriz de trazabilidad",
+      "kind": "content",
+      "page": 22
+    },
+    {
+      "title": "Alcance demostrado y riesgo residual",
+      "section": "9. Limitaciones y mejoras",
+      "kind": "content",
+      "page": 23
+    },
+    {
+      "title": "Trabajo individual y registro honesto",
+      "section": "10. Reparto del trabajo",
+      "kind": "content",
+      "page": 24
+    },
+    {
+      "title": "Asistencia al desarrollo y funcion del producto",
+      "section": "11. Uso de inteligencia artificial",
+      "kind": "content",
+      "page": 25
+    },
+    {
+      "title": "Instalacion y manual de uso",
+      "section": "Anexo A. Instalacion y uso",
+      "kind": "annex",
+      "page": 26
+    },
+    {
+      "title": "Glosario y fuentes",
+      "section": "Anexo B. Glosario y referencias",
+      "kind": "annex",
+      "page": 27
+    }
+  ]
+}

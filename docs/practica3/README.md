@@ -69,6 +69,19 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 - [Plan y registro de pruebas](02_plan_pruebas.md).
 - Antecedente: [roadmap anterior](../11_practica2_roadmap.md).
 
+## Incremento implementado
+
+Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `codex/practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Los tests locales cubren 27 casos de backend y 2 escenarios de navegador; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.
+
+- [Arquitectura y STRIDE](03_arquitectura_seguridad.md).
+- [Verificacion, fallos y limites](04_verificacion.md).
+- [Despliegue y operaciones](05_despliegue.md).
+- [Estado de entrega y trazabilidad actual](06_estado_entrega.md).
+- [Guion de video y envio al campus](07_video_entrega.md).
+- [Memoria borrador](../../output/pdf/HotelSec_P3_Memoria_borrador.pdf): 23 paginas de contenido, 27 totales, cuerpo11. Fuente editable `memoria_content.json`; generador `scripts/generate_practica3_report.py`.
+
+No esta cerrada la entrega: grupo/nombre, horas reales, revision personal, video/minutos, IA real, segundo entorno y revalidacion remota pendientes. No se ha creado el tag final ni publicado esta version en Hetzner. Las decisiones sobre tecnologias alternativas estan documentadas; los documentos de revision inicial se mantienen como evidencia del punto de partida.
+
 ## Informacion pendiente
 
 - Numero de grupo y nombre completo que debe aparecer en portada.

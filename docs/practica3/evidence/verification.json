@@ -1,0 +1,48 @@
+{
+  "collected_at": "2026-09-30T19:46:02.785227+00:00",
+  "backend": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 11.31
+  },
+  "browser": {
+    "startTime": "2026-09-30T19:37:45.973Z",
+    "duration": 10065.732,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "npm_vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "python_known_vulnerabilities": 0,
+  "environment": "Local Windows; Docker Linux; PostgreSQL 17; Node 24; Chromium",
+  "external_deployment_verified": false,
+  "live_openai_verified": false,
+  "database_restart": {
+    "before": 4,
+    "after": 4,
+    "note": "Manual psql check on 30/09/2026; separate from the restore test"
+  },
+  "restore_test": {
+    "date": "2026-09-30",
+    "environment": "Local Docker PostgreSQL 17; synthetic test data",
+    "method": "pg_dump -Fc; pg_restore into a newly created independent database",
+    "source_assessments": 10,
+    "restored_assessments": 10,
+    "source_snapshot_checksum": "f442e7773115e0cd3fc83715891cb690",
+    "restored_snapshot_checksum": "f442e7773115e0cd3fc83715891cb690",
+    "checksum_fields": "id + bundle JSON + action_statuses JSON, ordered by id",
+    "original_database_modified": false,
+    "temporary_database_and_backup_removed": true,
+    "limits": "Same local instance, not off-site disaster recovery; login/PDF on restored instance not separately tested"
+  }
+}

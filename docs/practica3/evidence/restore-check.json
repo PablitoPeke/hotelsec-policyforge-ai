@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-30",
+  "environment": "Local Docker PostgreSQL 17; synthetic test data",
+  "method": "pg_dump -Fc; pg_restore into a newly created independent database",
+  "source_assessments": 10,
+  "restored_assessments": 10,
+  "source_snapshot_checksum": "f442e7773115e0cd3fc83715891cb690",
+  "restored_snapshot_checksum": "f442e7773115e0cd3fc83715891cb690",
+  "checksum_fields": "id + bundle JSON + action_statuses JSON, ordered by id",
+  "original_database_modified": false,
+  "temporary_database_and_backup_removed": true,
+  "limits": "Same local instance, not off-site disaster recovery; login/PDF on restored instance not separately tested"
+}
