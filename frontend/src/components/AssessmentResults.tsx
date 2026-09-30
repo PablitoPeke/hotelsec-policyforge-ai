@@ -34,7 +34,7 @@ export function AssessmentResults({ assessment }: AssessmentResultsProps) {
             {assessment.risks.length > 0 ? (
               assessment.risks.map((risk) => (
                 <div className="risk-row risk-row-result" role="row" key={risk.title}>
-                  <span>{risk.title}</span>
+                  <span>{risk.title}<small className="risk-estimate">Probabilidad {risk.probability}/5 · Impacto {risk.impact}/5</small></span>
                   <span className={`severity severity-${risk.severity}`}>
                     {riskLabels[risk.severity]}
                   </span>

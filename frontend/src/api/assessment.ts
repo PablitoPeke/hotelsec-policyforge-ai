@@ -23,6 +23,11 @@ export type AssessmentRequest = {
     offers_guest_wifi: boolean
     handles_card_payments: boolean
     stores_guest_documents: boolean
+    high_season?: string
+    technology_inventory?: string[]
+    personal_data_categories?: string[]
+    retention_days?: number
+    it_response_hours?: number
   }
   security_controls: {
     uses_mfa: boolean
@@ -57,6 +62,8 @@ export type RiskFinding = {
   description: string
   severity: RiskLevel
   recommendation: string
+  probability?: number
+  impact?: number
 }
 
 export type AssessmentResponse = {

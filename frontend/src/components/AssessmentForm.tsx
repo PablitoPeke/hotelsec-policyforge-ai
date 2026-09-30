@@ -1,9 +1,10 @@
-import type { FormEvent } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 
 import type { BackupFrequency, BusinessType } from '../api/assessment'
 import type { FormState } from '../types/app'
 
 type AssessmentFormProps = {
+  children?: ReactNode
   formState: FormState
   isAnalyzing: boolean
   error: string | null
@@ -66,6 +67,7 @@ const checkboxFields: Array<{
 ]
 
 export function AssessmentForm({
+  children,
   formState,
   isAnalyzing,
   error,
@@ -79,7 +81,6 @@ export function AssessmentForm({
           <p className="eyebrow">Formulario inicial</p>
           <h2>Analizador de hoteles</h2>
         </div>
-        <code>POST /api/v1/assessments/analyze</code>
       </div>
 
       <form className="assessment-form" onSubmit={onSubmit}>
@@ -174,8 +175,9 @@ export function AssessmentForm({
           ))}
         </div>
 
+        {children}
         <button className="primary-button" disabled={isAnalyzing} type="submit">
-          {isAnalyzing ? 'Analizando...' : 'Analizar hotel'}
+          {isAnalyzing ? 'Analizando y guardando...' : 'Analizar y guardar'}
         </button>
         {error ? <p className="form-error">{error}</p> : null}
       </form>
