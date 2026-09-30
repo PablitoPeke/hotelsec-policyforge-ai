@@ -119,7 +119,7 @@ def trace(kind):
             ('RNF-01', 'Compose / README', 'Instalacion local; segundo entorno pendiente'),
             ('RNF-02', 'Pydantic / errores', '422/413/404; entrada negativa'),
             ('RNF-03', 'Argon2 / Caddy / env', 'Hashes y config; remoto/historial pendientes'),
-            ('RNF-04', 'Auditorias / CI', '0 conocidas; CI remoto pendiente'),
+            ('RNF-04', 'Auditorias / CI', '0 conocidas; CI sin iniciar por restriccion de cuenta'),
             ('RNF-05', 'DELETE / cleanup', 'Cascada; backups/temporizador pendientes'),
             ('RNF-06', 'quota / audit / timeout', 'Limites locales; sin presupuesto duro'),
             ('RNF-07', 'Produccion / guia', 'Hetzner de esta version pendiente'),

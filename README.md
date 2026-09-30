@@ -106,3 +106,5 @@ Produccion HTTPS: [guia de despliegue y operaciones](docs/practica3/05_despliegu
 [Seguimiento de Practica 3](docs/practica3/README.md), [matriz inicial](docs/practica3/01_matriz_requisitos.md), [cierre y trazabilidad](docs/practica3/06_estado_entrega.md), [guion del video](docs/practica3/07_video_entrega.md). La memoria marcada como borrador no sustituye la entrega final mientras falten datos de portada, horas reales, video y comprobaciones indicadas. No se crea `v1.0-practica3` hasta cerrar esos pendientes.
 
 Licencia MIT. Documentos de Practica 1 conservados como antecedentes; las guias actuales estan en `docs/practica3`.
+
+Estado CI: el primer run de GitHub Actions de esta fase no pudo iniciar backend/frontend por una restriccion administrativa de la cuenta. No equivale a un test fallido del codigo ni a CI superado. El titular debe resolver el bloqueo y repetirlo; las pruebas locales y su evidencia son independientes.

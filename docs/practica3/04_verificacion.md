@@ -16,6 +16,7 @@ Fecha: 30/09/2026. Entorno local Windows, Docker Desktop Linux, Python de venv y
 | pip-audit runtime | 0 vulnerabilidades conocidas en dependencias resueltas | No escaneo de imagen OS ni garantia de ausencia de vulnerabilidades |
 | npm audit | 0 conocidas tras actualizar Vite y dependencias | Informe a fecha de ejecucion; repetir antes de entregar |
 | Caddy validate | Configuracion valida | Aviso de formato y encabezado redundante; no emision de certificado publico |
+| GitHub Actions | Run36768106862: failure; backend y frontend ejecutaron 0 pasos | Jobs no iniciados por restriccion administrativa de cuenta; no es un test fallido ni CI superado |
 | PDF cliente | Descargado por navegador; pypdf comprueba todos los riesgos y controles; etiquetas espanolas | No demuestra todas las combinaciones posibles de longitud |
 | Memoria borrador | Renderizadas 27 paginas; 23 de contenido, cuerpo11, sin texto fuera de margenes | Faltan datos/horas/video y revision del alumno |
 
@@ -32,4 +33,4 @@ No se borran estos fallos del relato para aparentar una primera ejecucion perfec
 
 ## Pendientes
 
-Prueba OpenAI real consentida, recuperacion de backup fuera de la instancia, despliegue remoto HTTPS, instalacion por el alumno en segundo entorno, revision completa de secretos en historial, rendimiento/concurrencia, confirmacion de enlace de video y cierre de tag. GitHub Actions queda configurado, pero no afirmar que la ejecucion remota ha pasado sin comprobar su estado. Hay un aviso de deprecacion de TestClient/HTTPX; los tests pasan, pero debe revisarse esa compatibilidad al actualizar.
+Prueba OpenAI real consentida, recuperacion de backup fuera de la instancia, despliegue remoto HTTPS, instalacion por el alumno en segundo entorno, revision completa de secretos en historial, rendimiento/concurrencia, confirmacion de enlace de video y cierre de tag. GitHub Actions esta configurado y se comprobo por API: no inicia los jobs por restriccion de la cuenta; el titular debe resolverla y repetir la ejecucion. No puede acreditarse CI superado. Hay un aviso de deprecacion de TestClient/HTTPX; los tests locales pasan, pero debe revisarse esa compatibilidad al actualizar.

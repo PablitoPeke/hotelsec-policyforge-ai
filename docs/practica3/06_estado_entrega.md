@@ -20,13 +20,13 @@ Las figuras son capturas locales reales de Chromium en `evidence`. Los minutos d
 | RNF-01 | Compose, setup_local, README | instalacion local volumen nuevo y Node24 build | Probado local; segundo entorno pendiente |
 | RNF-02 | Pydantic, errors, limites proxy | 422/413/404, error UI, proveedor malformado | Implementado y tests negativos |
 | RNF-03 | Argon2, env privados, production validator, Caddy | hash, CSRF, rol; config Caddy valida | HTTPS remoto/historial secretos pendientes |
-| RNF-04 | pip-audit/npm audit, workflow, Dependabot | informes JSON0conocidas | Auditoria local; CI remoto e imagenes pendientes |
+| RNF-04 | pip-audit/npm audit, workflow, Dependabot | informes JSON0conocidas; CI comprobado sin arrancar | CI bloqueado por restriccion de cuenta; imagenes pendientes |
 | RNF-05 | privacy notices, DELETE cuenta, manage cleanup | cascada probada; instrucciones conservacion | Parcial: politica backups/temporizador operador |
 | RNF-06 | ai_quota, audit, timeout | rate auth, audit, failure/success proveedor | Parcial: cuota por proceso, sin presupuesto duro |
 | RNF-07 | production Compose, guia Hetzner | Caddyvalidate; evidencia mayo no revalidada | Pendiente remoto |
 | RE-01 | memoria fuente y generador | PDF borrador con figuras y pruebas | Pendiente datos portada/horas/minutos y revision alumno |
 | RE-02 | guion07 | No hay MP4 nuevo | Pendiente grabacion >=10min y URL |
-| RE-03 | commits, README, MIT, CI | rama practica3 | Pendiente CI remoto, cierre/revision/tag final |
+| RE-03 | commits, README, MIT, CI | rama practica3 subida; CI remoto sin ejecutar | Pendiente resolver bloqueo CI, cierre/revision/tag final |
 
 ## Comprobacion del alumno antes de cierre
 

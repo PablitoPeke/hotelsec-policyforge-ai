@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-09-30T19:46:02.785227+00:00",
+  "collected_at": "2026-09-30T19:54:52.077924+00:00",
   "backend": {
     "tests": 27,
     "failures": 0,
@@ -44,5 +44,18 @@
     "original_database_modified": false,
     "temporary_database_and_backup_removed": true,
     "limits": "Same local instance, not off-site disaster recovery; login/PDF on restored instance not separately tested"
+  },
+  "remote_ci": {
+    "checked_on": "2026-09-30",
+    "run_id": 36768106862,
+    "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/36768106862",
+    "commit": "829d8d10c7b2713e4027fe5ba7e4a9c49d15bc68",
+    "github_conclusion": "failure",
+    "jobs_started": false,
+    "backend_steps_executed": 0,
+    "frontend_steps_executed": 0,
+    "reason_class": "account_administrative_restriction",
+    "code_tests_failed": null,
+    "note": "The remote runner did not execute the workflow. Local test evidence is separate. Requires account owner action."
   }
 }

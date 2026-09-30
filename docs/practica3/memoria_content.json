@@ -244,7 +244,7 @@
       "paragraphs": [
         "pytest usa bases SQLite temporales y fixtures aisladas. Cada cuenta, sesion y snapshot se crea con datos sinteticos. La suite incluye casos positivos y negativos de permisos, cascada, datos, migraciones, proveedor y consentimiento. Las llamadas externas se simulan; no acreditar respuesta de OpenAI real a partir de mocks.",
         "Playwright utiliza Chromium contra la instalacion local PostgreSQL en Docker. El primer escenario recorre registro, formulario, guardado, progreso, recarga, historial, PDF, reevaluacion y politicas. El segundo usa viewport movil y fuerza una contradiccion. Se comprueba que la pagina no desborda horizontalmente; no es una prueba en telefono fisico.",
-        "Las auditorias consultan vulnerabilidades conocidas de paquetes Python y npm. El resultado cero es temporal y no acredita ausencia de fallos propios, malware o vulnerabilidades de imagenes Docker. El pipeline se ha configurado; su estado remoto debe comprobarse en GitHub antes de citarlo como superado."
+        "Las auditorias consultan vulnerabilidades conocidas de paquetes Python y npm. El resultado cero es temporal y no acredita ausencia de fallos propios, malware o vulnerabilidades de imagenes Docker. Se comprobo el primer run remoto: GitHub no inicia los jobs por restriccion administrativa de la cuenta (0 pasos ejecutados). No es un test fallido del codigo ni CI superado. El titular debe resolver el bloqueo y repetirlo; ver evidence/ci-status.json."
       ],
       "code": "PYTHONPATH=backend pytest backend/tests -q\npip-audit -r backend/requirements.txt\ncd frontend\nnpm ci\nnpm run build\nnpm audit --audit-level=moderate\nnpx playwright test"
     },
