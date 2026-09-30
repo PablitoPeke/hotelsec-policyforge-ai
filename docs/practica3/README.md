@@ -71,7 +71,7 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 ## Incremento implementado
 
-Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `codex/practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Los tests locales cubren 27 casos de backend y 2 escenarios de navegador; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.
+Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Los tests locales cubren 27 casos de backend y 2 escenarios de navegador; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.
 
 - [Arquitectura y STRIDE](03_arquitectura_seguridad.md).
 - [Verificacion, fallos y limites](04_verificacion.md).

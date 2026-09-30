@@ -11,7 +11,7 @@ No se ha tocado el VPS anterior. Antes de actualizar: confirmar que el servidor 
 1. Hacer copia de configuracion y datos de la instancia anterior; no publicar `.env`.
 2. Crear registro DNS A del dominio hacia la IP confirmada; revisar AAAA si se usa IPv6.
 3. En firewall del proveedor permitir 443/80 y SSH solo desde IP del administrador. No permitir 8000/5432. UFW no sustituye el firewall del proveedor para puertos publicados por Docker.
-4. Clonar o actualizar rama `codex/practica3` en directorio de prueba independiente del anterior.
+4. Clonar o actualizar rama `practica3` en directorio de prueba independiente del anterior.
 5. Crear `.env.production` a partir de `.env.production.example`. Reemplazar DOMAIN y clave PostgreSQL por secreto aleatorio hexadecimal. Permisos `chmod 600 .env.production`. No editar el password de una DB existente sin cambiar tambien el usuario PostgreSQL.
 6. Revisar puertos ya ocupados: no detener un servicio anterior a ciegas. Coordinar el cambio del proxy y conservar volumentes/backups.
 7. Arrancar:

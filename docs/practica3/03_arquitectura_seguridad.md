@@ -1,6 +1,6 @@
 # Arquitectura, decisiones y amenazas
 
-Revision 30/09/2026. La implementacion de referencia es la rama `codex/practica3`.
+Revision 30/09/2026. La implementacion de referencia es la rama `practica3`.
 
 ## Flujo
 

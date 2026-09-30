@@ -21,7 +21,7 @@ Requisitos: Git, Docker con Compose v2 y Python 3.12+ para generar la configurac
 ```powershell
 git clone https://github.com/PablitoPeke/hotelsec-policyforge-ai.git
 cd hotelsec-policyforge-ai
-git switch codex/practica3
+git switch practica3
 python scripts/setup_local.py --port 8085
 docker compose --env-file .env.local -p hotelsec-p3 -f docker-compose.hetzner.yml up -d --build
 ```

@@ -145,7 +145,7 @@ def build(locations=None):
              Heading('HotelSec PolicyForge AI', 'Portada', 'front'), p('Practica 3: del prototipo al producto', 'Heading2'),
              Spacer(1, cm), p('MEMORIA DE DESARROLLO · BORRADOR', 'Kicker'),
              p('Autor: ' + SOURCE['author']), p('Grupo: ' + SOURCE['group']), p('Revision: ' + SOURCE['date']),
-             p('GitHub: https://github.com/PablitoPeke/hotelsec-policyforge-ai'), p('Rama: codex/practica3'),
+             p('GitHub: https://github.com/PablitoPeke/hotelsec-policyforge-ai'), p('Rama: practica3'),
              p('Video: ' + SOURCE['video']), Spacer(1, cm),
              p('La version anterior obtuvo 9/10; el alumno indica que no hubo comentarios del docente. Trabajo individual con asistencia IA declarada.'),
              p('No entregar como final sin completar datos, horas, video, trazabilidad y revision personal. Fecha limite indicada: 16/10/2026; confirmar hora en campus.'),
