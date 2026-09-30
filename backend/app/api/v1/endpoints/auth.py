@@ -11,7 +11,7 @@ router = APIRouter(prefix="/auth")
 
 
 class Credentials(BaseModel):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(extra="forbid")
     email: EmailStr
     password: str = Field(min_length=12, max_length=128)
 

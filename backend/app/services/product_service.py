@@ -17,7 +17,7 @@ def build_bundle(payload: AssessmentRequest, description: str = "", use_ai: bool
         profile = payload.hotel_profile
         normalized, conflicts, parsed_by_ai = parse_description(AiDescriptionAnalysisRequest(
             **{k: getattr(profile, k) for k in ("business_name", "municipality", "business_type", "rooms_count", "permanent_employees", "temporary_employees")},
-            description=description, base_assessment=payload, conflict_resolution=resolution))
+            description=description, base_assessment=payload, conflict_resolution=resolution), use_ai=use_ai)
     result = analyze_assessment(normalized)
     policies = generate_policy_pack(normalized)
     if use_ai:

@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hotelsec
+      POSTGRES_USER: hotelsec
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a private random password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hotelsec -d hotelsec"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  api:
+    build: .
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      APP_URL: https://${DOMAIN:?Set your domain}
+      CORS_ORIGINS: https://${DOMAIN}
+      COOKIE_SECURE: "true"
+      DATABASE_URL: postgresql+psycopg://hotelsec:${POSTGRES_PASSWORD}@db:5432/hotelsec
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      AI_REQUESTS_PER_HOUR: ${AI_REQUESTS_PER_HOUR:-20}
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ""
+    restart: unless-stopped
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - api
+      - web
+volumes:
+  postgres_data:
+  caddy_data:
+  caddy_config:

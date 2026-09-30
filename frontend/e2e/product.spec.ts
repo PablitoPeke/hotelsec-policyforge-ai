@@ -20,7 +20,7 @@ test('registro, analisis, historial persistente, plan y PDF', async ({ page }) =
   await page.getByLabel('Nombre del alojamiento').fill('Hotel Prueba Lanzarote')
   await page.getByLabel('Sistemas (separados por comas)').fill('PMS cloud, Microsoft 365, TPV')
   await page.getByLabel('Categorias de datos').fill('Reservas, facturacion')
-  await page.getByLabel('Plan de continuidad', { exact: true }).selectOption('false')
+  await page.getByRole('combobox', { name: /Plan de continuidad/ }).selectOption('false')
   await page.screenshot({ path: resolve(evidence, '01_formulario.png'), fullPage: true })
   await page.getByRole('button', { name: 'Analizar y guardar', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Dashboard', exact: true })).toBeVisible()

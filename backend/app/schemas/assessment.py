@@ -1,12 +1,13 @@
-from typing import Literal
+from typing import Literal, Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 RiskLevel = Literal["low", "medium", "high", "critical"]
 
 
 class HotelProfile(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     business_name: str = Field(min_length=2, max_length=120)
     municipality: str = Field(min_length=2, max_length=80)
     business_type: Literal[
@@ -26,13 +27,14 @@ class HotelProfile(BaseModel):
     handles_card_payments: bool
     stores_guest_documents: bool
     high_season: str = Field(default="Todo el ano", max_length=80)
-    technology_inventory: list[str] = Field(default_factory=list, max_length=20)
-    personal_data_categories: list[str] = Field(default_factory=list, max_length=12)
+    technology_inventory: list[Annotated[str, Field(min_length=1, max_length=120)]] = Field(default_factory=list, max_length=20)
+    personal_data_categories: list[Annotated[str, Field(min_length=1, max_length=120)]] = Field(default_factory=list, max_length=12)
     retention_days: int = Field(default=180, ge=0, le=36500)
     it_response_hours: int = Field(default=24, ge=0, le=720)
 
 
 class SecurityControls(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     uses_mfa: bool
     uses_password_manager: bool
     shared_accounts: bool
@@ -67,6 +69,7 @@ class SecurityControls(BaseModel):
 
 
 class AssessmentRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     hotel_profile: HotelProfile
     security_controls: SecurityControls
 

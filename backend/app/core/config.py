@@ -1,12 +1,12 @@
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     app_name: str = Field(default="HotelSec PolicyForge AI", alias="APP_NAME")
-    app_version: str = Field(default="0.1.0", alias="APP_VERSION")
+    app_version: str = Field(default="0.3.0", alias="APP_VERSION")
     app_env: str = Field(default="development", alias="APP_ENV")
     api_v1_prefix: str = "/api/v1"
 
@@ -53,6 +53,17 @@ class Settings(BaseSettings):
             for origin in self.cors_origins_raw.split(",")
             if origin.strip()
         ]
+
+    @model_validator(mode="after")
+    def production_requires_https(self):
+        if self.app_env == "production":
+            if not self.cookie_secure or not self.frontend_url.startswith("https://"):
+                raise ValueError("Production requires HTTPS APP_URL and COOKIE_SECURE=true.")
+            if any(not origin.startswith("https://") for origin in self.cors_origins):
+                raise ValueError("Production CORS origins must use HTTPS.")
+            if "change_me" in self.database_url:
+                raise ValueError("Production requires a private database password.")
+        return self
 
 
 @lru_cache

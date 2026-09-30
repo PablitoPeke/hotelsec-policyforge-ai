@@ -29,7 +29,7 @@ function Auth({ onAccess }: { onAccess: (u: User) => void }) {
     <form onSubmit={submit} className="fields">
       {register && <label>Nombre<input name="name" required minLength={2} maxLength={120} autoComplete="name" /></label>}
       <label>Correo electronico<input name="email" required type="email" autoComplete="email" /></label>
-      <label>Contrasena<div className="password-field"><input name="password" required type={show ? 'text' : 'password'} minLength={12} maxLength={128} autoComplete={register ? 'new-password' : 'current-password'} /><button type="button" title={show ? 'Ocultar contrasena' : 'Mostrar contrasena'} aria-label={show ? 'Ocultar contrasena' : 'Mostrar contrasena'} onClick={() => setShow(!show)}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button></div><small>Minimo 12 caracteres.</small></label>
+      <label>Contrasena<div className="password-field"><input aria-label="Contrasena" name="password" required type={show ? 'text' : 'password'} minLength={12} maxLength={128} autoComplete={register ? 'new-password' : 'current-password'} /><button type="button" title={show ? 'Ocultar contrasena' : 'Mostrar contrasena'} aria-label={show ? 'Ocultar contrasena' : 'Mostrar contrasena'} onClick={() => setShow(!show)}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button></div><small>Minimo 12 caracteres.</small></label>
       {register && <p className="notice">Tus analisis se guardaran en tu cuenta. No introduzcas datos de huespedes, documentos de identidad ni informacion de pago. Puedes borrar tu cuenta y sus datos.</p>}
       {error && <p role="alert" className="form-error">{error}</p>}
       <button className="primary-button" disabled={busy}>{busy ? 'Conectando...' : register ? 'Crear cuenta' : 'Acceder'}</button>
@@ -96,7 +96,7 @@ function App() {
           <label>Conservacion prevista (dias)<input min={0} max={36500} type="number" value={context.retention} onChange={e => setContext({ ...context, retention: Number(e.target.value) })} /></label>
         </div></fieldset>
         <fieldset><legend>Gobierno y continuidad</legend><div className="form-grid">{Object.entries(extraControls).map(([key, label]) => <label key={key}>{label}<select value={extra[key] === null ? '' : String(extra[key])} onChange={e => setExtra({ ...extra, [key]: e.target.value === '' ? null : e.target.value === 'true' })}><option value="">Sin confirmar</option><option value="true">Si</option><option value="false">No</option></select></label>)}</div></fieldset>
-        <label className="text-field">Contexto adicional<textarea rows={6} maxLength={6000} value={description} onChange={e => setDescription(e.target.value)} /><small>{description.length}/6000</small></label>
+        <label className="text-field">Contexto adicional<textarea aria-label="Contexto adicional" rows={6} maxLength={6000} value={description} onChange={e => setDescription(e.target.value)} /><small>{description.length}/6000</small></label>
         <label className="inline-check"><input type="checkbox" checked={useAi} onChange={e => setUseAi(e.target.checked)} />Autorizar el envio del perfil y el contexto a OpenAI para personalizar politicas y resumen</label>
         <p className="notice">No incluyas datos personales de huespedes, documentos ni pagos. Los resultados son orientativos y requieren revision humana. Sin IA se aplican reglas locales.</p>
       </AssessmentForm>}

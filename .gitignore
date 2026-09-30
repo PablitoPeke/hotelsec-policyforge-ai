@@ -10,6 +10,8 @@ venv/
 env/
 
 # Node
+frontend/test-results/
+frontend/playwright-report/
 node_modules/
 dist/
 build/
@@ -42,6 +44,7 @@ entrega_google_classroom/
 HotelSec_PolicyForge_AI_entrega_google_classroom.zip
 
 # Local database / uploads
+*.backup
 *.sqlite3
 *.db
 uploads/

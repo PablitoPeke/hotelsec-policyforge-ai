@@ -29,10 +29,21 @@ def _request(instructions: str, data: dict, max_tokens: int = 1600) -> str:
 
 
 def _extract_response_text(data: dict) -> str:
+    if not isinstance(data, dict):
+        raise ValueError("Provider response must be an object")
     if isinstance(data.get("output_text"), str):
         return data["output_text"]
-    return "\n".join(item.get("text", "") for output in data.get("output", [])
-        for item in output.get("content", []) if item.get("type") == "output_text")
+    output = data.get("output", [])
+    if not isinstance(output, list):
+        raise ValueError("Provider output must be a list")
+    texts = []
+    for entry in output:
+        if not isinstance(entry, dict) or not isinstance(entry.get("content", []), list):
+            raise ValueError("Invalid provider output entry")
+        for item in entry.get("content", []):
+            if isinstance(item, dict) and item.get("type") == "output_text" and isinstance(item.get("text"), str):
+                texts.append(item["text"])
+    return "\n".join(texts)
 
 
 def _parse_json_object(text: str) -> dict:
@@ -122,10 +133,10 @@ def _rules_patch(description: str) -> dict:
     return {"hotel_profile": profile, "security_controls": controls}
 
 
-def parse_description(payload: AiDescriptionAnalysisRequest):
+def parse_description(payload: AiDescriptionAnalysisRequest, use_ai: bool = True):
     settings = get_settings()
     patch, by_ai = _rules_patch(payload.description), False
-    if settings.openai_api_key:
+    if use_ai and settings.openai_api_key:
         try:
             proposed = _parse_json_object(_request("Extrae SOLO hechos explicitamente mencionados de la descripcion. "
                 "Devuelve JSON con hotel_profile y security_controls, usando SOLO claves del esquema. "

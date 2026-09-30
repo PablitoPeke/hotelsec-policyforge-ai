@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+import logging
 
 from app.api.v1.router import api_router
 from app.core.config import get_settings
@@ -33,6 +34,8 @@ def create_app() -> FastAPI:
         length = request.headers.get("content-length", "0")
         if not length.isdigit() or int(length) > 100000:
             return JSONResponse({"detail": "Peticion demasiado grande o invalida."}, status_code=413)
+        if len(await request.body()) > 100000:
+            return JSONResponse({"detail": "Peticion demasiado grande."}, status_code=413)
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
@@ -42,6 +45,7 @@ def create_app() -> FastAPI:
 
     @app.exception_handler(Exception)
     async def unexpected_error(request: Request, exception: Exception):
+        logging.getLogger("hotelsec").error("request_failed method=%s exception=%s", request.method, type(exception).__name__)
         return JSONResponse({"detail": "Error interno. Reintenta o contacta con soporte."}, status_code=500)
 
     @app.get("/")

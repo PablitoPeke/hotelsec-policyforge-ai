@@ -1,0 +1,20 @@
+{$DOMAIN} {
+    request_body {
+        max_size 100KB
+    }
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+    }
+    @backend path /api/* /docs /openapi.json /redoc
+    handle @backend {
+        reverse_proxy api:8000 {
+            header_up X-Forwarded-For {remote_host}
+        }
+    }
+    handle {
+        reverse_proxy web:80
+    }
+}
