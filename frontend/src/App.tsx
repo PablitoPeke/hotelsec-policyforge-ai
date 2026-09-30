@@ -317,6 +317,7 @@ function App() {
       <>
         <Auth
           onAccess={(u) => {
+            setError('')
             setHistory([])
             setTotal(0)
             setRecord(null)

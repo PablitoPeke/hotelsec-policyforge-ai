@@ -50,6 +50,15 @@ def test_full_flow_persistence_pdf_progress_and_delete(logged_client, isolated_d
     assert logged_client.get(f"/api/v1/records/{record_id}").status_code == 404
 
 
+def test_pdf_keeps_company_names_even_when_they_match_enums(logged_client):
+    data = payload()
+    data['hotel_profile']['business_name'] = 'low'
+    record = logged_client.post('/api/v1/records', json={'assessment': data}).json()
+    pdf = logged_client.get(f"/api/v1/records/{record['id']}/report.pdf")
+    text = ' '.join(' '.join(page.extract_text() for page in PdfReader(BytesIO(pdf.content)).pages).split())
+    assert 'Nombre del alojamiento low' in text
+
+
 def test_isolation_of_all_record_routes(logged_client):
     record_id = logged_client.post("/api/v1/records", json={"assessment": payload()}).json()["id"]
     other = TestClient(app)

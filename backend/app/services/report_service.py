@@ -33,7 +33,7 @@ def render_report(bundle: dict, created_at: str, record_id: str) -> bytes:
             if isinstance(value, bool): value = "Si" if value else "No"
             if value is None: value = "No evaluado"
             if isinstance(value, list): value = ", ".join(value) or "No declarado"
-            if isinstance(value, str): value = VALUES.get(value, value)
+            if key == 'backup_frequency': value = VALUES.get(value, value)
             rows.append([p(FIELDS.get(key, key.replace("_", " ")), "SmallBody"), p(value, "SmallBody")])
     table = Table(rows, colWidths=[7 * cm, 9 * cm], repeatRows=1)
     table.setStyle(TableStyle([("BACKGROUND", (0,0),(-1,0), colors.HexColor("#dff7f3")),
