@@ -12,7 +12,7 @@ No se ha tocado el VPS anterior. Antes de actualizar: confirmar que el servidor 
 2. Crear registro DNS A del dominio hacia la IP confirmada; revisar AAAA si se usa IPv6.
 3. En firewall del proveedor permitir 443/80 y SSH solo desde IP del administrador. No permitir 8000/5432. UFW no sustituye el firewall del proveedor para puertos publicados por Docker.
 4. Clonar o actualizar rama `practica3` en directorio de prueba independiente del anterior.
-5. Crear `.env.production` a partir de `.env.production.example`. Reemplazar DOMAIN y clave PostgreSQL por secreto aleatorio hexadecimal. Permisos `chmod 600 .env.production`. No editar el password de una DB existente sin cambiar tambien el usuario PostgreSQL.
+5. Desde el checkout nuevo, ejecutar `python3 scripts/setup_production.py --domain TU_DOMINIO_REAL` (sustituir TU_DOMINIO_REAL). Crea `.env.production` con clave PostgreSQL aleatoria y permisos 600 en Linux, sin mostrar secretos. Rechaza dominios de ejemplo, IPs, rutas y archivos ya existentes; no sobrescribe claves. No editar el password de una DB existente sin cambiar tambien el usuario PostgreSQL. Alternativa manual: copiar `.env.production.example` y reemplazar sus ejemplos.
 6. Revisar puertos ya ocupados: no detener un servicio anterior a ciegas. Coordinar el cambio del proxy y conservar volumentes/backups.
 7. Arrancar:
 
@@ -27,11 +27,25 @@ curl --fail https://TU_DOMINIO/api/v1/health
 
 Caddy necesita dominio DNS correcto, acceso 80/443 y volumen `/data` persistente. Configuracion basada en documentacion oficial: https://caddyserver.com/docs/automatic-https. No se demuestra disponibilidad remota con que `docker compose config` sea valido.
 
+## Comprobacion automatizada despues de publicar
+
+Desde el PC con las dependencias del backend instaladas, ejecutar (PowerShell):
+
+```powershell
+backend/.venv/Scripts/python.exe scripts/verify_deployment.py --url https://TU_DOMINIO_REAL --confirm-test-data --output docs/practica3/evidence/deployment-remote-check.json
+```
+
+Solo hacerlo contra una instancia propia. Crea dos cuentas ficticias temporales y comprueba salud, cookies, autenticacion, CSRF, guardado, historial, progreso tras login, PDF y denegacion de lectura/edicion/borrado desde otra cuenta. Intenta eliminar ambas cuentas incluso si un paso falla; si falla la limpieza, el resultado global es fallo. No guarda claves, contrasenas, tokens ni contenido de informes en el JSON. No acepta HTTP remoto ni desactiva validacion TLS; no sigue redirecciones. Si el servidor deja de responder, puede no completar el borrado: revisar las cuentas de prueba desde administracion, sin borrar clientes.
+
+Para repetirlo en local, cambiar URL a `http://localhost:8085` y salida a `deployment-local-check.json`. El script necesita HTTPX, incluido en las dependencias existentes; no requiere otra libreria. Los tests simulan tambien el caso IA exitoso: esa evidencia automatizada NO demuestra llamadas reales al proveedor.
+
 ## IA
 
 Agregar OPENAI_API_KEY al archivo privado de la instancia elegida y recrear `api` con `up -d --force-recreate api`. No la incluyas en capturas ni comandos que se graben. La clave de Render no se transfiere automaticamente a Hetzner. La UI requiere marcar el consentimiento. Si la clave/modelo fallan se etiqueta `rules-fallback`: no es una respuesta IA exitosa.
 
 Limite por defecto: 20 solicitudes de flujo IA/contexto por usuario/hora. Cada flujo consentido puede hacer extraccion, politicas y resumen (hasta tres llamadas); no equivale a 20 llamadas individuales. Los reintentos consumen cuota. No es un presupuesto monetario duro; configurar limites/alertas del proveedor. Un solo proceso de API.
+
+Tras configurar tu clave de forma privada, puedes repetir el script de comprobacion con `--with-ai`. Esta opcion autoriza envio de datos ficticios y hasta tres llamadas que pueden consumir credito. Exige que extraccion, politicas y resumen indiquen exito OpenAI: un fallback hace fallar la prueba, aunque el resto de la app siga funcionando. Sin `--with-ai` no solicita IA. Conservar el informe real separado, por ejemplo `live-ai-check.json`; no cambiar los mocks por una supuesta llamada real.
 
 ## Administracion
 

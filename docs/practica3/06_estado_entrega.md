@@ -2,6 +2,8 @@
 
 Las figuras son capturas locales reales de Chromium en `evidence`. Los minutos del video estan TODOS pendientes: no usar tiempos del guion como prueba real.
 
+Revision 12/10/2026: nombre confirmado Pablo Cortes, trabajo individual; grupo y horas pendientes. El alumno comunica prueba manual correcta. Se repiten 50 tests backend/operaciones, 2 escenarios de navegador y comprobacion operativa de dos cuentas. Se anaden scripts de configuracion privada y verificacion de instancias propias. La autenticacion SSH automatica ha sido rechazada y no se ha modificado Hetzner. Ver `08_cierre_16_octubre.md`.
+
 | ID | Implementacion | Prueba ejecutada / evidencia | Estado de cierre |
 |---|---|---|---|
 | RF-01 | AssessmentForm, formAdapter, schemas/assessment | test_input_errors; Playwright formulario; figura 01 | Implementado y probado localmente |
@@ -24,12 +26,12 @@ Las figuras son capturas locales reales de Chromium en `evidence`. Los minutos d
 | RNF-05 | privacy notices, DELETE cuenta, manage cleanup | cascada probada; instrucciones conservacion | Parcial: politica backups/temporizador operador |
 | RNF-06 | ai_quota, audit, timeout | rate auth, audit, failure/success proveedor | Parcial: cuota por proceso, sin presupuesto duro |
 | RNF-07 | production Compose, guia Hetzner | Caddyvalidate; evidencia mayo no revalidada | Pendiente remoto |
-| RE-01 | memoria fuente y generador | PDF borrador con figuras y pruebas | Pendiente datos portada/horas/minutos y revision alumno |
+| RE-01 | memoria fuente y generador | PDF borrador con nombre confirmado, figuras y pruebas | Pendiente grupo/horas/minutos y revision final |
 | RE-02 | guion07 | No hay MP4 nuevo | Pendiente grabacion >=10min y URL |
 | RE-03 | commits, README, MIT, CI | rama practica3 subida; CI remoto sin ejecutar | Pendiente resolver bloqueo CI, cierre/revision/tag final |
 
 ## Comprobacion del alumno antes de cierre
 
-Confirmar grupo/nombre, completar horas reales, comprender codigo, reproducir la demo, decidir dominio/despliegue, probar IA real sin divulgar clave, grabar video, comprobar permisos de enlaces en incognito, ajustar minutos exactos, revisar PDF y crear tag solo al terminar. El paquete actual no se etiqueta ni se presenta como entrega final.
+Confirmar grupo, completar horas reales, comprender codigo, ensayar la grabacion, decidir nombre publico/despliegue, probar IA real sin divulgar clave, grabar video, comprobar permisos de enlaces en incognito, ajustar minutos exactos, revisar PDF y crear tag solo al terminar. La prueba manual ya comunicada no sustituye revision final ni video. El paquete actual no se etiqueta ni se presenta como entrega final.
 
 La comparativa del dashboard solo utiliza la pagina de historial cargada (20 registros). No es consulta analitica de todo el historico. La agrupacion hotel usa propietario+nombre+municipio; renombrarlo puede crear otro grupo. Son limites conocidos que debe explicar el alumno.

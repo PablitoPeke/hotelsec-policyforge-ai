@@ -1,8 +1,8 @@
 {
-  "author": "Pablo (nombre de portada por confirmar)",
+  "author": "Pablo Cortes",
   "group": "Pendiente de confirmar",
   "video": "Pendiente de grabacion y enlace",
-  "date": "30 de septiembre de 2026",
+  "date": "12 de octubre de 2026",
   "pages": [
     {
       "section": "1. Resumen ejecutivo",
@@ -12,7 +12,7 @@
         "Parto del prototipo entregado en la Practica 1, calificado con 9/10 sin comentarios del profesor. La revision del repositorio ha permitido distinguir lo ya funcional de lo que solo estaba previsto: persistencia, autenticacion, historico, seguimiento y un PDF completo necesitaban implementacion. Esta nueva entrega conserva el producto y sus compromisos; no empieza un proyecto distinto.",
         "El incremento introduce cuentas con sesiones revocables y aislamiento por propietario, PostgreSQL con migraciones, evaluaciones guardadas, historial por alojamiento y estados de acciones. Amplia el perfil hotelero, incorpora probabilidad e impacto orientativos y genera diez politicas. El texto libre complementa el formulario y solicita una decision cuando contradice controles marcados. La IA puede extraer contexto y personalizar redaccion con autorizacion explicita; el scoring sigue siendo determinista y existe respaldo por reglas.",
         "La verificacion combina pruebas de API en bases temporales, flujos de navegador en escritorio y movil, auditorias de dependencias y una instalacion Docker local con PostgreSQL. Tambien se ha comprobado que los snapshots siguen presentes tras reiniciar DB y API. Las respuestas del proveedor se simulan en los tests; no se ha gastado credito ni validado la clave real del alumno en esta fase.",
-        "Esta memoria es un borrador verificable, no una declaracion de entrega completa. Quedan por incorporar grupo, nombre confirmado, horas reales, video y minutos exactos. El despliegue remoto de esta version y una prueba de IA real tambien estan pendientes. Se ha ensayado restauracion en una base local independiente, no recuperacion externa de desastre. La rama y los commits permiten revisar cada cambio antes del tag final v1.0-practica3."
+        "Esta memoria es un borrador verificable, no una declaracion de entrega completa. El nombre de portada esta confirmado; quedan grupo, horas reales, video y minutos exactos. El 12/10 confirmo que las pruebas manuales propuestas funcionan; esta declaracion no acredita revision completa del codigo, IA real ni despliegue remoto. Se ha ensayado restauracion en una base local independiente, no recuperacion externa de desastre. La rama y los commits permiten revisar cada cambio antes del tag final v1.0-practica3."
       ]
     },
     {
@@ -242,11 +242,11 @@
       "title": "Resultados automatizados reales",
       "results": true,
       "paragraphs": [
-        "pytest usa bases SQLite temporales y fixtures aisladas. Cada cuenta, sesion y snapshot se crea con datos sinteticos. La suite incluye casos positivos y negativos de permisos, cascada, datos, migraciones, proveedor y consentimiento. Las llamadas externas se simulan; no acreditar respuesta de OpenAI real a partir de mocks.",
+        "Revision del 12/10/2026: pytest usa bases SQLite temporales y fixtures aisladas. La suite incluye permisos, cascada, datos, migraciones, proveedor, consentimiento y herramientas operativas. Se prueba generar configuracion sin sobrescribir secretos y limpiar cuentas tras fallos. Las llamadas externas se simulan; los mocks no acreditan OpenAI real.",
         "Playwright utiliza Chromium contra la instalacion local PostgreSQL en Docker. El primer escenario recorre registro, formulario, guardado, progreso, recarga, historial, PDF, reevaluacion y politicas. El segundo usa viewport movil y fuerza una contradiccion. Se comprueba que la pagina no desborda horizontalmente; no es una prueba en telefono fisico.",
-        "Las auditorias consultan vulnerabilidades conocidas de paquetes Python y npm. El resultado cero es temporal y no acredita ausencia de fallos propios, malware o vulnerabilidades de imagenes Docker. Se comprobo el primer run remoto: GitHub no inicia los jobs por restriccion administrativa de la cuenta (0 pasos ejecutados). No es un test fallido del codigo ni CI superado. El titular debe resolver el bloqueo y repetirlo; ver evidence/ci-status.json."
+        "Las auditorias Python/npm se repiten el 12/10: cero conocidas, no ausencia de fallos propios o de imagenes Docker. El script operativo pasa en local: cookies, CSRF, historial/progreso tras login, PDF y acceso cruzado denegado; elimina sus dos cuentas. El ultimo run GitHub inspeccionado no inicio jobs por restriccion de cuenta (0 pasos); no es CI superado. Ver evidence/ci-status.json."
       ],
-      "code": "PYTHONPATH=backend pytest backend/tests -q\npip-audit -r backend/requirements.txt\ncd frontend\nnpm ci\nnpm run build\nnpm audit --audit-level=moderate\nnpx playwright test"
+      "code": "PYTHONPATH=backend python -m pytest backend/tests -q\npip-audit -r backend/requirements.txt\ncd frontend\nnpm ci\nnpm run build\nnpm audit --audit-level=moderate\nnpx playwright test"
     },
     {
       "section": "7. Pruebas y evidencias",
@@ -256,7 +256,7 @@
         "Durante la actualizacion, Vite no construia con el Node global 19 y faltaba un binding nativo optional. Se utilizo Node 24 explicito y se reinstalo el componente; despues el build paso en Windows y en Docker Linux. La guia exige Node 24 para evitar repetir el fallo.",
         "Una prueba nueva fallo por importar test_product fuera de su paquete; la pasada tuvo 1 fallo y 21 exitos. Corregido el import, hubo 22 exitos. Las primeras pruebas de navegador tambien fallaron por etiqueta compuesta de contrasena y por selector exacto de continuidad. Se ajustaron accesibilidad/selector y ambos escenarios pasaron.",
         "La revision de respuesta IA encontro estructuras que podian causar AttributeError. Se validan objeto/lista/entradas antes de extraer texto y se probaron formatos malformados, timeout y respuesta valida simulada. Se documentan los fallos en lugar de presentar un desarrollo sin incidencias.",
-        "Se ha probado pg_dump -Fc y pg_restore en una base nueva independiente. Coinciden 10 snapshots y el checksum ordenado de identificadores, bundles y estados. La base y backup temporales se retiraron sin modificar la original. Es un ensayo local, no de recuperacion externa; no se probo una API apuntando a la restaurada. Caddy validate devuelve configuracion valida con avisos; no se emitio certificado publico. Faltan HTTPS remoto, segundo entorno y revision manual antes del video."
+        "El 30/09 se probo pg_dump -Fc y pg_restore en una base local independiente: coinciden 10 snapshots y checksum de bundles/estados; base y backup temporales retirados. No es recuperacion externa ni prueba API restaurada. Caddy validate no emitio certificado publico. El 12/10 el alumno confirma pruebas manuales correctas; SSH rechaza autenticacion automatica. Faltan acceso/despliegue HTTPS, segundo entorno y revision final antes del video."
       ]
     },
     {
@@ -308,7 +308,7 @@
         ["Resultados y PDF", "Asistencia IA; commitcb5666a", "Pendiente"],
         ["Interfaz e historial", "Asistencia IA; commit0ba805e", "Pendiente"],
         ["Seguridad y tests", "Asistencia IA; commit7006030 y suites", "Pendiente"],
-        ["Revision y demo", "Alumno; todavia por realizar", "Pendiente"],
+        ["Revision y demo", "Alumno; prueba manual confirmada el 12/10; revision completa pendiente", "Pendiente"],
         ["Video y entrega", "Alumno; todavia por realizar", "Pendiente"]
       ],
       "closing": "Los commits describen cambios, no certifican que el alumno ya haya revisado cada linea. Antes de grabar, explicar personalmente sesiones, CSRF, propietario, migraciones, scoring y fallback. Registrar sesiones de trabajo con fecha, actividad y duracion real; anexar solo evidencias pertinentes y no datos privados."

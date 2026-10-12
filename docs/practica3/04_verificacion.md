@@ -1,12 +1,12 @@
 # Registro real de verificacion
 
-Fecha: 30/09/2026. Entorno local Windows, Docker Desktop Linux, Python de venv y Node 24 del runtime de desarrollo. Datos exclusivamente ficticios. Resultado final se completa con XML y resultados Playwright conservados en evidencias.
+Revision: 12/10/2026. Entorno local Windows, Docker Desktop Linux, Python de venv y Node 24 del runtime de desarrollo. Datos exclusivamente ficticios. XML y resultados Playwright actualizados. Se conservan las fechas originales de los ensayos de reinicio y restauracion del 30/09; no se atribuyen al 12/10.
 
 ## Comprobaciones ejecutadas
 
 | Comprobacion | Resultado comprobado | Limite de la evidencia |
 |---|---|---|
-| Backend pytest | 27 passed, 0 fallos; XML conservado | SQLite temporal, HTTPX simulado; no implica pentest ni acierto semantico IA |
+| Backend y operaciones pytest | 50 passed, 0 fallos; XML conservado | SQLite temporal, HTTPX simulado; no implica pentest ni acierto semantico IA |
 | Migraciones | SQLite vacia, upgrade head dos veces: prueba superada | PostgreSQL tambien arranco desde volumen nuevo, pero no se ensayan todos los downgrade |
 | Build frontend | TypeScript y Vite 8: compilacion correcta en Node 24 y en Docker Linux | No prueba todos los navegadores |
 | Playwright | 2 passed, Chromium; escritorio 1440x1000, detalles 1000x900 y movil 390x844 | Son dos escenarios amplios, no dos unidades; no es dispositivo movil fisico |
@@ -16,7 +16,11 @@ Fecha: 30/09/2026. Entorno local Windows, Docker Desktop Linux, Python de venv y
 | pip-audit runtime | 0 vulnerabilidades conocidas en dependencias resueltas | No escaneo de imagen OS ni garantia de ausencia de vulnerabilidades |
 | npm audit | 0 conocidas tras actualizar Vite y dependencias | Informe a fecha de ejecucion; repetir antes de entregar |
 | Caddy validate | Configuracion valida | Aviso de formato y encabezado redundante; no emision de certificado publico |
-| GitHub Actions | Run36768106862: failure; backend y frontend ejecutaron 0 pasos | Jobs no iniciados por restriccion administrativa de cuenta; no es un test fallido ni CI superado |
+| GitHub Actions | Ultimo run inspeccionado36773073650: failure; backend y frontend ejecutaron 0 pasos | Reconsultado el 12/10: restriccion administrativa de cuenta; no es un test fallido ni CI superado |
+| Script de despliegue local | Salud, cookies, CSRF, historial/progreso tras login, PDF y aislamiento correctos; dos cuentas temporales eliminadas | API HTTP local; no acredita HTTPS remoto ni IA real |
+| Configuracion produccion | Tests de DNS valido, rechazo de IP/ejemplos/rutas, secreto aleatorio y no sobrescritura | No se genero configuracion real de VPS ni certificado |
+| Prueba manual del alumno | Pablo confirma el 12/10 que los pasos propuestos funcionan | Declaracion del alumno, no observacion independiente ni revision de cada linea |
+| Acceso SSH remoto | Servicio responde, autenticacion automatica rechazada | No se accedio ni modifico el VPS; dominio pendiente |
 | PDF cliente | Descargado por navegador; pypdf comprueba todos los riesgos y controles; etiquetas espanolas | No demuestra todas las combinaciones posibles de longitud |
 | Memoria borrador | Renderizadas 27 paginas; 23 de contenido, cuerpo11, sin texto fuera de margenes | Faltan datos/horas/video y revision del alumno |
 
@@ -30,6 +34,8 @@ Backend cubre: perfiles iniciales, politicas, summary sin clave, fusion de texto
 4. Revision del contrato encontro respuesta del proveedor con output que no era objeto/lista; podia provocar AttributeError y 500. Se valida su estructura antes de extraer texto y se anaden casos negativos. Pasada posterior: 26 passed.
 
 No se borran estos fallos del relato para aparentar una primera ejecucion perfecta. Los traces locales pueden contener cuentas y cookies de prueba: no publicarlos; guardar solo resultados sanitizados/capturas necesarias.
+
+El 12/10 Docker Desktop estaba parado; se arranco sin reinstalar ni borrar volumenes. El primer build local fallo por permisos de escritura en la cache global de npm del entorno restringido; se uso una cache temporal y el build posterior paso. No fue un error TypeScript ni una prueba de usuario fallida. Los 23 tests nuevos verifican herramientas operativas, limpieza tras errores, origen HTTPS y exito/fallback simulado de IA. La prueba operativa real se ejecuto sin IA y paso.
 
 ## Pendientes
 

@@ -1,0 +1,10 @@
+{
+  "checked_on": "2026-10-12",
+  "host": "178.105.149.202",
+  "method": "SSH BatchMode with StrictHostKeyChecking=yes and 8 second connection timeout",
+  "result": "Authentication rejected: publickey,password",
+  "authenticated": false,
+  "server_modified": false,
+  "deployment_verified": false,
+  "limits": "An SSH service responded; no application, containers, backups, domain or server ownership was inspected. The student believes the IP is unchanged."
+}

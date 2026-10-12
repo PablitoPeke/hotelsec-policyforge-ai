@@ -1,8 +1,8 @@
 {
-  "checked_on": "2026-09-30",
-  "run_id": 36768106862,
-  "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/36768106862",
-  "commit": "829d8d10c7b2713e4027fe5ba7e4a9c49d15bc68",
+  "checked_on": "2026-10-12",
+  "run_id": 36773073650,
+  "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/36773073650",
+  "commit": "da350597ed235f65a0cd56848c1cbf73b5a3f691",
   "github_conclusion": "failure",
   "jobs_started": false,
   "backend_steps_executed": 0,

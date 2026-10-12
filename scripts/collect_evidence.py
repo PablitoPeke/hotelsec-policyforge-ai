@@ -24,6 +24,9 @@ result = {'collected_at': datetime.now(timezone.utc).isoformat(), 'backend': bac
           'external_deployment_verified': False, 'live_openai_verified': False,
           'database_restart': {'before': 4, 'after': 4, 'note': 'Manual psql check on 30/09/2026; separate from the restore test'},
           'restore_test': json.loads((evidence / 'restore-check.json').read_text(encoding='utf-8')),
-          'remote_ci': json.loads((evidence / 'ci-status.json').read_text(encoding='utf-8'))}
+          'remote_ci': json.loads((evidence / 'ci-status.json').read_text(encoding='utf-8')),
+          'local_deployment_check': json.loads((evidence / 'deployment-local-check.json').read_text(encoding='utf-8')),
+          'student_manual_review': json.loads((evidence / 'manual-review.json').read_text(encoding='utf-8')),
+          'remote_access_check': json.loads((evidence / 'remote-access-check.json').read_text(encoding='utf-8'))}
 (evidence / 'verification.json').write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
 print(json.dumps(result, indent=2, ensure_ascii=False))

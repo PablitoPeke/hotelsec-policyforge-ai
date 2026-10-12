@@ -29,7 +29,7 @@ Explicar con tus palabras: frontend es la pantalla; API valida y calcula; base g
 
 ## Finalizar memoria
 
-Confirmar numero de grupo, nombre que debe figurar y horas reales. Incorporar URL de video y minutos exactos a cada fila de matriz. Sustituir marcado borrador solo despues de revisar PDF y contar 20-40 paginas de contenido (portada/indice/anexos excluidos). Capturas de `evidence` son reales de pruebas locales, no de Hetzner.
+Nombre de portada confirmado: Pablo Cortes, trabajo individual. Confirmar numero de grupo y horas reales. Incorporar URL de video y minutos exactos a cada fila de matriz. Sustituir marcado borrador solo despues de revisar PDF y contar 20-40 paginas de contenido (portada/indice/anexos excluidos). Capturas de `evidence` son reales de pruebas locales, no de Hetzner. El alumno confirma pruebas manuales correctas el 12/10/2026; no implica que ya exista video o revision de cada linea.
 
 Crear tag `v1.0-practica3` sobre el commit realmente final, con repo/video/enlaces accesibles. La rama actual no se ha fusionado automaticamente a main para preservar la entrega anterior.
 

@@ -128,7 +128,7 @@ def trace(kind):
             ('RE-03', 'GitHub / MIT / README', 'Rama y commits; tag final pendiente'),
         ]
     rows += [[identifier, code, test, 'Pendiente'] for identifier, code, test in entries]
-    return table(rows, [48, 142, WIDTH - 254, 64])
+    return table(rows, [64, 132, WIDTH - 260, 64])
 
 
 def footer(canvas, doc):
@@ -199,7 +199,7 @@ def build(locations=None):
         'AEPD Facilita RGPD: https://www.aepd.es/guias-y-herramientas/herramientas/facilita-rgpd',
         'INCIBE politicas: https://www.incibe.es/empresas/herramientas/politicas',
         'ISO familia 27000: https://www.iso.org/standard/iso-iec-27000-family',
-        'Evidencias: docs/practica3/evidence; revision 30/09/2026. Capturas locales y resultados estructurados; no traces privados.',
+        'Evidencias: docs/practica3/evidence; revision 12/10/2026. Capturas locales y resultados estructurados; backup del 30/09 conservado con su fecha original; no traces privados.',
     ]
     story.extend(p(reference) for reference in references)
     output = BytesIO()

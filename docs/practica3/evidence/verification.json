@@ -1,15 +1,15 @@
 {
-  "collected_at": "2026-09-30T19:54:52.077924+00:00",
+  "collected_at": "2026-10-12T21:16:22.883602+00:00",
   "backend": {
-    "tests": 27,
+    "tests": 50,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 11.31
+    "seconds": 19.46
   },
   "browser": {
-    "startTime": "2026-09-30T19:37:45.973Z",
-    "duration": 10065.732,
+    "startTime": "2026-10-12T21:09:33.510Z",
+    "duration": 9958.85,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,
@@ -46,10 +46,10 @@
     "limits": "Same local instance, not off-site disaster recovery; login/PDF on restored instance not separately tested"
   },
   "remote_ci": {
-    "checked_on": "2026-09-30",
-    "run_id": 36768106862,
-    "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/36768106862",
-    "commit": "829d8d10c7b2713e4027fe5ba7e4a9c49d15bc68",
+    "checked_on": "2026-10-12",
+    "run_id": 36773073650,
+    "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/36773073650",
+    "commit": "da350597ed235f65a0cd56848c1cbf73b5a3f691",
     "github_conclusion": "failure",
     "jobs_started": false,
     "backend_steps_executed": 0,
@@ -57,5 +57,50 @@
     "reason_class": "account_administrative_restriction",
     "code_tests_failed": null,
     "note": "The remote runner did not execute the workflow. Local test evidence is separate. Requires account owner action."
+  },
+  "local_deployment_check": {
+    "checked_at": "2026-10-12T21:07:59.804551+00:00",
+    "origin": "http://localhost:8085",
+    "ai_requested": false,
+    "checks": [
+      "health_and_authentication_required",
+      "registration_and_cookie_attributes",
+      "assessment_saved_with_structured_answers",
+      "csrf_logout_history_and_persisted_progress",
+      "authenticated_pdf_download",
+      "cross_account_read_pdf_edit_delete_denied"
+    ],
+    "passed": true,
+    "cleanup": [
+      "account_deleted",
+      "account_deleted"
+    ],
+    "version": "0.3.0"
+  },
+  "student_manual_review": {
+    "reported_on": "2026-10-12",
+    "reviewer": "Pablo Cortes",
+    "evidence_type": "student_self_report_in_chat",
+    "result": "Student reports that the previously proposed manual checks worked correctly.",
+    "scope": [
+      "registration",
+      "assessment_without_ai",
+      "results",
+      "action_progress",
+      "history_after_reload",
+      "pdf_download",
+      "logout_and_login"
+    ],
+    "limits": "Not independently observed. Does not establish full code review, live AI, remote HTTPS, video completion or final submission."
+  },
+  "remote_access_check": {
+    "checked_on": "2026-10-12",
+    "host": "178.105.149.202",
+    "method": "SSH BatchMode with StrictHostKeyChecking=yes and 8 second connection timeout",
+    "result": "Authentication rejected: publickey,password",
+    "authenticated": false,
+    "server_modified": false,
+    "deployment_verified": false,
+    "limits": "An SSH service responded; no application, containers, backups, domain or server ownership was inspected. The student believes the IP is unchanged."
   }
 }

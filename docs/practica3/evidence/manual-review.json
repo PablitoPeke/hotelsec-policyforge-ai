@@ -1,0 +1,8 @@
+{
+  "reported_on": "2026-10-12",
+  "reviewer": "Pablo Cortes",
+  "evidence_type": "student_self_report_in_chat",
+  "result": "Student reports that the previously proposed manual checks worked correctly.",
+  "scope": ["registration", "assessment_without_ai", "results", "action_progress", "history_after_reload", "pdf_download", "logout_and_login"],
+  "limits": "Not independently observed. Does not establish full code review, live AI, remote HTTPS, video completion or final submission."
+}

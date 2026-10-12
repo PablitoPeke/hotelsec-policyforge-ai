@@ -99,11 +99,21 @@ JWT/bcrypt, Tailwind, Router, Zod y Recharts eran opciones iniciales, no depende
 
 OpenAI: anadir `OPENAI_API_KEY` solo al archivo privado del servidor, nunca al frontend ni a GitHub. Con Docker, recrear el servicio `api` tras cambiarlo. La casilla de consentimiento del formulario controla el envio en el flujo principal; sin ella no se llama al proveedor. No hay clave incorporada ni costes incluidos. La prueba real con la cuenta del alumno queda pendiente; las pruebas automatizadas simulan errores/respuestas.
 
-Produccion HTTPS: [guia de despliegue y operaciones](docs/practica3/05_despliegue.md). El archivo `docker-compose.production.yml` exige dominio y clave privada de PostgreSQL. `APP_ENV=production` impide arrancar con cookies inseguras o URL HTTP. La IP de Hetzner de Practica 1 es un antecedente: esta nueva version no se ha publicado ni revalidado alli.
+Produccion HTTPS: [guia de despliegue y operaciones](docs/practica3/05_despliegue.md). `python scripts/setup_production.py --domain TU_DOMINIO_REAL` crea configuracion privada sin sobrescribir secretos ni arrancar servicios. El archivo `docker-compose.production.yml` exige dominio y clave privada de PostgreSQL. `APP_ENV=production` impide arrancar con cookies inseguras o URL HTTP. La IP de Hetzner de Practica 1 es un antecedente: esta nueva version no se ha publicado ni revalidado alli.
+
+Comprobacion de instancia propia (crea y elimina dos cuentas ficticias):
+
+```powershell
+backend/.venv/Scripts/python.exe scripts/verify_deployment.py --url http://localhost:8085 --confirm-test-data
+```
+
+Para remoto usar origen HTTPS. Anadir `--output RUTA.json` para conservar evidencia sanitizada. La opcion explicita `--with-ai` envia datos ficticios al proveedor y puede consumir credito; sin ella no solicita IA. Un fallback no cuenta como prueba IA superada. Revisar el resultado de limpieza si el servidor deja de responder.
 
 ## Entrega
 
 [Seguimiento de Practica 3](docs/practica3/README.md), [matriz inicial](docs/practica3/01_matriz_requisitos.md), [cierre y trazabilidad](docs/practica3/06_estado_entrega.md), [guion del video](docs/practica3/07_video_entrega.md). La memoria marcada como borrador no sustituye la entrega final mientras falten datos de portada, horas reales, video y comprobaciones indicadas. No se crea `v1.0-practica3` hasta cerrar esos pendientes.
+
+Revision del 12/10: 50 tests backend/operaciones y 2 escenarios de navegador superados; build correcto, auditorias sin vulnerabilidades conocidas. [Pasos de cierre para el 16 de octubre](docs/practica3/08_cierre_16_octubre.md). Pablo Cortes confirma la prueba manual; el grupo sigue pendiente. La conexion SSH automatica fue rechazada, sin cambiar el VPS.
 
 Licencia MIT. Documentos de Practica 1 conservados como antecedentes; las guias actuales estan en `docs/practica3`.
 
