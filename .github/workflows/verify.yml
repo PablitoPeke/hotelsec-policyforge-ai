@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r backend/requirements-dev.txt
-      - run: pytest backend/tests -q
+      - run: python -m pytest backend/tests -q
       - run: pip-audit -r backend/requirements.txt
   frontend:
     runs-on: ubuntu-latest
