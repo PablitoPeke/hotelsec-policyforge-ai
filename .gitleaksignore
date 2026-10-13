@@ -1,0 +1,4 @@
+# Invalid token deliberately used in the negative browser test; not a credential.
+29c960ed0e542e8c60621eff6e2f2889b647465e:frontend/e2e/account.spec.ts:generic-api-key:203
+# Python keyword expression csrf_token=csrf; value generated randomly at runtime.
+90c6fe7779254cf91ac6a0f8988eda82bf8153c5:backend/app/core/security.py:generic-api-key:58

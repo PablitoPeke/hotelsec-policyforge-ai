@@ -1,0 +1,29 @@
+{
+  "author": "Pablo Cortes",
+  "group_number": null,
+  "estimated_student_hours": {
+    "desarrollo": 10,
+    "pruebas": 10,
+    "documentacion": 10,
+    "preparacion_entrega": 10
+  },
+  "hours_basis": "Estimacion aproximada comunicada por el alumno el 13/10/2026; no registro horario ni tiempo del asistente.",
+  "video": {
+    "url": null,
+    "duration_seconds": null,
+    "width": null,
+    "height": null,
+    "format": "mp4",
+    "access_checked_in_incognito": false,
+    "timestamps": {}
+  },
+  "external_installation": {
+    "completed": false,
+    "tester_alias": null,
+    "date": null,
+    "result": null
+  },
+  "narrative_updated_for_submission": false,
+  "student_pdf_reviewed": false,
+  "repository_access_checked": false
+}
