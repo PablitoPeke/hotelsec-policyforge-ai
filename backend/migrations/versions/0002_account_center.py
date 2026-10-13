@@ -23,7 +23,8 @@ def upgrade():
     for token_hash in connection.execute(sa.select(sessions.c.token_hash)).scalars().all():
         connection.execute(sessions.update().where(sessions.c.token_hash == token_hash).values(public_id=str(uuid4())))
     with op.batch_alter_table("login_sessions") as batch:
-        batch.alter_column("public_id", existing_type=sa.String(36), nullable=False)
+        fallback = sa.text("gen_random_uuid()::text") if connection.dialect.name == "postgresql" else sa.text("(lower(hex(randomblob(16))))")
+        batch.alter_column("public_id", existing_type=sa.String(36), nullable=False, server_default=fallback)
         batch.create_index("ix_login_sessions_public_id", ["public_id"], unique=True)
 
 

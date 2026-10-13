@@ -155,4 +155,8 @@ def test_migration_preserves_existing_user_and_session(tmp_path):
     assert user["organization_name"] == "" and user["email_verified_at"] is None
     assert session["token_hash"] == "hash1" and session["csrf_token"] == "csrf1"
     assert len(session["public_id"]) == 36 and session["created_at"] is None
+    # A rollback to the previous API can still insert sessions without the new fields.
+    with engine.begin() as connection:
+        connection.execute(text("INSERT INTO login_sessions (token_hash, user_id, csrf_token, expires_at) VALUES ('hash2', 'u1', 'csrf2', '2099-01-01 00:00:00')"))
+        assert connection.execute(text("SELECT public_id FROM login_sessions WHERE token_hash = 'hash2'")).scalar()
     engine.dispose()

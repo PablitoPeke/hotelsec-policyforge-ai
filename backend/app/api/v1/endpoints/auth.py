@@ -47,7 +47,8 @@ def register(payload: Registration, request: Request, response: Response, db: Se
 def login(payload: Credentials, request: Request, response: Response, db: Session = Depends(get_db)):
     require_origin(request)
     limit(f"auth:{request.client.host}", 10, 300)
-    user = db.scalar(select(User).where(User.email == str(payload.email).lower()))
+    # Serialize successful login against password changes and account recovery.
+    user = db.scalar(select(User).where(User.email == str(payload.email).lower()).with_for_update())
     valid = verify_password(payload.password, user.password_hash if user else dummy_hash)
     if not user or not valid:
         audit(db, None, "login.failed")
@@ -74,6 +75,7 @@ def logout(request: Request, response: Response, user: User = Depends(get_curren
 @router.delete("/account", status_code=204)
 def delete_account(payload: DeleteAccount, response: Response, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     limit(f"sensitive:{user.id}", 10, 900)
+    db.refresh(user, with_for_update=True)
     if not verify_password(payload.password, user.password_hash):
         raise HTTPException(403, "Contrasena incorrecta.")
     db.delete(user)
