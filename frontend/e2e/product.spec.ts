@@ -77,6 +77,7 @@ test('registro, analisis, historial persistente, plan y PDF', async ({ page }) =
     page.getByRole('heading', { name: 'Dashboard', exact: true }),
   ).toBeVisible()
   await expect(page.getByText('Hotel Prueba Lanzarote').first()).toBeVisible()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
   await page.screenshot({ path: resolve(evidence, '02_dashboard.png'), fullPage: true })
   await page.screenshot({ path: resolve(evidence, '02_dashboard_vista.png') })
   await detailFigure(page, '.metric-grid', '02_dashboard_detalle.png')

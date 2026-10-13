@@ -212,6 +212,9 @@ function App() {
   useEffect(() => {
     if (user) refresh().catch((e) => setError(errorMessage(e)))
   }, [user, offset, filter])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [view])
   async function run(operation: () => Promise<void>) {
     setBusy(true)
     setError('')
