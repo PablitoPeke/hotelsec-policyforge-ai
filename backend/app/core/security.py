@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db import LoginSession, User, audit, get_db, utcnow
+from app.services.usage_service import reserve_ai_request
 
 password_hasher = PasswordHasher()
 dummy_hash = password_hasher.hash(secrets.token_urlsafe(32))
@@ -99,6 +100,9 @@ def require_admin(user: User = Depends(get_current_user)):
     return user
 
 
-def ai_quota(user: User = Depends(get_current_user)):
-    limit(f"ai:{user.id}", get_settings().ai_requests_per_hour, 3600)
+def ai_quota(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    if get_settings().openai_api_key:
+        reserve_ai_request(db, user)
+    else:
+        limit(f"ai:{user.id}", get_settings().ai_requests_per_hour, 3600)
     return user

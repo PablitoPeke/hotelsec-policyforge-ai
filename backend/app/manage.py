@@ -3,7 +3,7 @@ import argparse
 from datetime import timedelta
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
-from app.db import AccountToken, AuditEvent, LoginSession, User, audit, get_engine, utcnow
+from app.db import AccountToken, AiUsage, AuditEvent, LoginSession, User, audit, get_engine, utcnow
 
 
 def main():
@@ -29,6 +29,7 @@ def main():
                 parser.error('audit-days must be positive')
             conditions = [(LoginSession, LoginSession.expires_at < utcnow()),
                           (AccountToken, AccountToken.expires_at < utcnow()),
+                          (AiUsage, AiUsage.expires_at < utcnow()),
                           (AuditEvent, AuditEvent.created_at < utcnow() - timedelta(days=args.audit_days))]
             for model, condition in conditions:
                 rows = db.scalars(select(model).where(condition)).all()

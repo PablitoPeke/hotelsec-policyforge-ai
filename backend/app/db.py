@@ -2,7 +2,7 @@ from functools import lru_cache
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from sqlalchemy import JSON, DateTime, ForeignKey, String, create_engine, event
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, create_engine, event
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 from app.core.config import get_settings
@@ -54,6 +54,14 @@ class AccountToken(Base):
     change_id: Mapped[str | None] = mapped_column(String(36), index=True)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class AiUsage(Base):
+    __tablename__ = "ai_usage"
+    bucket: Mapped[str] = mapped_column(String(100), primary_key=True)
+    owner_id: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    used: Mapped[int] = mapped_column(Integer, default=0)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
 class Company(Base):

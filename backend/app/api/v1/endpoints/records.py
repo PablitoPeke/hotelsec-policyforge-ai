@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
-from app.core.security import ai_quota, get_current_user
+from app.core.security import ai_quota, get_current_user, limit
 from app.db import Company, SavedAssessment, User, audit, get_db
 from app.schemas.assessment import AssessmentRequest
 from app.services.product_service import build_bundle
@@ -41,13 +41,15 @@ def detail(record: SavedAssessment):
 
 @router.post("", status_code=201)
 def create(payload: CreateRecord, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    if payload.use_ai or payload.description:
-        ai_quota(user)
     company = None
     if payload.company_id:
         company = db.scalar(select(Company).where(Company.id == payload.company_id, Company.owner_id == user.id))
         if company is None:
             raise HTTPException(404, "Alojamiento no encontrado.")
+    if payload.use_ai:
+        ai_quota(user, db)
+    elif payload.description:
+        limit(f"context:{user.id}", 120, 3600)
     bundle = build_bundle(payload.assessment, payload.description, payload.use_ai, payload.conflict_resolution or "manual")
     if bundle["conflicts"] and payload.conflict_resolution is None:
         raise HTTPException(409, detail={"message": "El texto contradice controles marcados. Confirma que fuente conservar.", "conflicts": bundle["conflicts"]})

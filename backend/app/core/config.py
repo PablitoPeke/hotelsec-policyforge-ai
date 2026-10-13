@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = Field(default="HotelSec PolicyForge AI", alias="APP_NAME")
-    app_version: str = Field(default="0.3.0", alias="APP_VERSION")
+    app_version: str = Field(default="0.4.0", alias="APP_VERSION")
     app_env: str = Field(default="development", alias="APP_ENV")
     api_v1_prefix: str = "/api/v1"
 
@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     reports_dir: str = Field(default="reports/generated", alias="REPORTS_DIR")
     cookie_secure: bool = Field(default=False, alias="COOKIE_SECURE")
     ai_requests_per_hour: int = Field(default=20, ge=1, le=500, alias="AI_REQUESTS_PER_HOUR")
+    ai_global_daily_limit: int = Field(default=50, ge=0, le=5000, alias="AI_GLOBAL_DAILY_LIMIT")
     smtp_host: str = Field(default="", alias="SMTP_HOST")
     smtp_port: int = Field(default=587, ge=1, le=65535, alias="SMTP_PORT")
     smtp_mode: Literal["starttls", "ssl"] = Field(default="starttls", alias="SMTP_MODE")
@@ -60,6 +61,7 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",
+        hide_input_in_errors=True,
     )
 
     @property

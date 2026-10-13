@@ -35,7 +35,7 @@ def create_configuration(domain: str, target: Path) -> bool:
         return False
     with os.fdopen(descriptor, 'w', encoding='utf-8', newline='\n') as stream:
         stream.write(f'DOMAIN={domain}\nPOSTGRES_PASSWORD={secrets.token_hex(32)}\n'
-                     'OPENAI_API_KEY=\nOPENAI_MODEL=gpt-4o-mini\nAI_REQUESTS_PER_HOUR=20\n')
+                     'OPENAI_API_KEY=\nOPENAI_MODEL=gpt-4o-mini\nAI_REQUESTS_PER_HOUR=20\nAI_GLOBAL_DAILY_LIMIT=50\n')
     return True
 
 
