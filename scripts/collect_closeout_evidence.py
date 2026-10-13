@@ -26,6 +26,9 @@ pip = read(temporary / "closeout-pip-audit.json")
 npm = read(temporary / "closeout-npm-audit.json")
 raw = read(temporary / "gitleaks-closeout.json")
 reviewed = read(temporary / "gitleaks-closeout-reviewed.json")
+initial_scan = json.loads(subprocess.check_output(
+    ["git", "show", "d1dee37:docs/practica3/evidence/closeout-verification.json"],
+    cwd=root, text=True, encoding="utf-8"))["gitleaks"]
 clean = read(evidence / "closeout-clean-deployment.json")
 browser = read(root / "frontend/test-results/closeout-clean-install.json")["stats"]
 result = {
@@ -35,8 +38,9 @@ result = {
     "python_known_vulnerabilities": sum(len(d["vulns"]) for d in pip["dependencies"]),
     "npm_vulnerabilities": npm["metadata"]["vulnerabilities"],
     "gitleaks": {"version": "8.30.1", "scope": "all locally available Git refs; redacted scan",
-                 "commits": int(subprocess.check_output(["git", "rev-list", "--all", "--count"], cwd=root, text=True)),
-                 "raw_findings": len(raw), "reviewed_false_positives": len(raw) - len(reviewed),
+                 "scan_head": "d1dee37", "commits_scanned": 52,
+                 "initial_scan_before_exceptions": {"commits": initial_scan["commits"], "findings": initial_scan["raw_findings"], "evidence_commit": "d1dee37"},
+                 "final_findings": len(raw), "reviewed_false_positives": initial_scan["reviewed_false_positives"],
                  "actionable_findings": len(reviewed),
                  "review": "Exact historical fingerprints: invalid fictional E2E token and Python csrf_token=csrf keyword expression. No broad rule/path exclusions.",
                  "limits": "Pattern-based review, not proof of absence; excludes unversioned data, external services and binary content."},
