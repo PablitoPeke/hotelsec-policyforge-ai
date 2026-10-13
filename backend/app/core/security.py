@@ -47,12 +47,23 @@ def require_origin(request: Request):
         raise HTTPException(403, "Peticion entre sitios no permitida.")
 
 
-def start_session(db: Session, user: User, response: Response):
+def device_label(request: Request | None) -> str:
+    agent = request.headers.get("user-agent", "").lower() if request else ""
+    browser = next((label for marker, label in (("edg/", "Edge"), ("firefox/", "Firefox"),
+                   ("chrome/", "Chrome"), ("safari/", "Safari")) if marker in agent), "Navegador")
+    platform = next((label for marker, label in (("android", "Android"), ("iphone", "iOS"),
+                    ("ipad", "iPadOS"), ("windows", "Windows"), ("macintosh", "macOS"),
+                    ("linux", "Linux")) if marker in agent), "")
+    return f"{browser} / {platform}" if platform else browser
+
+
+def start_session(db: Session, user: User, response: Response, request: Request | None = None):
     token = secrets.token_urlsafe(48)
     csrf = secrets.token_hex(32)
     minutes = get_settings().access_token_expire_minutes
     db.add(LoginSession(token_hash=sha256(token.encode()).hexdigest(), user_id=user.id,
-                        csrf_token=csrf, expires_at=utcnow() + timedelta(minutes=minutes)))
+                        csrf_token=csrf, expires_at=utcnow() + timedelta(minutes=minutes),
+                        device_label=device_label(request)))
     audit(db, user.id, "session.created")
     db.commit()
     response.set_cookie(COOKIE, token, max_age=minutes * 60, httponly=True,
@@ -61,7 +72,9 @@ def start_session(db: Session, user: User, response: Response):
 
 
 def public_user(user: User):
-    return {"id": user.id, "name": user.name, "email": user.email, "role": user.role}
+    return {"id": user.id, "name": user.name, "email": user.email, "role": user.role,
+            "organization_name": user.organization_name, "job_title": user.job_title,
+            "email_verified": user.email_verified_at is not None, "created_at": user.created_at}
 
 
 def get_current_user(request: Request, db: Session = Depends(get_db)) -> User:

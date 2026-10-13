@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, field_validator
 from sqlalchemy import delete, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -19,6 +19,11 @@ class Credentials(BaseModel):
 class Registration(Credentials):
     name: str = Field(min_length=2, max_length=120)
 
+    @field_validator("name", mode="before")
+    @classmethod
+    def trim_name(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
 
 class DeleteAccount(BaseModel):
     password: str = Field(min_length=1, max_length=128)
@@ -35,7 +40,7 @@ def register(payload: Registration, request: Request, response: Response, db: Se
     except IntegrityError:
         db.rollback()
         raise HTTPException(409, "No se pudo crear la cuenta con esos datos.") from None
-    return start_session(db, user, response)
+    return start_session(db, user, response, request)
 
 
 @router.post("/login")
@@ -50,7 +55,7 @@ def login(payload: Credentials, request: Request, response: Response, db: Sessio
         raise HTTPException(401, "Correo o contrasena incorrectos.")
     if password_hasher.check_needs_rehash(user.password_hash):
         user.password_hash = password_hasher.hash(payload.password)
-    return start_session(db, user, response)
+    return start_session(db, user, response, request)
 
 
 @router.get("/me")
@@ -68,6 +73,7 @@ def logout(request: Request, response: Response, user: User = Depends(get_curren
 
 @router.delete("/account", status_code=204)
 def delete_account(payload: DeleteAccount, response: Response, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    limit(f"sensitive:{user.id}", 10, 900)
     if not verify_password(payload.password, user.password_hash):
         raise HTTPException(403, "Contrasena incorrecta.")
     db.delete(user)

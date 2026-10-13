@@ -27,15 +27,21 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(254), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(512))
     role: Mapped[str] = mapped_column(String(20), default="hotel")
+    organization_name: Mapped[str] = mapped_column(String(120), default="", server_default="")
+    job_title: Mapped[str] = mapped_column(String(120), default="", server_default="")
+    email_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
 class LoginSession(Base):
     __tablename__ = "login_sessions"
     token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    public_id: Mapped[str] = mapped_column(String(36), default=identifier, unique=True, index=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
     csrf_token: Mapped[str] = mapped_column(String(64))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), default=utcnow)
+    device_label: Mapped[str] = mapped_column(String(80), default="Navegador", server_default="Sesion anterior")
 
 
 class Company(Base):

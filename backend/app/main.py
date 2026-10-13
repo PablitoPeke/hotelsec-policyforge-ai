@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
 import logging
 
 from app.api.v1.router import api_router
@@ -29,6 +30,13 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(api_router, prefix=settings.api_v1_prefix)
+
+    @app.exception_handler(RequestValidationError)
+    async def invalid_request(request: Request, exception: RequestValidationError):
+        errors = [{key: value for key, value in error.items() if key in {"loc", "msg", "type"}}
+                  for error in exception.errors()]
+        return JSONResponse({"detail": errors}, status_code=422)
+
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
         length = request.headers.get("content-length", "0")
