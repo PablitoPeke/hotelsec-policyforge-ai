@@ -1,9 +1,29 @@
 import { test, expect } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
+import { randomBytes } from 'node:crypto'
 import { resolve } from 'node:path'
 
-const evidence = resolve('../docs/practica3/evidence')
+const evidence = resolve(process.env.E2E_EVIDENCE_DIR ?? '../docs/practica3/evidence')
+const accounts = new WeakMap<
+  import('@playwright/test').Page,
+  { password: string; csrfToken: string }
+>()
 mkdirSync(evidence, { recursive: true })
+
+test.afterEach(async ({ page, baseURL }) => {
+  const account = accounts.get(page)
+  if (!account) return
+  const response = await page.request.delete('/api/v1/auth/account', {
+    data: { password: account.password },
+    headers: {
+      Origin: new URL(baseURL!).origin,
+      'X-CSRF-Token': account.csrfToken,
+    },
+  })
+  expect(response.status(), 'Temporary test account must be deleted').toBe(204)
+  accounts.delete(page)
+})
+
 async function register(page: import('@playwright/test').Page, label: string) {
   await page.goto('/')
   await page.getByRole('button', { name: 'Crear cuenta', exact: true }).click()
@@ -11,8 +31,18 @@ async function register(page: import('@playwright/test').Page, label: string) {
   await page
     .getByLabel('Correo electronico')
     .fill(`e2e-${Date.now()}-${label.toLowerCase()}@example.org`)
-  await page.getByLabel('Contrasena', { exact: true }).fill('Demostracion-2026!')
+  const password = randomBytes(24).toString('base64url')
+  await page.getByLabel('Contrasena', { exact: true }).fill(password)
+  const registration = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/v1/auth/register') &&
+      response.request().method() === 'POST',
+  )
   await page.getByRole('button', { name: 'Crear cuenta', exact: true }).last().click()
+  const response = await registration
+  expect(response.status()).toBe(201)
+  const session = await response.json()
+  accounts.set(page, { password, csrfToken: session.csrf_token })
   await expect(
     page.getByRole('heading', { name: 'Dashboard', exact: true }),
   ).toBeVisible()
@@ -61,10 +91,28 @@ test('registro, analisis, historial persistente, plan y PDF', async ({ page }) =
   ).toBeVisible()
   await page.screenshot({ path: resolve(evidence, '03_historial.png'), fullPage: true })
   await detailFigure(page, '.table-scroll', '03_historial_detalle.png')
+  let releaseRecord!: () => void
+  const pendingRecord = new Promise<void>((resolve) => {
+    releaseRecord = resolve
+  })
+  await page.route(
+    '**/api/v1/records/*',
+    async (route) => {
+      await pendingRecord
+      await route.continue()
+    },
+    { times: 1 },
+  )
   await page
     .getByRole('button', { name: 'Abrir Hotel Prueba Lanzarote', exact: true })
     .click()
-  await page.getByRole('button', { name: 'Plan de mejora', exact: true }).click()
+  const planNavigation = page.getByRole('button', { name: 'Plan de mejora', exact: true })
+  try {
+    await expect(planNavigation).toBeDisabled()
+  } finally {
+    releaseRecord()
+  }
+  await planNavigation.click()
   await expect(page.locator('.action-row select').first()).toHaveValue('done')
   await page.screenshot({ path: resolve(evidence, '04_plan.png'), fullPage: true })
   await page.screenshot({ path: resolve(evidence, '04_plan_vista.png') })

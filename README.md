@@ -77,7 +77,7 @@ npx playwright install chromium
 npx playwright test
 ```
 
-Playwright necesita la instalacion Docker local en el puerto 8085. Para otra URL: `$env:E2E_URL="http://localhost:OTRO_PUERTO"`. Utiliza cuentas ficticias nuevas; sus datos quedan en la base local. Las capturas se guardan en `docs/practica3/evidence` y los resultados en `frontend/test-results`. Las pruebas del backend utilizan bases temporales aisladas. Ver [resultados y limites](docs/practica3/04_verificacion.md).
+Playwright necesita la instalacion Docker local en el puerto 8085. Para otra instancia propia: `$env:E2E_URL="https://TU_HOST"`. Utiliza cuentas ficticias nuevas y exige eliminarlas en `afterEach`, incluso si falla un paso del escenario; si no se completa la limpieza, la prueba falla y hay que revisarla. Las capturas se guardan en `docs/practica3/evidence` y los resultados en `frontend/test-results`. Para separar evidencia remota, usar `E2E_EVIDENCE_DIR` y `E2E_RESULTS_FILE`; no atribuir capturas locales al VPS. Las pruebas del backend utilizan bases temporales aisladas. Ver [resultados y limites](docs/practica3/04_verificacion.md).
 
 ## Stack y motivos
 

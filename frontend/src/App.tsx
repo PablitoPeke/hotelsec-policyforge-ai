@@ -364,6 +364,7 @@ function App() {
             <button
               key={id}
               aria-current={view === id ? 'page' : undefined}
+              disabled={busy}
               onClick={() => navigate(id)}
             >
               <Icon size={18} />
@@ -531,7 +532,7 @@ function App() {
           <>
             <div className="toolbar">
               <strong>{record?.assessment.business_name ?? 'Mis alojamientos'}</strong>
-              <button className="primary-button" onClick={newAnalysis}>
+              <button className="primary-button" disabled={busy} onClick={newAnalysis}>
                 <Plus size={18} />
                 Nuevo analisis
               </button>
@@ -578,6 +579,7 @@ function App() {
                   <button
                     className="history-shortcut"
                     key={h.id}
+                    disabled={busy}
                     onClick={() => run(() => open(h.id))}
                   >
                     {h.business_name}
@@ -648,6 +650,7 @@ function App() {
                           <button
                             title="Abrir analisis"
                             aria-label={`Abrir ${h.business_name}`}
+                            disabled={busy}
                             onClick={() => run(() => open(h.id))}
                           >
                             <Eye size={18} />
@@ -655,6 +658,7 @@ function App() {
                           <button
                             title="Descargar PDF"
                             aria-label="Descargar PDF"
+                            disabled={busy}
                             onClick={() => run(() => downloadReport(h.id))}
                           >
                             <Download size={18} />
@@ -662,6 +666,7 @@ function App() {
                           <button
                             title="Borrar analisis"
                             aria-label="Borrar analisis"
+                            disabled={busy}
                             onClick={() => setDeleting(h.id)}
                           >
                             <Trash2 size={18} />
@@ -787,6 +792,7 @@ function App() {
             <p className="notice">{record.disclaimer}</p>
             <button
               className="secondary-button"
+              disabled={busy}
               onClick={() => {
                 loadForm(record)
                 setView('analysis')
