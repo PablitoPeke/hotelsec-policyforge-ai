@@ -1,5 +1,5 @@
 """Self-service account operations; identity always comes from the current session."""
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -7,7 +7,8 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from app.core.security import COOKIE, get_current_user, limit, password_hasher, public_user, start_session, verify_password
-from app.db import AuditEvent, Company, LoginSession, SavedAssessment, User, audit, get_db, utcnow
+from app.db import AccountToken, AuditEvent, Company, LoginSession, SavedAssessment, User, audit, get_db, utcnow
+from app.services.account_email import deliver_password_notice
 
 router = APIRouter(prefix="/auth")
 
@@ -41,8 +42,9 @@ class PasswordChange(CurrentPassword):
     new_password: str = Field(min_length=12, max_length=128)
 
 
-def reauthenticate(payload: CurrentPassword, user: User):
+def reauthenticate(payload: CurrentPassword, user: User, db: Session):
     limit(f"sensitive:{user.id}", 10, 900)
+    db.refresh(user, with_for_update=True)
     if not verify_password(payload.current_password, user.password_hash):
         raise HTTPException(403, "La contrasena actual no es correcta.")
 
@@ -58,16 +60,19 @@ def update_profile(payload: ProfileUpdate, user: User = Depends(get_current_user
 
 
 @router.post("/password")
-def change_password(payload: PasswordChange, request: Request, response: Response,
+def change_password(payload: PasswordChange, request: Request, response: Response, tasks: BackgroundTasks,
                     user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    reauthenticate(payload, user)
+    reauthenticate(payload, user, db)
     if verify_password(payload.new_password, user.password_hash):
         raise HTTPException(422, "La nueva contrasena debe ser diferente de la actual.")
     user.password_hash = password_hasher.hash(payload.new_password)
     db.execute(delete(LoginSession).where(LoginSession.user_id == user.id))
+    db.execute(delete(AccountToken).where(AccountToken.user_id == user.id))
     audit(db, user.id, "password.changed")
     # The new password, revocations and replacement session commit together.
-    return start_session(db, user, response, request)
+    result = start_session(db, user, response, request)
+    tasks.add_task(deliver_password_notice, user.email)
+    return result
 
 
 @router.get("/sessions")
@@ -82,7 +87,7 @@ def active_sessions(request: Request, user: User = Depends(get_current_user), db
 @router.post("/sessions/revoke-others", status_code=204)
 def revoke_others(payload: CurrentPassword, request: Request, user: User = Depends(get_current_user),
                   db: Session = Depends(get_db)):
-    reauthenticate(payload, user)
+    reauthenticate(payload, user, db)
     db.execute(delete(LoginSession).where(LoginSession.user_id == user.id,
                LoginSession.public_id != request.state.login_session.public_id))
     audit(db, user.id, "sessions.others_revoked")
@@ -105,7 +110,7 @@ def revoke_session(session_id: str, request: Request, response: Response,
 
 @router.post("/export")
 def export_data(payload: CurrentPassword, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    reauthenticate(payload, user)
+    reauthenticate(payload, user, db)
     limit(f"export:{user.id}", 3, 3600)
     count = db.scalar(select(func.count()).select_from(SavedAssessment).where(SavedAssessment.owner_id == user.id))
     if count > 1000:

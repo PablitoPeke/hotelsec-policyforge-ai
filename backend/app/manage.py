@@ -3,7 +3,7 @@ import argparse
 from datetime import timedelta
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
-from app.db import AuditEvent, LoginSession, User, audit, get_engine, utcnow
+from app.db import AccountToken, AuditEvent, LoginSession, User, audit, get_engine, utcnow
 
 
 def main():
@@ -28,12 +28,13 @@ def main():
             if args.audit_days < 1:
                 parser.error('audit-days must be positive')
             conditions = [(LoginSession, LoginSession.expires_at < utcnow()),
+                          (AccountToken, AccountToken.expires_at < utcnow()),
                           (AuditEvent, AuditEvent.created_at < utcnow() - timedelta(days=args.audit_days))]
             for model, condition in conditions:
                 rows = db.scalars(select(model).where(condition)).all()
                 print(f'{model.__tablename__}: {len(rows)} eligible rows')
                 if args.apply:
-                    db.execute(delete(model).where(condition))
+                    db.execute(delete(model).where(condition).execution_options(synchronize_session=False))
             if args.apply:
                 db.commit()
             print('Applied.' if args.apply else 'Dry run only. Assessments are not deleted automatically.')

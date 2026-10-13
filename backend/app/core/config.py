@@ -1,6 +1,7 @@
 from functools import lru_cache
 
-from pydantic import Field, model_validator
+from pydantic import EmailStr, Field, SecretStr, field_validator, model_validator
+from typing import Literal
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -38,6 +39,21 @@ class Settings(BaseSettings):
     reports_dir: str = Field(default="reports/generated", alias="REPORTS_DIR")
     cookie_secure: bool = Field(default=False, alias="COOKIE_SECURE")
     ai_requests_per_hour: int = Field(default=20, ge=1, le=500, alias="AI_REQUESTS_PER_HOUR")
+    smtp_host: str = Field(default="", alias="SMTP_HOST")
+    smtp_port: int = Field(default=587, ge=1, le=65535, alias="SMTP_PORT")
+    smtp_mode: Literal["starttls", "ssl"] = Field(default="starttls", alias="SMTP_MODE")
+    smtp_username: str = Field(default="", alias="SMTP_USERNAME")
+    smtp_password: SecretStr | None = Field(default=None, alias="SMTP_PASSWORD")
+    smtp_from: EmailStr | None = Field(default=None, alias="SMTP_FROM")
+
+    @field_validator("smtp_from", "smtp_password", mode="before")
+    @classmethod
+    def blank_mail_setting(cls, value):
+        return None if value == "" else value
+
+    @property
+    def email_delivery_configured(self) -> bool:
+        return bool(self.smtp_host and self.smtp_from)
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -56,6 +72,10 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def production_requires_https(self):
+        if bool(self.smtp_username) != bool(self.smtp_password):
+            raise ValueError("SMTP username and password must be configured together.")
+        if any(character in self.smtp_host for character in ("\r", "\n", "/", "@")):
+            raise ValueError("SMTP_HOST must be a hostname, not a URL or credentials.")
         if self.app_env == "production":
             if not self.cookie_secure or not self.frontend_url.startswith("https://"):
                 raise ValueError("Production requires HTTPS APP_URL and COOKIE_SECURE=true.")

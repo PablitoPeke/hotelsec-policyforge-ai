@@ -44,6 +44,18 @@ class LoginSession(Base):
     device_label: Mapped[str] = mapped_column(String(80), default="Navegador", server_default="Sesion anterior")
 
 
+class AccountToken(Base):
+    __tablename__ = "account_tokens"
+    token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    kind: Mapped[str] = mapped_column(String(30))
+    issued_email: Mapped[str] = mapped_column(String(254))
+    target_email: Mapped[str] = mapped_column(String(254))
+    change_id: Mapped[str | None] = mapped_column(String(36), index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
 class Company(Base):
     __tablename__ = "companies"
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=identifier)
