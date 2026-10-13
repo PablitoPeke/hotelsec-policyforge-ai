@@ -1,0 +1,18 @@
+{
+  "checked_on": "2026-10-13",
+  "origin": "https://178-105-149-202.sslip.io",
+  "version": "0.4.0",
+  "code_commit": "97cc81f",
+  "schema": "0004",
+  "counts_before_upgrade": {"users": 1, "assessments": 0},
+  "counts_after_upgrade_and_test_cleanup": {"users": 1, "assessments": 0},
+  "api_image": "sha256:e3fd02ed277a7656dd503cab972c50655d94535e7b267059938be73a6954f15b",
+  "web_image": "sha256:e9247149d53c46f69d9c585bc9beb61c58cae4b81751dc7b4ae90ee60582bc73",
+  "smtp_configured": false,
+  "hourly_ai_limit": 20,
+  "global_daily_ai_limit": 50,
+  "database_volume_replaced": false,
+  "proxy_recreated": false,
+  "new_paid_ai_calls": 0,
+  "limits": "Point-in-time runtime/count checks; not a load test, continuous monitor, or proof of commercial compliance. Brief 502 during API replacement, then health successful."
+}

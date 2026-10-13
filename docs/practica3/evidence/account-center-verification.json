@@ -1,0 +1,92 @@
+{
+  "collected_at": "2026-10-13T20:48:31.113138+00:00",
+  "code_commit": "97cc81f79f5621b061cdaf7eca6f9946e620d584",
+  "version": "0.4.0",
+  "backend": {
+    "tests": 92,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 51.73
+  },
+  "smtp_delivery_tested": false,
+  "new_paid_ai_calls": 0,
+  "scope": "Account/profile/session/email preparation and persistent AI quotas; not a pentest or commercial certification.",
+  "browser_local": {
+    "startTime": "2026-10-13T20:41:59.852Z",
+    "duration": 16918.585,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_hetzner": {
+    "startTime": "2026-10-13T20:44:09.710Z",
+    "duration": 35729.706000000006,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "account-center-backup": {
+    "snapshot_started_at": "2026-10-13T20:39:52Z",
+    "environment": "Hetzner, project hotelsec-p3-prod",
+    "private_directory": "/root/hotelsec-backups/p3-before-update-20261013T203952Z",
+    "database_dump": "PostgreSQL custom format, pg_dump consistent snapshot",
+    "isolated_restore_succeeded": true,
+    "live_database_replaced": false,
+    "included": [
+      "PostgreSQL data",
+      "private environment",
+      "tracked source archive",
+      "running API and web Docker images",
+      "SHA256 checksums"
+    ],
+    "off_site": false,
+    "encrypted": false,
+    "limits": "Root-only same-VPS checkpoint; no off-site retention/restore-disaster test. Writes after the snapshot are not included."
+  },
+  "account-center-deployment": {
+    "checked_at": "2026-10-13T20:44:22.471169+00:00",
+    "origin": "https://178-105-149-202.sslip.io",
+    "ai_requested": false,
+    "checks": [
+      "health_and_authentication_required",
+      "registration_and_cookie_attributes",
+      "assessment_saved_with_structured_answers",
+      "csrf_logout_history_and_persisted_progress",
+      "authenticated_pdf_download",
+      "cross_account_read_pdf_edit_delete_denied"
+    ],
+    "passed": true,
+    "cleanup": [
+      "account_deleted",
+      "account_deleted"
+    ],
+    "version": "0.4.0"
+  },
+  "account-center-runtime": {
+    "checked_on": "2026-10-13",
+    "origin": "https://178-105-149-202.sslip.io",
+    "version": "0.4.0",
+    "code_commit": "97cc81f",
+    "schema": "0004",
+    "counts_before_upgrade": {
+      "users": 1,
+      "assessments": 0
+    },
+    "counts_after_upgrade_and_test_cleanup": {
+      "users": 1,
+      "assessments": 0
+    },
+    "api_image": "sha256:e3fd02ed277a7656dd503cab972c50655d94535e7b267059938be73a6954f15b",
+    "web_image": "sha256:e9247149d53c46f69d9c585bc9beb61c58cae4b81751dc7b4ae90ee60582bc73",
+    "smtp_configured": false,
+    "hourly_ai_limit": 20,
+    "global_daily_ai_limit": 50,
+    "database_volume_replaced": false,
+    "proxy_recreated": false,
+    "new_paid_ai_calls": 0,
+    "limits": "Point-in-time runtime/count checks; not a load test, continuous monitor, or proof of commercial compliance. Brief 502 during API replacement, then health successful."
+  }
+}

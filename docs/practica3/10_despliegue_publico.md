@@ -1,5 +1,7 @@
 # Despliegue publico comprobado: 13/10/2026
 
+Antecedente 0.3.0. Posteriormente se actualiza el mismo VPS a 0.4.0 conservando la cuenta existente, con backup PostgreSQL y restauracion aislada. La version actual, cinco pruebas de navegador remotas y centro de cuenta estan documentados en [11_centro_cuenta.md](11_centro_cuenta.md). Los resultados/tablas de esta pagina corresponden a la publicacion inicial, no al estado final del dia.
+
 ## Direccion y alcance
 
 https://178-105-149-202.sslip.io/ sirve HotelSec PolicyForge AI 0.3.0 en modo production, en el VPS Hetzner del alumno. El alumno autoriza este hostname basado en su IP, la reutilizacion privada de su clave OpenAI existente y una prueba real con datos ficticios. No se compro dominio ni se modifico facturacion.

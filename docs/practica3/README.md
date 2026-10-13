@@ -71,6 +71,8 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 ## Incremento implementado
 
+Actualizacion posterior 13/10: el alumno confirma que la web publica funciona. Se publica 0.4.0 con perfil editable, contrasena/sesiones, exportacion y preparacion SMTP sin proveedor contratado. 92 tests backend y cinco escenarios locales/remotos superados; backup y restauracion aislada en Hetzner comprobados. Ver [centro de cuenta y limites para un piloto](11_centro_cuenta.md). El resumen 0.3.0 que sigue se conserva como antecedente. La memoria PDF aun requiere incorporar esta fase antes de entregar.
+
 Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Revision 12/10/2026: 50 casos de backend/operaciones y 2 escenarios de navegador superados; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.
 
 Para cerrar la entrega del 16/10, seguir `08_cierre_16_octubre.md`. El 13/10 se publica 0.3.0 en https://178-105-149-202.sslip.io con HTTPS, tras preservar la version anterior. API y dos escenarios Chromium remotos pasan, al igual que las tres etapas OpenAI reales autorizadas. Ver `09_preparacion_hetzner.md` y `10_despliegue_publico.md`. La prueba manual anterior del alumno era local y se registra como declaracion; falta su revision de esta URL nueva.

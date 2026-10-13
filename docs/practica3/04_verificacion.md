@@ -1,5 +1,7 @@
 # Registro real de verificacion
 
+Actualizacion posterior del 13/10: version 0.4.0, 92 tests backend y cinco escenarios Playwright tanto locales como en Hetzner superados. Incluye centro de cuenta, SMTP simulado/desactivado y cuotas persistentes. Evidencia independiente en `evidence/account-center-verification.json` y [explicacion de la fase](11_centro_cuenta.md). El registro 0.3.0 que sigue se conserva como antecedente, sin cambiar sus fechas ni atribuirle los resultados nuevos.
+
 Revision documental: 13/10/2026. Las 50 pruebas backend/operaciones y el E2E local son del 12/10: Windows, Docker Desktop Linux, Python de venv y Node 24 del runtime de desarrollo, con datos ficticios. El 13/10 se repiten build frontend y dos escenarios Chromium contra Hetzner, junto con comprobaciones de API/HTTPS/IA real. Se conservan las fechas originales de los ensayos de reinicio y restauracion del 30/09.
 
 ## Comprobaciones ejecutadas

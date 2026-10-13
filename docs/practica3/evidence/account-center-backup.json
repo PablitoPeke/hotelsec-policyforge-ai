@@ -1,0 +1,12 @@
+{
+  "snapshot_started_at": "2026-10-13T20:39:52Z",
+  "environment": "Hetzner, project hotelsec-p3-prod",
+  "private_directory": "/root/hotelsec-backups/p3-before-update-20261013T203952Z",
+  "database_dump": "PostgreSQL custom format, pg_dump consistent snapshot",
+  "isolated_restore_succeeded": true,
+  "live_database_replaced": false,
+  "included": ["PostgreSQL data", "private environment", "tracked source archive", "running API and web Docker images", "SHA256 checksums"],
+  "off_site": false,
+  "encrypted": false,
+  "limits": "Root-only same-VPS checkpoint; no off-site retention/restore-disaster test. Writes after the snapshot are not included."
+}

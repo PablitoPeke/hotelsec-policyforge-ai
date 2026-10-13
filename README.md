@@ -11,14 +11,16 @@ Autodiagnostico de ciberseguridad para alojamientos de Lanzarote. Continuacion d
 - Analisis persistentes, historial por hotel, comparativa y seguimiento de acciones.
 - PDF completo generado en servidor, fuentes de orientacion y registro de actividad.
 - Borrado de analisis o de cuenta con sus datos asociados.
+- Centro de cuenta: perfil editable, contrasena, sesiones, actividad y exportacion de datos propios.
+- Verificacion/cambio de correo y recuperacion preparados, desactivados sin SMTP; cuotas de IA persistentes.
 
 No es una auditoria tecnica ni una certificacion RGPD/ISO. No analiza redes de terceros ni necesita datos de huespedes. La IA es opcional y se identifica cuando se aplica el respaldo por reglas.
 
 ## Demostracion publica
 
-[Abrir HotelSec PolicyForge AI](https://178-105-149-202.sslip.io/). Version 0.3.0 publicada en Hetzner y comprobada el 13/10/2026 con certificado publico valido. Crear una cuenta propia con datos ficticios; no existen credenciales de fabrica. La base publica es independiente de la local y las cuentas de comprobacion se eliminaron. El acceso por la IP HTTP anterior redirige a este hostname.
+[Abrir HotelSec PolicyForge AI](https://178-105-149-202.sslip.io/). Version 0.4.0 publicada en Hetzner y comprobada el 13/10/2026 con certificado publico valido. Crear una cuenta propia con datos ficticios; no existen credenciales de fabrica. La base publica es independiente de la local y las cuentas de comprobacion se eliminaron. La cuenta existente del alumno se conservo. El acceso por la IP HTTP anterior redirige a este hostname.
 
-Se probaron registro/sesion, historial/progreso, PDF, CSRF y acceso cruzado denegado, ademas de dos escenarios Chromium escritorio/movil. La IA real se comprobo con consentimiento: extraccion, politicas y resumen OpenAI, sin fallback. Esto no garantiza disponibilidad futura ni constituye pentest; sslip.io es una dependencia externa. Ver [despliegue comprobado y operaciones](docs/practica3/10_despliegue_publico.md).
+Ultima fase: 92 pruebas backend y cinco escenarios Chromium locales y remotos, incluyendo perfil, cambio de contrasena, cierre de sesiones, descarga de datos y movil. Backup PostgreSQL privado con restauracion aislada antes del upgrade. La IA real se comprobo en la fase anterior 0.3.0; esta fase no consume credito ni prueba SMTP real. Esto no garantiza disponibilidad futura ni constituye pentest; sslip.io es una dependencia externa. Ver [centro de cuenta, operaciones y limites comerciales](docs/practica3/11_centro_cuenta.md) y el [despliegue anterior](docs/practica3/10_despliegue_publico.md).
 
 ## Probar desde cero con Docker
 
