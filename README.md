@@ -113,7 +113,7 @@ Para remoto usar origen HTTPS. Anadir `--output RUTA.json` para conservar eviden
 
 [Seguimiento de Practica 3](docs/practica3/README.md), [matriz inicial](docs/practica3/01_matriz_requisitos.md), [cierre y trazabilidad](docs/practica3/06_estado_entrega.md), [guion del video](docs/practica3/07_video_entrega.md). La memoria marcada como borrador no sustituye la entrega final mientras falten datos de portada, horas reales, video y comprobaciones indicadas. No se crea `v1.0-practica3` hasta cerrar esos pendientes.
 
-Revision del 12/10: 50 tests backend/operaciones y 2 escenarios de navegador superados; build correcto, auditorias sin vulnerabilidades conocidas. [Pasos de cierre para el 16 de octubre](docs/practica3/08_cierre_16_octubre.md). Pablo Cortes confirma la prueba manual; el grupo sigue pendiente. La conexion SSH automatica fue rechazada, sin cambiar el VPS.
+Pruebas del 12/10: 50 tests backend/operaciones y 2 escenarios de navegador superados; build correcto, auditorias sin vulnerabilidades conocidas. [Pasos de cierre para el 16 de octubre](docs/practica3/08_cierre_16_octubre.md). Pablo Cortes confirma la prueba manual; el grupo sigue pendiente. El 13/10 se recupero acceso SSH con la clave ya autorizada, se comprobo la app antigua 0.1.0 y se creo una copia privada verificada, sin parar servicios. La version 0.3.0 todavia no esta publicada. Ver [registro de preparacion remota](docs/practica3/09_preparacion_hetzner.md).
 
 Licencia MIT. Documentos de Practica 1 conservados como antecedentes; las guias actuales estan en `docs/practica3`.
 

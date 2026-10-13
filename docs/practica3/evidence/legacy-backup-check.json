@@ -1,0 +1,36 @@
+{
+  "completed_at": "2026-10-13T19:00:27.727671+00:00",
+  "host": "178.105.149.202",
+  "backup_directory": "/root/hotelsec-backups/legacy-before-practica3-20261013T190017Z",
+  "source_directory": "/opt/hotelsec-policyforge-ai",
+  "source_commit": "f11080acf00d61b3361d6fd57d809441bd1844b4",
+  "archives": [
+    {
+      "file": "code-config.tar.gz",
+      "bytes": 271576,
+      "sha256": "3ac9af24c69167f4d72b77d68c684b9ca2b7541eeab0874d9951ef704be5d207",
+      "tar_members_read": 161,
+      "gzip_integrity": true
+    },
+    {
+      "file": "docker-images.tar.gz",
+      "bytes": 81450708,
+      "sha256": "e1b6da6dbb886148141d88656d98a2e4a444087ff96f47799b6d092c1f66b56c",
+      "tar_members_read": 49,
+      "gzip_integrity": true
+    }
+  ],
+  "private_container_metadata_saved": true,
+  "effective_nginx_configurations_saved": true,
+  "private_env_in_source_archive": true,
+  "backup_directory_permissions": "0700",
+  "all_files_owner_only": true,
+  "api_writable_layer_changes": 0,
+  "nginx_changes_reviewed": "Effective configuration saved separately; transient cache directories and PID are not application data",
+  "health_before": {"status": "ok", "version": "0.1.0", "environment": "production"},
+  "health_after": {"status": "ok", "version": "0.1.0", "environment": "production"},
+  "services_stopped_or_recreated": false,
+  "restore_rehearsed": false,
+  "encrypted_offsite_copy": false,
+  "limits": "Same-VPS private archives only. Gzip integrity, tar readability and SHA256 verified, not a restore proof. No persistent mounts, DATABASE_URL or writable API changes found. Volatile memory/cache/PID are not captured. Actual backup archives and private container metadata must never be committed."
+}

@@ -1,10 +1,30 @@
 {
-  "checked_on": "2026-10-12",
+  "checked_on": "2026-10-13",
+  "checked_at": "2026-10-13T18:56:35.777219+00:00",
   "host": "178.105.149.202",
-  "method": "SSH BatchMode with StrictHostKeyChecking=yes and 8 second connection timeout",
-  "result": "Authentication rejected: publickey,password",
-  "authenticated": false,
-  "server_modified": false,
+  "method": "SSH Ed25519 identity already authorized, IdentitiesOnly=yes, BatchMode=yes, StrictHostKeyChecking=yes",
+  "result": "Authenticated; hostname hotelsec, Docker metadata and legacy HTTP health inspected",
+  "authenticated": true,
+  "student_connection_confirmed": true,
+  "server_modified": true,
+  "application_modified": false,
+  "services_stopped_or_recreated": false,
+  "legacy_application_health_verified": true,
   "deployment_verified": false,
-  "limits": "An SSH service responded; no application, containers, backups, domain or server ownership was inspected. The student believes the IP is unchanged."
+  "legacy_version": "0.1.0",
+  "legacy_commit": "f11080acf00d61b3361d6fd57d809441bd1844b4",
+  "legacy_containers_running": 3,
+  "public_tcp_ports_observed": [22, 80],
+  "host_ufw": "Active; allows TCP 22, 80 and 443 for IPv4/IPv6",
+  "provider_firewall_verified": false,
+  "legacy_openai_key_present": true,
+  "live_openai_verified": false,
+  "authorized_demo_hostname": "178-105-149-202.sslip.io",
+  "certificate_issued": false,
+  "previous_check": {
+    "checked_on": "2026-10-12",
+    "authenticated": false,
+    "result": "Authentication rejected with the identity selected at that time; no remote command executed"
+  },
+  "limits": "Server modification in this stage is limited to private backup files. No app restart, sshd change, new deployment or paid API call. Root password reset and manual console diagnostics were performed by the student before this inspection. Presence of an OpenAI key does not establish validity."
 }

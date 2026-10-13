@@ -1,6 +1,6 @@
 # Cierre de entrega: 16 de octubre de 2026
 
-Revision 12/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero de grupo todavia desconocido. Consultar la hora exacta en el campus: no asumir que el plazo termina a medianoche.
+Revision 13/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero de grupo todavia desconocido. Consultar la hora exacta en el campus: no asumir que el plazo termina a medianoche.
 
 ## Estado actual
 
@@ -13,7 +13,7 @@ Revision 12/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero 
 | Comprobacion operativa | Script local superado; dos cuentas temporales eliminadas |
 | Memoria | Borrador con nombre confirmado; pendientes grupo, horas, video/minutos y revision final |
 | GitHub Actions | Jobs sin arrancar por bloqueo de facturacion; requiere accion del titular |
-| Hetzner | SSH responde en la IP indicada, pero rechaza autenticacion automatica; no se ha cambiado el VPS |
+| Hetzner | SSH con clave existente correcto; version antigua 0.1.0 comprobada y backup privado verificado; 0.3.0/HTTPS pendientes |
 | IA real | Pendiente clave en instancia elegida y prueba consentida; no se ha consumido credito en tests |
 | Video / envio | Pendientes; no hay MP4 ni envio al campus acreditado |
 
@@ -22,10 +22,10 @@ Revision 12/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero 
 En Windows abrir PowerShell y escribir:
 
 ```powershell
-ssh root@178.105.149.202
+ssh -i "$env:USERPROFILE\.ssh\hotelsec_hetzner" -o IdentitiesOnly=yes root@178.105.149.202
 ```
 
-Es la IP que el alumno cree conservar; confirmar que coincide con el servidor activo en Hetzner Console. Usar la contrasena del servidor, no la de GitHub, OpenAI o Windows. Al escribirla no aparecen caracteres: es normal. No enviarla por chat.
+La IP y la clave publica existente se confirmaron el 13/10; el alumno tambien probo este acceso desde PowerShell. Root usa `PermitRootLogin without-password`: no acepta su contrasena por SSH. La consola web de Hetzner sigue siendo acceso de respaldo. No enviar la clave privada ni contrasenas por chat. Si se protegio una clave con passphrase, esa frase desbloquea la clave local, no es la contrasena de root. El archivo nuevo `authorized-keys` creado durante el diagnostico no es el archivo utilizado por SSH y no se necesita para este acceso.
 
 Si aparece un aviso de huella nuevo o cambiada, verificar con el servidor/console antes de aceptar. No borrar known_hosts ni desactivar esa verificacion a ciegas. Si aparece `Permission denied`, no repetir muchas veces: revisar usuario, clave y acceso desde Hetzner Console. Si PowerShell no reconoce ssh, instalar el cliente OpenSSH de Windows o usar la consola web de Hetzner con ayuda.
 
@@ -39,7 +39,7 @@ Compartir solo su salida sin secretos. No pegar `.env`, `docker inspect`, `docke
 
 ## 2. Elegir nombre publico y publicar con HTTPS
 
-No hay dominio contratado; no se compra nada automaticamente. Para la demostracion puede usarse un nombre de DNS publico basado en IP, o registrar un subdominio gratuito. sslip.io documenta esta asignacion: https://github.com/cunnie/sslip.io/blob/main/README.md. Es dependencia de un tercero, no un dominio propio ni una garantia de disponibilidad; no equivale a un certificado emitido o un despliegue ya realizado. Confirmar opcion y DNS antes de aplicarla. Para clientes reales es preferible un dominio controlado por el operador.
+No hay dominio contratado; no se compra nada automaticamente. El 13/10 el alumno autoriza `178-105-149-202.sslip.io` para la demostracion. sslip.io documenta esta asignacion: https://github.com/cunnie/sslip.io/blob/main/README.md. Es dependencia de un tercero, no un dominio propio ni una garantia de disponibilidad; la autorizacion no equivale a un certificado emitido o un despliegue ya realizado. Verificar DNS antes de aplicarlo. Para clientes reales es preferible un dominio controlado por el operador.
 
 Despues seguir `05_despliegue.md`: copia del despliegue anterior, checkout separado, configuracion generada sin sobrescribir secretos, revision de puertos, firewall, Caddy, prueba HTTPS y comprobacion con dos cuentas. Mantener posibilidad de volver a la version anterior. Conservar evidencia del resultado real; no reutilizar capturas locales como prueba del VPS.
 

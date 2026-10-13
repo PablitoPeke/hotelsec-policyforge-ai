@@ -8,7 +8,7 @@ Fuente: `Practica_3_Evolve (1).pdf`, enunciado de Evolve Academy de 12 paginas f
 - Producto: HotelSec PolicyForge AI, continuacion de la Practica 1.
 - Nota anterior: 9/10, comunicada por el alumno.
 - Feedback docente: el alumno indica que no recibio comentarios.
-- Equipo: una persona, Pablo; numero de grupo y nombre para portada pendientes de confirmar.
+- Equipo: una persona, Pablo Cortes; nombre confirmado y numero de grupo pendiente.
 - Inicio de revision: 30 de septiembre de 2026.
 - Commit inicial revisado: `e7d140600f3d6be9517effe73c68a1e578cfc575`.
 
@@ -24,7 +24,7 @@ La memoria debe contener, en el orden indicado: portada; resumen ejecutivo (maxi
 
 La matriz relacionara cada requisito con codigo, prueba, figura/apartado de memoria y minuto exacto del video. Se cumplimentaran minutos y resultados cuando existan; no se inventaran.
 
-La entrega sera un unico envio en la tarea Practica 3 del campus, con PDF y enlaces al video y GitHub en portada y comentario. El despliegue publico no es obligatorio en esta nueva practica, pero se revisara el compromiso previo de Hetzner. Su disponibilidad actual no se ha comprobado en esta fase.
+La entrega sera un unico envio en la tarea Practica 3 del campus, con PDF y enlaces al video y GitHub en portada y comentario. El despliegue publico no es obligatorio en esta nueva practica, pero se revisara el compromiso previo de Hetzner. El 13/10 se comprueba salud de la version anterior 0.1.0; no equivale a publicacion de la nueva version.
 
 ## Revision inicial
 
@@ -73,7 +73,7 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Revision 12/10/2026: 50 casos de backend/operaciones y 2 escenarios de navegador superados; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.
 
-Para cerrar la entrega del 16/10, seguir `08_cierre_16_octubre.md`. La configuracion privada de produccion y la comprobacion del despliegue estan automatizadas, pero no se ha actualizado el VPS: SSH rechazo la autenticacion. La prueba manual del alumno se registra como declaracion, no como observacion independiente.
+Para cerrar la entrega del 16/10, seguir `08_cierre_16_octubre.md`. La configuracion privada de produccion y la comprobacion del despliegue estan automatizadas. El 13/10 se recupera SSH con una identidad ya autorizada y se crea backup privado del despliegue anterior, sin pararlo; la nueva version/HTTPS siguen pendientes. Ver `09_preparacion_hetzner.md`. La prueba manual del alumno se registra como declaracion, no como observacion independiente.
 
 - [Arquitectura y STRIDE](03_arquitectura_seguridad.md).
 - [Verificacion, fallos y limites](04_verificacion.md).
@@ -82,11 +82,11 @@ Para cerrar la entrega del 16/10, seguir `08_cierre_16_octubre.md`. La configura
 - [Guion de video y envio al campus](07_video_entrega.md).
 - [Memoria borrador](../../output/pdf/HotelSec_P3_Memoria_borrador.pdf): 23 paginas de contenido, 27 totales, cuerpo11. Fuente editable `memoria_content.json`; generador `scripts/generate_practica3_report.py`.
 
-No esta cerrada la entrega: grupo/nombre, horas reales, revision personal, video/minutos, IA real, segundo entorno y revalidacion remota pendientes. No se ha creado el tag final ni publicado esta version en Hetzner. Las decisiones sobre tecnologias alternativas estan documentadas; los documentos de revision inicial se mantienen como evidencia del punto de partida.
+No esta cerrada la entrega: grupo, horas reales, revision personal, video/minutos, IA real, segundo entorno y publicacion remota nueva pendientes. No se ha creado el tag final ni publicado esta version en Hetzner. El PDF sigue siendo el borrador del 12/10, aun sin el avance remoto del 13/10. Las decisiones sobre tecnologias alternativas estan documentadas; los documentos de revision inicial se mantienen como evidencia del punto de partida.
 
 ## Informacion pendiente
 
-- Numero de grupo y nombre completo que debe aparecer en portada.
+- Numero de grupo; nombre de portada confirmado: Pablo Cortes.
 - Enlace del video, cuando se grabe, y minutos de demostracion.
 - Horas reales del alumno: registrarlas por sesion, no sustituirlas por estimaciones ficticias.
 - Confirmar al cerrar que la memoria final de Practica 1 del repositorio es la misma que se subio al campus.

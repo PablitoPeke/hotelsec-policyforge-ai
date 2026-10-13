@@ -6,7 +6,7 @@ Ver README para comandos. Compose crea PostgreSQL privado, API con migraciones, 
 
 ## Hetzner con HTTPS: preparacion, no despliegue acreditado
 
-No se ha tocado el VPS anterior. Antes de actualizar: confirmar que el servidor sigue siendo del alumno, su IP actual, dominio/subdominio y acceso SSH. No enviar claves privadas ni OpenAI por chat. Preservar la version de Practica 1 hasta haber probado la nueva y poder volver a ella.
+El 13/10 se confirmo acceso SSH con la clave ya autorizada y salud de la version antigua 0.1.0. Se creo un backup privado verificado, sin detener/recrear servicios ni cambiar codigo/configuracion de la aplicacion. El alumno autoriza usar `178-105-149-202.sslip.io` para la practica; aun no hay nueva version publicada ni certificado emitido. Detalles y limites en `09_preparacion_hetzner.md`. No enviar claves privadas ni OpenAI por chat. Preservar la version de Practica 1 hasta haber probado la nueva y poder volver a ella.
 
 1. Hacer copia de configuracion y datos de la instancia anterior; no publicar `.env`.
 2. Crear registro DNS A del dominio hacia la IP confirmada; revisar AAAA si se usa IPv6.

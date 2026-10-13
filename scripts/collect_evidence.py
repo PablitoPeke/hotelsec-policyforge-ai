@@ -27,6 +27,7 @@ result = {'collected_at': datetime.now(timezone.utc).isoformat(), 'backend': bac
           'remote_ci': json.loads((evidence / 'ci-status.json').read_text(encoding='utf-8')),
           'local_deployment_check': json.loads((evidence / 'deployment-local-check.json').read_text(encoding='utf-8')),
           'student_manual_review': json.loads((evidence / 'manual-review.json').read_text(encoding='utf-8')),
-          'remote_access_check': json.loads((evidence / 'remote-access-check.json').read_text(encoding='utf-8'))}
+          'remote_access_check': json.loads((evidence / 'remote-access-check.json').read_text(encoding='utf-8')),
+          'legacy_remote_backup': json.loads((evidence / 'legacy-backup-check.json').read_text(encoding='utf-8'))}
 (evidence / 'verification.json').write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
 print(json.dumps(result, indent=2, ensure_ascii=False))

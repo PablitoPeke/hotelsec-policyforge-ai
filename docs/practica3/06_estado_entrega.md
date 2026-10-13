@@ -2,7 +2,7 @@
 
 Las figuras son capturas locales reales de Chromium en `evidence`. Los minutos del video estan TODOS pendientes: no usar tiempos del guion como prueba real.
 
-Revision 12/10/2026: nombre confirmado Pablo Cortes, trabajo individual; grupo y horas pendientes. El alumno comunica prueba manual correcta. Se repiten 50 tests backend/operaciones, 2 escenarios de navegador y comprobacion operativa de dos cuentas. Se anaden scripts de configuracion privada y verificacion de instancias propias. La autenticacion SSH automatica ha sido rechazada y no se ha modificado Hetzner. Ver `08_cierre_16_octubre.md`.
+Revision 13/10/2026: nombre confirmado Pablo Cortes, trabajo individual; grupo y horas pendientes. El alumno comunica prueba manual correcta. Las pruebas locales del 12/10 suman 50 tests backend/operaciones, 2 escenarios de navegador y comprobacion operativa de dos cuentas. El 13/10 se recupera SSH con la clave existente, se verifica la version antigua en Hetzner y se crea backup privado, sin detenerla. La nueva version y HTTPS siguen pendientes. El alumno autoriza sslip.io para la practica. Ver `08_cierre_16_octubre.md` y `09_preparacion_hetzner.md`.
 
 | ID | Implementacion | Prueba ejecutada / evidencia | Estado de cierre |
 |---|---|---|---|
@@ -25,7 +25,7 @@ Revision 12/10/2026: nombre confirmado Pablo Cortes, trabajo individual; grupo y
 | RNF-04 | pip-audit/npm audit, workflow, Dependabot | informes JSON0conocidas; CI comprobado sin arrancar | CI bloqueado por restriccion de cuenta; imagenes pendientes |
 | RNF-05 | privacy notices, DELETE cuenta, manage cleanup | cascada probada; instrucciones conservacion | Parcial: politica backups/temporizador operador |
 | RNF-06 | ai_quota, audit, timeout | rate auth, audit, failure/success proveedor | Parcial: cuota por proceso, sin presupuesto duro |
-| RNF-07 | production Compose, guia Hetzner | Caddyvalidate; evidencia mayo no revalidada | Pendiente remoto |
+| RNF-07 | production Compose, guia Hetzner | Salud 0.1.0 y backup antiguo verificados el 13/10; Caddyvalidate local | Nueva version/HTTPS remoto pendientes |
 | RE-01 | memoria fuente y generador | PDF borrador con nombre confirmado, figuras y pruebas | Pendiente grupo/horas/minutos y revision final |
 | RE-02 | guion07 | No hay MP4 nuevo | Pendiente grabacion >=10min y URL |
 | RE-03 | commits, README, MIT, CI | rama practica3 subida; CI remoto sin ejecutar | Pendiente resolver bloqueo CI, cierre/revision/tag final |
