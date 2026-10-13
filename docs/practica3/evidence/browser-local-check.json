@@ -1,0 +1,14 @@
+{
+  "origin": "http://localhost:8085",
+  "environment": "Local Windows and Docker; Chromium",
+  "stats": {
+    "startTime": "2026-10-12T21:09:33.510Z",
+    "duration": 9958.85,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "provenance": "Preserved from verification.json committed before the remote runs, including 041123d. Playwright originally cleaned its default test-results directory and removed the raw local report; this is historical metadata, not a new local run. Subsequent artifacts use a subdirectory so JSON reports are not removed.",
+  "limits": "Local evidence from 12/10, not the final remote UI revision. Remote final scenarios are in browser-remote-check.json."
+}
