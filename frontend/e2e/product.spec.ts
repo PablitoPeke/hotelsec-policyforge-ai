@@ -134,8 +134,9 @@ test('registro, analisis, historial persistente, plan y PDF', async ({ page }) =
   await page.screenshot({ path: resolve(evidence, '05_politicas_vista.png') })
   await detailFigure(page, '.policy-item', '05_politicas_detalle.png')
   await page.getByRole('button', { name: 'Mi cuenta', exact: true }).click()
+  await page.getByRole('tab', { name: 'Actividad', exact: true }).click()
   await expect(
-    page.getByRole('cell', { name: 'record.created', exact: true }).first(),
+    page.getByRole('cell', { name: 'Analisis creado', exact: true }).first(),
   ).toBeVisible()
 })
 test('movil y contradiccion confirmada antes de guardar', async ({ page }) => {

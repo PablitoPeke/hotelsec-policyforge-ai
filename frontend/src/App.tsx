@@ -31,6 +31,13 @@ import { AssessmentResults } from './components/AssessmentResults'
 import { PolicyPackPanel } from './components/PolicyPackPanel'
 import { AiSummaryPanel } from './components/AiSummaryPanel'
 import { BrandLogo } from './components/BrandLogo'
+import { AccountPanel } from './components/AccountPanel'
+import { Modal } from './components/Modal'
+import {
+  AccountLinkForm,
+  RecoveryForm,
+  readAccountLink,
+} from './components/AccountAccess'
 import { initialFormState, riskLabels } from './data/assessmentDefaults'
 import { extraControls, fromPayload, toPayload } from './utils/formAdapter'
 import type { FormState } from './types/app'
@@ -66,6 +73,8 @@ function Auth({ onAccess }: { onAccess: (u: User) => void }) {
     [error, setError] = useState(''),
     [busy, setBusy] = useState(false),
     [show, setShow] = useState(false)
+  const [recovering, setRecovering] = useState(false)
+  if (recovering) return <RecoveryForm onBack={() => setRecovering(false)} />
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setBusy(true)
@@ -165,6 +174,16 @@ function Auth({ onAccess }: { onAccess: (u: User) => void }) {
             {busy ? 'Conectando...' : register ? 'Crear cuenta' : 'Acceder'}
           </button>
         </form>
+        {!register && (
+          <button
+            type="button"
+            className="auth-back"
+            disabled={busy}
+            onClick={() => setRecovering(true)}
+          >
+            Recuperar acceso
+          </button>
+        )}
       </section>
     </main>
   )
@@ -186,11 +205,27 @@ function App() {
     [total, setTotal] = useState(0),
     [offset, setOffset] = useState(0),
     [filter, setFilter] = useState('')
-  const [conflicts, setConflicts] = useState<Conflict[]>([]),
-    [audit, setAudit] = useState<{ event: string; created_at: string }[]>([])
+  const [conflicts, setConflicts] = useState<Conflict[]>([])
   const [deleting, setDeleting] = useState<string | null>(null),
     [accountPassword, setAccountPassword] = useState(''),
     [online, setOnline] = useState(false)
+  const [accountLink, setAccountLink] = useState(readAccountLink)
+  useEffect(() => {
+    const openLink = () => {
+      const link = readAccountLink()
+      if (link) setAccountLink(link)
+    }
+    window.addEventListener('hashchange', openLink)
+    return () => window.removeEventListener('hashchange', openLink)
+  }, [])
+  useEffect(() => {
+    if (accountLink)
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search,
+      )
+  }, [accountLink])
   useEffect(() => {
     session()
       .then(setUser)
@@ -210,11 +245,47 @@ function App() {
     setTotal(data.total)
   }
   useEffect(() => {
-    if (user) refresh().catch((e) => setError(errorMessage(e)))
-  }, [user, offset, filter])
+    if (!user) return
+    let active = true
+    request<{ items: HistoryItem[]; total: number }>(
+      `/records?limit=20&offset=${offset}${filter ? `&company_id=${encodeURIComponent(filter)}` : ''}`,
+    )
+      .then((data) => {
+        if (active) {
+          setHistory(data.items)
+          setTotal(data.total)
+        }
+      })
+      .catch((e) => {
+        if (active) {
+          setError(errorMessage(e))
+          if (e instanceof ApiError && e.status === 401) clearSession()
+        }
+      })
+    return () => {
+      active = false
+    }
+  }, [user?.id, offset, filter])
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [view])
+  function clearSession() {
+    setUser(null)
+    setRecord(null)
+    setHistory([])
+    setTotal(0)
+    setOffset(0)
+    setFilter('')
+    setConflicts([])
+    setDeleting(null)
+    setAccountPassword('')
+    setDescription('')
+    setUseAi(false)
+    setForm(initialFormState)
+    setExtra(emptyExtra)
+    setContext(initialContext)
+    setView('dashboard')
+  }
   async function run(operation: () => Promise<void>) {
     setBusy(true)
     setError('')
@@ -222,7 +293,7 @@ function App() {
       await operation()
     } catch (e) {
       setError(errorMessage(e))
-      if (e instanceof ApiError && e.status === 401) setUser(null)
+      if (e instanceof ApiError && e.status === 401) clearSession()
     } finally {
       setBusy(false)
     }
@@ -292,7 +363,7 @@ function App() {
         setConflicts((e.detail as { conflicts: Conflict[] }).conflicts)
       else {
         setError(errorMessage(e))
-        if (e instanceof ApiError && e.status === 401) setUser(null)
+        if (e instanceof ApiError && e.status === 401) clearSession()
       }
     } finally {
       setBusy(false)
@@ -307,8 +378,22 @@ function App() {
   function navigate(next: string) {
     setView(next)
     setError('')
-    if (next === 'account') run(async () => setAudit(await request('/auth/audit')))
   }
+  if (accountLink)
+    return (
+      <AccountLinkForm
+        link={accountLink}
+        onClose={() => {
+          setAccountLink(null)
+          clearSession()
+          setBooting(true)
+          session()
+            .then(setUser)
+            .catch(() => setUser(null))
+            .finally(() => setBooting(false))
+        }}
+      />
+    )
   if (booting)
     return (
       <main className="auth-page">
@@ -321,18 +406,7 @@ function App() {
         <Auth
           onAccess={(u) => {
             setError('')
-            setHistory([])
-            setTotal(0)
-            setRecord(null)
-            setAudit([])
-            setDeleting(null)
-            setAccountPassword('')
-            setForm(initialFormState)
-            setExtra(emptyExtra)
-            setContext(initialContext)
-            setDescription('')
-            setUseAi(false)
-            setView('dashboard')
+            clearSession()
             setUser(u)
           }}
         />
@@ -382,8 +456,7 @@ function App() {
             onClick={() =>
               run(async () => {
                 await request('/auth/logout', 'POST')
-                setUser(null)
-                setRecord(null)
+                clearSession()
               })
             }
             disabled={busy}
@@ -602,6 +675,7 @@ function App() {
                 Alojamiento
                 <select
                   value={filter}
+                  disabled={busy}
                   onChange={(e) => {
                     setFilter(e.target.value)
                     setOffset(0)
@@ -806,143 +880,90 @@ function App() {
           </section>
         )}
         {view === 'account' && (
-          <section className="account-section">
-            <h2>{user.name}</h2>
-            <p>
-              {user.email} · Rol: {user.role}
-            </p>
-            <h2>Actividad reciente</h2>
-            <div className="table-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Evento</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {audit.map((a, i) => (
-                    <tr key={i}>
-                      <td>{date(a.created_at)}</td>
-                      <td>{a.event}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <h2 className="danger-text">Borrar cuenta</h2>
-            <p>
-              Esta operacion elimina tus alojamientos, analisis, sesiones y registros de
-              actividad. No se puede deshacer.
-            </p>
-            <label className="text-field">
-              Confirma tu contrasena
-              <input
-                type="password"
-                autoComplete="current-password"
-                value={accountPassword}
-                onChange={(e) => setAccountPassword(e.target.value)}
-              />
-            </label>
-            <button
-              className="danger-button"
-              disabled={!accountPassword || busy}
-              onClick={() => setDeleting('account')}
-            >
-              <Trash2 size={18} />
-              Borrar mi cuenta
-            </button>
-          </section>
+          <AccountPanel
+            user={user}
+            onUserChange={setUser}
+            onBusyChange={setBusy}
+            onSessionExpired={clearSession}
+            onDelete={(password) => {
+              setAccountPassword(password)
+              setDeleting('account')
+            }}
+          />
         )}
       </section>
       {conflicts.length > 0 && (
-        <div className="modal-backdrop">
-          <section
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="conflict-title"
-          >
-            <h2 id="conflict-title">Datos contradictorios</h2>
-            <p>El texto y los controles seleccionados no coinciden.</p>
-            <ul>
-              {conflicts.map((c, i) => (
-                <li key={i}>
-                  {c.field}: formulario {String(c.manual)}, texto {String(c.text)}
-                </li>
-              ))}
-            </ul>
-            <div className="toolbar">
-              <button
-                disabled={busy}
-                className="primary-button"
-                onClick={() => analyze('manual')}
-              >
-                Conservar formulario
-              </button>
-              <button
-                disabled={busy}
-                className="secondary-button"
-                onClick={() => analyze('text')}
-              >
-                Usar texto
-              </button>
-              <button disabled={busy} onClick={() => setConflicts([])}>
-                Cancelar
-              </button>
-            </div>
-          </section>
-        </div>
+        <Modal titleId="conflict-title" busy={busy} onCancel={() => setConflicts([])}>
+          <h2 id="conflict-title">Datos contradictorios</h2>
+          <p>El texto y los controles seleccionados no coinciden.</p>
+          <ul>
+            {conflicts.map((c, i) => (
+              <li key={i}>
+                {c.field}: formulario {String(c.manual)}, texto {String(c.text)}
+              </li>
+            ))}
+          </ul>
+          <div className="toolbar">
+            <button
+              disabled={busy}
+              className="primary-button"
+              onClick={() => analyze('manual')}
+            >
+              Conservar formulario
+            </button>
+            <button
+              disabled={busy}
+              className="secondary-button"
+              onClick={() => analyze('text')}
+            >
+              Usar texto
+            </button>
+            <button disabled={busy} onClick={() => setConflicts([])}>
+              Cancelar
+            </button>
+          </div>
+        </Modal>
       )}
       {deleting && (
-        <div className="modal-backdrop">
-          <section
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="delete-title"
-          >
-            <h2 id="delete-title">Confirmar borrado</h2>
-            <p>
-              {deleting === 'account'
-                ? 'Se eliminara toda tu cuenta y sus datos.'
-                : 'Se eliminara este analisis y su informe.'}
+        <Modal titleId="delete-title" busy={busy} onCancel={() => setDeleting(null)}>
+          <h2 id="delete-title">Confirmar borrado</h2>
+          <p>
+            {deleting === 'account'
+              ? 'Se eliminara toda tu cuenta y sus datos.'
+              : 'Se eliminara este analisis y su informe.'}
+          </p>
+          {error && (
+            <p role="alert" className="form-error">
+              {error}
             </p>
-            {error && (
-              <p role="alert" className="form-error">
-                {error}
-              </p>
-            )}
-            <div className="toolbar">
-              <button
-                disabled={busy}
-                className="danger-button"
-                onClick={() =>
-                  run(async () => {
-                    if (deleting === 'account') {
-                      await request('/auth/account', 'DELETE', {
-                        password: accountPassword,
-                      })
-                      setUser(null)
-                      setRecord(null)
-                      setAccountPassword('')
-                    } else {
-                      await request(`/records/${deleting}`, 'DELETE')
-                      if (record?.id === deleting) setRecord(null)
-                      await refresh()
-                    }
-                    setDeleting(null)
-                  })
-                }
-              >
-                Borrar definitivamente
-              </button>
-              <button disabled={busy} onClick={() => setDeleting(null)}>
-                Cancelar
-              </button>
-            </div>
-          </section>
-        </div>
+          )}
+          <div className="toolbar">
+            <button
+              disabled={busy}
+              className="danger-button"
+              onClick={() =>
+                run(async () => {
+                  if (deleting === 'account') {
+                    await request('/auth/account', 'DELETE', {
+                      password: accountPassword,
+                    })
+                    clearSession()
+                  } else {
+                    await request(`/records/${deleting}`, 'DELETE')
+                    if (record?.id === deleting) setRecord(null)
+                    await refresh()
+                  }
+                  setDeleting(null)
+                })
+              }
+            >
+              Borrar definitivamente
+            </button>
+            <button disabled={busy} onClick={() => setDeleting(null)}>
+              Cancelar
+            </button>
+          </div>
+        </Modal>
       )}
     </main>
   )

@@ -9,7 +9,7 @@
     "typecheck": "tsc -b --noEmit",
     "preview": "vite preview",
     "test:e2e": "playwright test",
-    "format": "prettier --write src/App.tsx src/api/product.ts src/utils/formAdapter.ts src/product.css e2e/product.spec.ts playwright.config.ts vite.config.ts"
+    "format": "prettier --write src/App.tsx src/api/product.ts src/utils/formAdapter.ts src/product.css src/components/AccountPanel.tsx src/components/AccountAccess.tsx src/components/PasswordInput.tsx src/components/Modal.tsx e2e/product.spec.ts e2e/account.spec.ts playwright.config.ts vite.config.ts"
   },
   "dependencies": {
     "lucide-react": "^1.49.0",

@@ -2,7 +2,28 @@ import type { AssessmentRequest, AssessmentResponse } from './assessment'
 import type { PolicyPackResponse } from './policies'
 import type { AiExecutiveSummaryResponse } from './ai'
 
-export type User = { id: string; name: string; email: string; role: string }
+export type User = {
+  id: string
+  name: string
+  email: string
+  role: string
+  organization_name: string
+  job_title: string
+  email_verified: boolean
+  created_at: string
+}
+export type AccountSession = {
+  id: string
+  device: string
+  created_at: string | null
+  expires_at: string
+  current: boolean
+}
+export type AuditEntry = { event: string; created_at: string; resource_id: string | null }
+export type AccountCapabilities = {
+  email_delivery_configured: boolean
+  email_change_requires_both_mailboxes: boolean
+}
 export type Action = {
   id: string
   title: string
@@ -103,6 +124,20 @@ export async function downloadReport(id: string) {
   const link = document.createElement('a')
   link.href = url
   link.download = `HotelSec-${id}.pdf`
+  link.click()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
+
+export async function downloadAccountData(currentPassword: string) {
+  const data = await request('/auth/export', 'POST', {
+    current_password: currentPassword,
+  })
+  const url = URL.createObjectURL(
+    new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' }),
+  )
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'hotelsec-mis-datos.json'
   link.click()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
