@@ -29,7 +29,7 @@ flowchart LR
 | Tablas separadas para cada resultado | Empresas y snapshots JSON versionados | Mantener exactamente respuestas/resultados de cada evaluacion; estados de acciones fuera del snapshot. Menos consultas analiticas SQL |
 | Router, Tailwind, Recharts como opciones | Vistas con estado React, CSS existente y barras CSS | Alcance conservador; no hay URLs profundas ni navegacion atras por vista. Lucide si esta incorporado |
 | IA para analisis | Extraccion opcional; puntuacion determinista | Un modelo no decide por si solo la puntuacion; el usuario confirma conflictos. No se demuestra precision semantica general |
-| Let's Encrypt / Nginx | Nginx local, Caddy en Compose de produccion | TLS y renovacion con dominio configurado; no se ha emitido ni probado certificado publico de esta version |
+| Let's Encrypt / Nginx | Nginx local, Caddy en Compose de produccion | Certificado publico y TLS verificados en Hetzner el 13/10; renovacion configurada, aun no observada; ver 10_despliegue_publico.md |
 
 Los IDs originales no se eliminan. Estos cambios afectan mecanismos, no eliminan usuarios, historico, politicas o PDF. Roles actuales: `hotel` y `admin`; no existe invitacion de consultores a equipos.
 

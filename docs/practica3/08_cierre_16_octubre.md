@@ -13,8 +13,8 @@ Revision 13/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero 
 | Comprobacion operativa | Script local superado; dos cuentas temporales eliminadas |
 | Memoria | Borrador con nombre confirmado; pendientes grupo, horas, video/minutos y revision final |
 | GitHub Actions | Jobs sin arrancar por bloqueo de facturacion; requiere accion del titular |
-| Hetzner | SSH con clave existente correcto; version antigua 0.1.0 comprobada y backup privado verificado; 0.3.0/HTTPS pendientes |
-| IA real | Pendiente clave en instancia elegida y prueba consentida; no se ha consumido credito en tests |
+| Hetzner | 0.3.0 publicada por HTTPS en sslip.io; API y navegador remoto comprobados; backup anterior conservado |
+| IA real | Clave reutilizada privadamente con autorizacion; tres etapas exitosas con datos ficticios; esta prueba si puede consumir credito |
 | Video / envio | Pendientes; no hay MP4 ni envio al campus acreditado |
 
 ## 1. Entrar al servidor, sin cambiar nada todavia
@@ -41,11 +41,15 @@ Compartir solo su salida sin secretos. No pegar `.env`, `docker inspect`, `docke
 
 No hay dominio contratado; no se compra nada automaticamente. El 13/10 el alumno autoriza `178-105-149-202.sslip.io` para la demostracion. sslip.io documenta esta asignacion: https://github.com/cunnie/sslip.io/blob/main/README.md. Es dependencia de un tercero, no un dominio propio ni una garantia de disponibilidad; la autorizacion no equivale a un certificado emitido o un despliegue ya realizado. Verificar DNS antes de aplicarlo. Para clientes reales es preferible un dominio controlado por el operador.
 
+Fase realizada el 13/10: https://178-105-149-202.sslip.io responde 0.3.0 production con certificado Let's Encrypt valido, cookies seguras y datos separados. La IP antigua HTTP redirige al hostname. Se conservan backup, checkout y contenedores anteriores para recuperacion. Revisar pruebas/limites reales en `10_despliegue_publico.md`; el alumno debe crear una cuenta propia y repetir su demostracion en esa URL.
+
 Despues seguir `05_despliegue.md`: copia del despliegue anterior, checkout separado, configuracion generada sin sobrescribir secretos, revision de puertos, firewall, Caddy, prueba HTTPS y comprobacion con dos cuentas. Mantener posibilidad de volver a la version anterior. Conservar evidencia del resultado real; no reutilizar capturas locales como prueba del VPS.
 
 ## 3. Configurar y probar IA
 
 Introducir OPENAI_API_KEY solo en el archivo privado del servidor/instancia local. No es la clave del usuario root. Recrear la API y ejecutar la comprobacion con `--with-ai` solo al consentir el gasto de hasta tres llamadas ficticias. El indicador de respaldo por reglas no cuenta como exito OpenAI. El informe nunca contiene la API key.
+
+Fase realizada el 13/10 con autorizacion explicita: reutilizacion privada de la clave existente y prueba con datos ficticios exitosa en las tres etapas. Ver `evidence/live-ai-check.json`. No repetir llamadas de pago solo para regenerar documentos; el resultado no garantiza semantica ni presupuesto duro. Configurar presupuesto/alertas del proveedor antes de abrir uso real amplio.
 
 ## 4. Preparar video y PDF
 

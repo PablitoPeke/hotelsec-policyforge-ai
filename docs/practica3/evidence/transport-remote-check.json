@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-10-13T19:21:44.430126+00:00",
+  "origin": "https://178-105-149-202.sslip.io",
+  "passed": true,
+  "frontend_status": 200,
+  "frontend_assets": [
+    {
+      "url": "/assets/index-BeggvHGh.js",
+      "status": 200
+    },
+    {
+      "url": "/assets/index-BmyZhXLC.css",
+      "status": 200
+    }
+  ],
+  "http_redirects": [
+    {
+      "url": "http://178-105-149-202.sslip.io/",
+      "status": 308,
+      "location": "https://178-105-149-202.sslip.io/"
+    },
+    {
+      "url": "http://178.105.149.202/",
+      "status": 301,
+      "location": "https://178-105-149-202.sslip.io/"
+    },
+    {
+      "url": "http://178.105.149.202/api/v1/health?probe=redirect",
+      "status": 301,
+      "location": "https://178-105-149-202.sslip.io/api/v1/health?probe=redirect"
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "service": "HotelSec PolicyForge AI",
+    "version": "0.3.0",
+    "environment": "production"
+  },
+  "anonymous_records_status": 401,
+  "security_headers": {
+    "strict-transport-security": "max-age=31536000",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY",
+    "referrer-policy": "same-origin"
+  },
+  "certificate": {
+    "tls_version": "TLSv1.3",
+    "issuer": {
+      "countryName": "US",
+      "organizationName": "Let's Encrypt",
+      "commonName": "YE2"
+    },
+    "not_after": "Jan 11 18:14:15 2027 GMT",
+    "dns_names": [
+      "178-105-149-202.sslip.io"
+    ],
+    "sha256": "78f285be43a96b70e2affdc0eb3137fcfe0590aa3d7c2e6dca7613dd0151ec34"
+  },
+  "internal_port_checks": {
+    "8000": "not_reachable_from_this_client",
+    "5432": "not_reachable_from_this_client"
+  },
+  "tls_validation_disabled": false,
+  "limits": "Point-in-time checks from this client, not uptime monitoring, firewall-provider inspection, certificate renewal proof or a full security audit."
+}

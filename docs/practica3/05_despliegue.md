@@ -4,9 +4,9 @@
 
 Ver README para comandos. Compose crea PostgreSQL privado, API con migraciones, frontend compilado y proxy en `localhost:8085`. Usar siempre `--env-file .env.local -p hotelsec-p3 -f docker-compose.hetzner.yml`. El nombre historico del archivo no significa que esta configuracion HTTP sea apta para publicar cuentas reales.
 
-## Hetzner con HTTPS: preparacion, no despliegue acreditado
+## Hetzner con HTTPS: comprobado el 13/10
 
-El 13/10 se confirmo acceso SSH con la clave ya autorizada y salud de la version antigua 0.1.0. Se creo un backup privado verificado, sin detener/recrear servicios ni cambiar codigo/configuracion de la aplicacion. El alumno autoriza usar `178-105-149-202.sslip.io` para la practica; aun no hay nueva version publicada ni certificado emitido. Detalles y limites en `09_preparacion_hetzner.md`. No enviar claves privadas ni OpenAI por chat. Preservar la version de Practica 1 hasta haber probado la nueva y poder volver a ella.
+Version 0.3.0 disponible en https://178-105-149-202.sslip.io con certificado publico verificado. El alumno autorizo el hostname y la reutilizacion privada de su clave OpenAI, asi como la prueba de pago con datos ficticios. La instalacion antigua se conserva con backup previo; solo su proxy esta detenido. Detalles historicos en `09_preparacion_hetzner.md` y resultado/operaciones en `10_despliegue_publico.md`. No enviar claves privadas ni OpenAI por chat. La base publica nueva no contiene las cuentas de la instalacion local.
 
 1. Hacer copia de configuracion y datos de la instancia anterior; no publicar `.env`.
 2. Crear registro DNS A del dominio hacia la IP confirmada; revisar AAAA si se usa IPv6.

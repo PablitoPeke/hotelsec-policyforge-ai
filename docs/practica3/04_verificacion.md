@@ -1,6 +1,6 @@
 # Registro real de verificacion
 
-Revision documental: 13/10/2026. Las pruebas locales son del 12/10: Windows, Docker Desktop Linux, Python de venv y Node 24 del runtime de desarrollo, con datos ficticios. No se repitieron al documentar la preparacion remota del 13/10. Se conservan las fechas originales de los ensayos de reinicio y restauracion del 30/09.
+Revision documental: 13/10/2026. Las 50 pruebas backend/operaciones y el E2E local son del 12/10: Windows, Docker Desktop Linux, Python de venv y Node 24 del runtime de desarrollo, con datos ficticios. El 13/10 se repiten build frontend y dos escenarios Chromium contra Hetzner, junto con comprobaciones de API/HTTPS/IA real. Se conservan las fechas originales de los ensayos de reinicio y restauracion del 30/09.
 
 ## Comprobaciones ejecutadas
 
@@ -18,11 +18,16 @@ Revision documental: 13/10/2026. Las pruebas locales son del 12/10: Windows, Doc
 | Caddy validate | Configuracion valida | Aviso de formato y encabezado redundante; no emision de certificado publico |
 | GitHub Actions | Ultimo run inspeccionado36773073650: failure; backend y frontend ejecutaron 0 pasos | Reconsultado el 12/10: restriccion administrativa de cuenta; no es un test fallido ni CI superado |
 | Script de despliegue local | Salud, cookies, CSRF, historial/progreso tras login, PDF y aislamiento correctos; dos cuentas temporales eliminadas | API HTTP local; no acredita HTTPS remoto ni IA real |
-| Configuracion produccion | Tests de DNS valido, rechazo de IP/ejemplos/rutas, secreto aleatorio y no sobrescritura | No se genero configuracion real de VPS ni certificado |
+| Configuracion produccion | Tests de DNS valido, rechazo de IP/ejemplos/rutas, secreto aleatorio y no sobrescritura | Tests en directorios temporales; configuracion y certificado reales comprobados aparte el 13/10 |
 | Prueba manual del alumno | Pablo confirma el 12/10 que los pasos propuestos funcionan | Declaracion del alumno, no observacion independiente ni revision de cada linea |
 | Acceso SSH remoto | El 13/10 entra con clave Ed25519 ya autorizada; el alumno tambien confirma acceso | La denegacion del 12/10 queda como antecedente; no se habilito password de root por SSH |
 | Instancia anterior en Hetzner | Tres contenedores activos; salud 0.1.0 production antes y despues de la copia | No acredita publicacion de 0.3.0, HTTPS ni llamadas OpenAI reales |
 | Backup previo en Hetzner | Codigo/configuracion, imagenes Docker y configuracion efectiva Nginx; gzip/tar/SHA256 correctos; permisos privados | Misma maquina, sin copia externa cifrada ni ensayo de restauracion |
+| Nueva version en Hetzner | 0.3.0 production, DB healthy, migracion 0001, solo Caddy publica 80/443 | Comprobacion puntual; no monitorizacion continua ni ensayo de reinicio del VPS |
+| HTTPS publico y redireccion | Certificado Let's Encrypt verificado desde el PC; dominio HTTP e IP antigua redirigen; 8000/5432 no accesibles desde este cliente | Renovacion automatica configurada, aun no observada; firewall proveedor no inspeccionado |
+| API remota y aislamiento | Cookies Secure/HttpOnly/SameSite, CSRF, logout, persistencia, PDF y acceso cruzado 404; dos cuentas eliminadas | Datos ficticios, no pentest completo ni prueba de carga |
+| OpenAI real | Tres etapas exitosas con datos ficticios: extraccion, politicas y resumen; dos cuentas eliminadas | Prueba consentida del 13/10, no mocks; no mide acierto general ni coste futuro |
+| Chromium remoto final | 2 passed, 0 skipped/flaky, escritorio/movil; regresion de respuesta pendiente y scroll a cero | Primer intento 1 fallo/1 passed conservado como antecedente; capturas separadas en evidence/hetzner |
 | PDF cliente | Descargado por navegador; pypdf comprueba todos los riesgos y controles; etiquetas espanolas | No demuestra todas las combinaciones posibles de longitud |
 | Memoria borrador | Renderizadas 27 paginas; 23 de contenido, cuerpo11, sin texto fuera de margenes | Faltan datos/horas/video y revision del alumno |
 
@@ -41,6 +46,8 @@ El 12/10 Docker Desktop estaba parado; se arranco sin reinstalar ni borrar volum
 
 El 13/10 se detecto que la consola habia transformado caracteres de una clave nueva y creado `authorized-keys`, distinto de `authorized_keys`. La clave previamente autorizada ya existia en el PC y su huella coincidio con el servidor. Se accedio con esa identidad, sin reemplazar claves ni cambiar sshd. El primer intento de backup se detuvo antes de escribir por cambios de Nginx; se inspeccionaron, eran configuracion/cache/PID, y se incluyo la configuracion efectiva en la copia posterior. La API no tenia cambios en su capa escribible. Ver `09_preparacion_hetzner.md` y los JSON sanitizados; no se publican secretos ni archivos de backup.
 
+El primer E2E remoto tuvo 1 fallo y 1 passed: abrir un analisis y navegar inmediatamente podia terminar en dashboard al llegar la respuesta pendiente. Se deshabilitan navegacion/acciones incompatibles durante busy, y el test retiene deliberadamente la respuesta para verificarlo. El siguiente E2E paso 2/2. La revision visual detecto scroll heredado del formulario; se vuelve arriba al cambiar de seccion y se anade assert. Ultima pasada remota: 2/2, con limpieza obligatoria afterEach; la DB quedo con cero usuarios/analisis/companias/sesiones de prueba. La IP antigua redirigia inicialmente a HTTPS por IP sin certificado para esa direccion: un catch-all HTTP ahora redirige al hostname configurado, preservando ruta/query. No se ocultan esos hallazgos ni se publican traces con credenciales.
+
 ## Pendientes
 
-Prueba OpenAI real consentida, recuperacion de backup fuera de la instancia, despliegue remoto HTTPS, instalacion por el alumno en segundo entorno, revision completa de secretos en historial, rendimiento/concurrencia, confirmacion de enlace de video y cierre de tag. GitHub Actions esta configurado y se comprobo por API: no inicia los jobs por restriccion de la cuenta; el titular debe resolverla y repetir la ejecucion. No puede acreditarse CI superado. Hay un aviso de deprecacion de TestClient/HTTPX; los tests locales pasan, pero debe revisarse esa compatibilidad al actualizar.
+Recuperacion de backup fuera de la instancia, revision completa de secretos en historial, rendimiento/concurrencia, confirmacion de enlace de video y cierre de tag. Se instalo en el segundo entorno Hetzner mediante el asistente; falta la revision manual del alumno sobre esa nueva URL. El ultimo run de GitHub inspeccionado el 12/10 no arranco jobs por restriccion de cuenta; revisar su estado y repetir antes de afirmar CI superado. Hay un aviso de deprecacion de TestClient/HTTPX; los tests locales pasan, pero debe revisarse esa compatibilidad al actualizar. El PDF de memoria del 12/10 aun no incorpora estos avances remotos.

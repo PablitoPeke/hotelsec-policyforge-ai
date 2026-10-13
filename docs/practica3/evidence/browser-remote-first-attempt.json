@@ -1,0 +1,13 @@
+{
+  "checked_on": "2026-10-13",
+  "origin": "https://178-105-149-202.sslip.io",
+  "deployed_commit": "041123d91e18000c6a2d8bb96ea62532713a8c7f",
+  "browser": "Chromium",
+  "expected": 1,
+  "unexpected": 1,
+  "failure": "Desktop scenario: after reopening a saved assessment, a pending response reset the active section to dashboard; action selectors were no longer present.",
+  "mobile_scenario_passed": true,
+  "fix_commit": "1833219",
+  "regression": "Hold the detail response until the test verifies navigation is disabled, then release and verify persisted action state.",
+  "limits": "Historical failed attempt, not final success. Local traces may contain fictional account credentials/cookies and are not published."
+}

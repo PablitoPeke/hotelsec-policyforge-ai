@@ -14,6 +14,12 @@ Autodiagnostico de ciberseguridad para alojamientos de Lanzarote. Continuacion d
 
 No es una auditoria tecnica ni una certificacion RGPD/ISO. No analiza redes de terceros ni necesita datos de huespedes. La IA es opcional y se identifica cuando se aplica el respaldo por reglas.
 
+## Demostracion publica
+
+[Abrir HotelSec PolicyForge AI](https://178-105-149-202.sslip.io/). Version 0.3.0 publicada en Hetzner y comprobada el 13/10/2026 con certificado publico valido. Crear una cuenta propia con datos ficticios; no existen credenciales de fabrica. La base publica es independiente de la local y las cuentas de comprobacion se eliminaron. El acceso por la IP HTTP anterior redirige a este hostname.
+
+Se probaron registro/sesion, historial/progreso, PDF, CSRF y acceso cruzado denegado, ademas de dos escenarios Chromium escritorio/movil. La IA real se comprobo con consentimiento: extraccion, politicas y resumen OpenAI, sin fallback. Esto no garantiza disponibilidad futura ni constituye pentest; sslip.io es una dependencia externa. Ver [despliegue comprobado y operaciones](docs/practica3/10_despliegue_publico.md).
+
 ## Probar desde cero con Docker
 
 Requisitos: Git, Docker con Compose v2 y Python 3.12+ para generar la configuracion. Windows: iniciar Docker Desktop en modo contenedores Linux.
@@ -97,9 +103,9 @@ JWT/bcrypt, Tailwind, Router, Zod y Recharts eran opciones iniciales, no depende
 
 ## Configuracion de IA y produccion
 
-OpenAI: anadir `OPENAI_API_KEY` solo al archivo privado del servidor, nunca al frontend ni a GitHub. Con Docker, recrear el servicio `api` tras cambiarlo. La casilla de consentimiento del formulario controla el envio en el flujo principal; sin ella no se llama al proveedor. No hay clave incorporada ni costes incluidos. La prueba real con la cuenta del alumno queda pendiente; las pruebas automatizadas simulan errores/respuestas.
+OpenAI: anadir `OPENAI_API_KEY` solo al archivo privado del servidor, nunca al frontend ni a GitHub. Con Docker, recrear el servicio `api` tras cambiarlo. La casilla de consentimiento del formulario controla el envio en el flujo principal; sin ella no se llama al proveedor. No hay clave incorporada ni costes incluidos. El 13/10 se probo la cuenta del alumno en Hetzner con datos ficticios y autorizacion explicita: las tres etapas respondieron con OpenAI. La suite unitaria sigue usando mocks; no repite llamadas de pago automaticamente.
 
-Produccion HTTPS: [guia de despliegue y operaciones](docs/practica3/05_despliegue.md). `python scripts/setup_production.py --domain TU_DOMINIO_REAL` crea configuracion privada sin sobrescribir secretos ni arrancar servicios. El archivo `docker-compose.production.yml` exige dominio y clave privada de PostgreSQL. `APP_ENV=production` impide arrancar con cookies inseguras o URL HTTP. La IP de Hetzner de Practica 1 es un antecedente: esta nueva version no se ha publicado ni revalidado alli.
+Produccion HTTPS: [guia de despliegue y operaciones](docs/practica3/05_despliegue.md). `python scripts/setup_production.py --domain TU_DOMINIO_REAL` crea configuracion privada sin sobrescribir secretos ni arrancar servicios. El archivo `docker-compose.production.yml` exige dominio y clave privada de PostgreSQL. `APP_ENV=production` impide arrancar con cookies inseguras o URL HTTP. El despliegue del 13/10 conserva la instalacion anterior en otro directorio y emplea un proyecto Compose y volumen PostgreSQL separados.
 
 Comprobacion de instancia propia (crea y elimina dos cuentas ficticias):
 
@@ -113,7 +119,7 @@ Para remoto usar origen HTTPS. Anadir `--output RUTA.json` para conservar eviden
 
 [Seguimiento de Practica 3](docs/practica3/README.md), [matriz inicial](docs/practica3/01_matriz_requisitos.md), [cierre y trazabilidad](docs/practica3/06_estado_entrega.md), [guion del video](docs/practica3/07_video_entrega.md). La memoria marcada como borrador no sustituye la entrega final mientras falten datos de portada, horas reales, video y comprobaciones indicadas. No se crea `v1.0-practica3` hasta cerrar esos pendientes.
 
-Pruebas del 12/10: 50 tests backend/operaciones y 2 escenarios de navegador superados; build correcto, auditorias sin vulnerabilidades conocidas. [Pasos de cierre para el 16 de octubre](docs/practica3/08_cierre_16_octubre.md). Pablo Cortes confirma la prueba manual; el grupo sigue pendiente. El 13/10 se recupero acceso SSH con la clave ya autorizada, se comprobo la app antigua 0.1.0 y se creo una copia privada verificada, sin parar servicios. La version 0.3.0 todavia no esta publicada. Ver [registro de preparacion remota](docs/practica3/09_preparacion_hetzner.md).
+Pruebas del 12/10: 50 tests backend/operaciones y 2 escenarios locales superados; auditorias sin vulnerabilidades conocidas. El 13/10 se publica 0.3.0 con HTTPS, se comprueba IA real y pasan dos escenarios adicionales contra Hetzner, tras corregir una carrera de navegacion y el scroll. [Pasos de cierre para el 16 de octubre](docs/practica3/08_cierre_16_octubre.md). Pendientes grupo, horas reales, video/minutos, revision final de memoria, CI y tag. El PDF sigue marcado como borrador del 12/10, sin estos ultimos avances; no presentarlo como memoria final.
 
 Licencia MIT. Documentos de Practica 1 conservados como antecedentes; las guias actuales estan en `docs/practica3`.
 

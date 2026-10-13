@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-13T19:06:33.889404+00:00",
+  "collected_at": "2026-10-13T19:34:41.773161+00:00",
   "backend": {
     "tests": 50,
     "failures": 0,
@@ -23,10 +23,11 @@
     "critical": 0,
     "total": 0
   },
+  "local_browser_source": "docs/practica3/evidence/browser-local-check.json (historical metadata)",
   "python_known_vulnerabilities": 0,
   "environment": "Local Windows; Docker Linux; PostgreSQL 17; Node 24; Chromium",
-  "external_deployment_verified": false,
-  "live_openai_verified": false,
+  "external_deployment_verified": true,
+  "live_openai_verified": true,
   "database_restart": {
     "before": 4,
     "after": 4,
@@ -169,5 +170,199 @@
     "restore_rehearsed": false,
     "encrypted_offsite_copy": false,
     "limits": "Same-VPS private archives only. Gzip integrity, tar readability and SHA256 verified, not a restore proof. No persistent mounts, DATABASE_URL or writable API changes found. Volatile memory/cache/PID are not captured. Actual backup archives and private container metadata must never be committed."
+  },
+  "remote_deployment_check": {
+    "checked_at": "2026-10-13T19:13:14.581541+00:00",
+    "origin": "https://178-105-149-202.sslip.io",
+    "ai_requested": false,
+    "checks": [
+      "health_and_authentication_required",
+      "registration_and_cookie_attributes",
+      "assessment_saved_with_structured_answers",
+      "csrf_logout_history_and_persisted_progress",
+      "authenticated_pdf_download",
+      "cross_account_read_pdf_edit_delete_denied"
+    ],
+    "passed": true,
+    "cleanup": [
+      "account_deleted",
+      "account_deleted"
+    ],
+    "version": "0.3.0"
+  },
+  "remote_transport_check": {
+    "checked_at": "2026-10-13T19:21:44.430126+00:00",
+    "origin": "https://178-105-149-202.sslip.io",
+    "passed": true,
+    "frontend_status": 200,
+    "frontend_assets": [
+      {
+        "url": "/assets/index-BeggvHGh.js",
+        "status": 200
+      },
+      {
+        "url": "/assets/index-BmyZhXLC.css",
+        "status": 200
+      }
+    ],
+    "http_redirects": [
+      {
+        "url": "http://178-105-149-202.sslip.io/",
+        "status": 308,
+        "location": "https://178-105-149-202.sslip.io/"
+      },
+      {
+        "url": "http://178.105.149.202/",
+        "status": 301,
+        "location": "https://178-105-149-202.sslip.io/"
+      },
+      {
+        "url": "http://178.105.149.202/api/v1/health?probe=redirect",
+        "status": 301,
+        "location": "https://178-105-149-202.sslip.io/api/v1/health?probe=redirect"
+      }
+    ],
+    "health": {
+      "status": "ok",
+      "service": "HotelSec PolicyForge AI",
+      "version": "0.3.0",
+      "environment": "production"
+    },
+    "anonymous_records_status": 401,
+    "security_headers": {
+      "strict-transport-security": "max-age=31536000",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY",
+      "referrer-policy": "same-origin"
+    },
+    "certificate": {
+      "tls_version": "TLSv1.3",
+      "issuer": {
+        "countryName": "US",
+        "organizationName": "Let's Encrypt",
+        "commonName": "YE2"
+      },
+      "not_after": "Jan 11 18:14:15 2027 GMT",
+      "dns_names": [
+        "178-105-149-202.sslip.io"
+      ],
+      "sha256": "78f285be43a96b70e2affdc0eb3137fcfe0590aa3d7c2e6dca7613dd0151ec34"
+    },
+    "internal_port_checks": {
+      "8000": "not_reachable_from_this_client",
+      "5432": "not_reachable_from_this_client"
+    },
+    "tls_validation_disabled": false,
+    "limits": "Point-in-time checks from this client, not uptime monitoring, firewall-provider inspection, certificate renewal proof or a full security audit."
+  },
+  "remote_browser_check": {
+    "origin": "https://178-105-149-202.sslip.io",
+    "deployed_code_commit": "55ef12a887d099763c8035624488c949b966b40f",
+    "startTime": "2026-10-13T19:24:22.131Z",
+    "duration": 14383.243,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "passed": true,
+    "browser": "Chromium",
+    "desktop_viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "detail_viewport": {
+      "width": 1000,
+      "height": 900
+    },
+    "mobile_viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "mobile_horizontal_overflow": false,
+    "dashboard_scroll_y": 0,
+    "pending_response_navigation_regression": "passed",
+    "accounts_deleted_in_after_each": 2,
+    "screenshots_directory": "docs/practica3/evidence/hetzner",
+    "pdf_download_verified": true,
+    "ai_requested": false,
+    "first_attempt": "browser-remote-first-attempt.json",
+    "limits": "Real public browser scenarios with fictional data and no AI requests; rules badge is expected. Screenshots reviewed, not exhaustive accessibility/device/performance testing. Raw traces and account secrets are excluded."
+  },
+  "live_ai_check": {
+    "checked_at": "2026-10-13T19:13:31.430833+00:00",
+    "origin": "https://178-105-149-202.sslip.io",
+    "ai_requested": true,
+    "checks": [
+      "health_and_authentication_required",
+      "registration_and_cookie_attributes",
+      "assessment_saved_with_structured_answers",
+      "live_ai_extraction_policies_and_summary",
+      "csrf_logout_history_and_persisted_progress",
+      "authenticated_pdf_download",
+      "cross_account_read_pdf_edit_delete_denied"
+    ],
+    "passed": true,
+    "cleanup": [
+      "account_deleted",
+      "account_deleted"
+    ],
+    "version": "0.3.0"
+  },
+  "remote_runtime_check": {
+    "checked_at": "2026-10-13T19:26:43.612930+00:00",
+    "origin": "https://178-105-149-202.sslip.io",
+    "directory": "/opt/hotelsec-policyforge-ai-practica3",
+    "checkout_commit": "55ef12a887d099763c8035624488c949b966b40f",
+    "compose_project": "hotelsec-p3-prod",
+    "containers": [
+      {
+        "name": "hotelsec-p3-prod-db-1",
+        "status": "running",
+        "health": "healthy",
+        "published_ports": [],
+        "volume": "hotelsec-p3-prod_postgres_data"
+      },
+      {
+        "name": "hotelsec-p3-prod-api-1",
+        "status": "running",
+        "published_ports": [],
+        "image_id": "sha256:97c36ad6bbf02d0cb7201674f8febaae095ac6981c3184de3315465667e6a0b5",
+        "openai_key_present": true
+      },
+      {
+        "name": "hotelsec-p3-prod-web-1",
+        "status": "running",
+        "published_ports": [],
+        "image_id": "sha256:e8afc884ef42c1280356208f159e1230cf371e961e087a482f2389236b409b6e"
+      },
+      {
+        "name": "hotelsec-p3-prod-caddy-1",
+        "status": "running",
+        "published_tcp_ports": [
+          80,
+          443
+        ],
+        "volumes": [
+          "hotelsec-p3-prod_caddy_data",
+          "hotelsec-p3-prod_caddy_config"
+        ]
+      },
+      {
+        "name": "hotelsec-policyforge-ai-nginx-1",
+        "status": "exited",
+        "preserved_for_rollback": true
+      }
+    ],
+    "database_after_synthetic_checks": {
+      "users": 0,
+      "assessments": 0,
+      "companies": 0,
+      "sessions": 0,
+      "migration": "0001"
+    },
+    "private_env_mode": "0o600",
+    "legacy_backup_preserved": true,
+    "legacy_source_untouched": true,
+    "limits": "Fresh PostgreSQL independent of the old app and local DB. Counts are a point-in-time cleanup check, not a guarantee of future retention or uptime. Existing API key reused with explicit authorization; no secret values included. Later documentation-only pulls do not change these running image IDs."
   }
 }

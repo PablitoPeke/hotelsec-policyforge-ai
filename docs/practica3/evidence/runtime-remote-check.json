@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-10-13T19:26:43.612930+00:00",
+  "origin": "https://178-105-149-202.sslip.io",
+  "directory": "/opt/hotelsec-policyforge-ai-practica3",
+  "checkout_commit": "55ef12a887d099763c8035624488c949b966b40f",
+  "compose_project": "hotelsec-p3-prod",
+  "containers": [
+    {"name": "hotelsec-p3-prod-db-1", "status": "running", "health": "healthy", "published_ports": [], "volume": "hotelsec-p3-prod_postgres_data"},
+    {"name": "hotelsec-p3-prod-api-1", "status": "running", "published_ports": [], "image_id": "sha256:97c36ad6bbf02d0cb7201674f8febaae095ac6981c3184de3315465667e6a0b5", "openai_key_present": true},
+    {"name": "hotelsec-p3-prod-web-1", "status": "running", "published_ports": [], "image_id": "sha256:e8afc884ef42c1280356208f159e1230cf371e961e087a482f2389236b409b6e"},
+    {"name": "hotelsec-p3-prod-caddy-1", "status": "running", "published_tcp_ports": [80, 443], "volumes": ["hotelsec-p3-prod_caddy_data", "hotelsec-p3-prod_caddy_config"]},
+    {"name": "hotelsec-policyforge-ai-nginx-1", "status": "exited", "preserved_for_rollback": true}
+  ],
+  "database_after_synthetic_checks": {"users": 0, "assessments": 0, "companies": 0, "sessions": 0, "migration": "0001"},
+  "private_env_mode": "0o600",
+  "legacy_backup_preserved": true,
+  "legacy_source_untouched": true,
+  "limits": "Fresh PostgreSQL independent of the old app and local DB. Counts are a point-in-time cleanup check, not a guarantee of future retention or uptime. Existing API key reused with explicit authorization; no secret values included. Later documentation-only pulls do not change these running image IDs."
+}
