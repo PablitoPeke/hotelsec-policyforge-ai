@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-13T21:46:09.268275+00:00",
+  "checked_at": "2026-10-13T21:48:16.980965+00:00",
   "application_commit": "83d7b9b8a20e99bd5636d3bcb404ebc03deadc22",
   "application_version": "0.4.0",
   "backend": {
@@ -21,9 +21,9 @@
   "gitleaks": {
     "version": "8.30.1",
     "scope": "all locally available Git refs; redacted scan",
-    "commits": 50,
-    "raw_findings": 2,
-    "reviewed_false_positives": 2,
+    "commits": 52,
+    "raw_findings": 0,
+    "reviewed_false_positives": 0,
     "actionable_findings": 0,
     "review": "Exact historical fingerprints: invalid fictional E2E token and Python csrf_token=csrf keyword expression. No broad rule/path exclusions.",
     "limits": "Pattern-based review, not proof of absence; excludes unversioned data, external services and binary content."
