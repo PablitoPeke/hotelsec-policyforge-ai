@@ -1,9 +1,9 @@
 {
-  "pdf": "output\\pdf\\HotelSec_P3_Memoria_borrador.pdf",
-  "total_pages": 27,
-  "content_pages": 23,
+  "pdf": "output\\pdf\\P3_Pablo_Cortes_Memoria_prevideo.pdf",
+  "total_pages": 31,
+  "content_pages": 27,
   "content_start": 3,
-  "annex_start": 26,
+  "annex_start": 30,
   "body_font_size": 11,
   "draft": true,
   "sections": [
@@ -98,76 +98,100 @@
       "page": 15
     },
     {
-      "title": "Modelo de amenazas STRIDE",
-      "section": "6. Seguridad",
+      "title": "Mi cuenta: perfil y sesiones",
+      "section": "5. Funcionalidades",
       "kind": "content",
       "page": 16
     },
     {
-      "title": "Autenticacion, acceso y errores",
-      "section": "6. Seguridad",
+      "title": "Correo preparado y cuotas de IA",
+      "section": "5. Funcionalidades",
       "kind": "content",
       "page": 17
     },
     {
-      "title": "Datos, secretos y conservacion",
+      "title": "Modelo de amenazas STRIDE",
       "section": "6. Seguridad",
       "kind": "content",
       "page": 18
     },
     {
+      "title": "Autenticacion, acceso y errores",
+      "section": "6. Seguridad",
+      "kind": "content",
+      "page": 19
+    },
+    {
+      "title": "Datos, secretos y conservacion",
+      "section": "6. Seguridad",
+      "kind": "content",
+      "page": 20
+    },
+    {
       "title": "Resultados automatizados reales",
       "section": "7. Pruebas y evidencias",
       "kind": "content",
-      "page": 19
+      "page": 21
     },
     {
       "title": "Instalacion, fallos y correcciones",
       "section": "7. Pruebas y evidencias",
       "kind": "content",
-      "page": 20
+      "page": 22
+    },
+    {
+      "title": "Hetzner, HTTPS y OpenAI real",
+      "section": "7. Pruebas y evidencias",
+      "kind": "content",
+      "page": 23
     },
     {
       "title": "Funcionalidades: codigo, prueba y figura",
       "section": "8. Matriz de trazabilidad",
       "kind": "content",
-      "page": 21
+      "page": 24
+    },
+    {
+      "title": "Persistencia, acceso e inteligencia artificial",
+      "section": "8. Matriz de trazabilidad",
+      "kind": "content",
+      "page": 25
     },
     {
       "title": "Calidad y entregables: pendientes visibles",
       "section": "8. Matriz de trazabilidad",
       "kind": "content",
-      "page": 22
+      "page": 26
     },
     {
       "title": "Alcance demostrado y riesgo residual",
       "section": "9. Limitaciones y mejoras",
       "kind": "content",
-      "page": 23
+      "page": 27
     },
     {
       "title": "Trabajo individual y registro honesto",
       "section": "10. Reparto del trabajo",
       "kind": "content",
-      "page": 24
+      "page": 28
     },
     {
       "title": "Asistencia al desarrollo y funcion del producto",
       "section": "11. Uso de inteligencia artificial",
       "kind": "content",
-      "page": 25
+      "page": 29
     },
     {
       "title": "Instalacion y manual de uso",
       "section": "Anexo A. Instalacion y uso",
       "kind": "annex",
-      "page": 26
+      "page": 30
     },
     {
       "title": "Glosario y fuentes",
       "section": "Anexo B. Glosario y referencias",
       "kind": "annex",
-      "page": 27
+      "page": 31
     }
   ]
 }

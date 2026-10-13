@@ -1,4 +1,5 @@
-"""Build the editable Practice 3 draft from structured content and real evidence."""
+"""Build the pre-video or validated final Practice 3 report from structured evidence."""
+import argparse
 import json
 from io import BytesIO
 from html import escape
@@ -9,12 +10,23 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, Image, Preformatted, Flowable
 from pypdf import PdfReader
+from practice_delivery import validate_delivery
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs/practica3'
 SOURCE = json.loads((DOCS / 'memoria_content.json').read_text(encoding='utf-8'))
 RESULTS = json.loads((DOCS / 'evidence/verification.json').read_text(encoding='utf-8'))
-OUTPUT = ROOT / 'output/pdf/HotelSec_P3_Memoria_borrador.pdf'
+CURRENT = json.loads((DOCS / 'evidence/account-center-verification.json').read_text(encoding='utf-8'))
+CLOSEOUT = json.loads((DOCS / 'evidence/closeout-verification.json').read_text(encoding='utf-8'))
+DELIVERY = json.loads((DOCS / 'delivery_metadata.json').read_text(encoding='utf-8'))
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--final', action='store_true', help='Requires complete real group, video and manual verification metadata')
+args = parser.parse_args()
+if args.final:
+    pending = validate_delivery(DELIVERY)
+    if pending:
+        parser.error('No generar final: ' + '; '.join(pending))
+OUTPUT = ROOT / 'output/pdf' / (f"P3_Grupo{DELIVERY['group_number']:02}_Memoria.pdf" if args.final else 'P3_Pablo_Cortes_Memoria_prevideo.pdf')
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 WIDTH = A4[0] - 4 * cm
 styles = getSampleStyleSheet()
@@ -97,38 +109,45 @@ def table(rows, widths=None):
 
 
 def trace(kind):
-    rows = [['ID', 'Implementacion', 'Prueba / evidencia', 'Video']]
-    if kind == 'functional':
+    rows = [['ID', 'Estado', 'Implementacion', 'Prueba / evidencia', 'Video']]
+    if kind.startswith('functional'):
         entries = [
             ('RF-01', 'AssessmentForm / schema', 'Entradas invalidas; fig.1'),
             ('RF-02', 'assessment_service', 'Perfiles y reevaluacion; fig.2'),
             ('RF-03', 'RiskFinding / Results', 'Bundle y PDF; fig.2'),
-            ('RF-04', 'policy_service / IA', 'Pack10; proveedor simulado; fig.5'),
+            ('RF-04', 'policy_service / IA', 'Pack10; mocks y OpenAI real13/10; fig.5'),
             ('RF-05', 'product_service sources', 'PDF AEPD; vista informe'),
             ('RF-06', 'records PATCH / actions', 'full_flow; progreso E2E; fig.4'),
             ('RF-07', 'App dashboard', 'E2E escritorio/movil; fig.2'),
             ('RF-08', 'report_service', 'pypdf todos riesgos; descarga'),
-            ('RF-09', 'db / migracion0001', 'Persistencia, reinicio4/4'),
+            ('RF-09', 'db / migraciones', 'Persistencia; 0004 PostgreSQL'),
             ('RF-10', 'history / App', 'company_history; fig.3'),
             ('RF-11', 'auth / owned_record', 'isolation de todas las rutas'),
             ('RF-12', 'parse_description', 'conflicts409, optout; fig.6'),
-            ('RF-13', 'summary / fallback', 'Timeout/formato/exito simulado'),
+            ('RF-13', 'summary / fallback', 'Mocks y OpenAI real13/10'),
         ]
     else:
         entries = [
-            ('RNF-01', 'Compose / README', 'Instalacion local; segundo entorno pendiente'),
+            ('RNF-01', 'Compose / README', 'Local limpio y VPS; externo humano pendiente'),
             ('RNF-02', 'Pydantic / errores', '422/413/404; entrada negativa'),
-            ('RNF-03', 'Argon2 / Caddy / env', 'Hashes y config; remoto/historial pendientes'),
+            ('RNF-03', 'Argon2 / Caddy / env', 'Hashes, TLS; Gitleaks historial'),
             ('RNF-04', 'Auditorias / CI', '0 conocidas; CI sin iniciar por restriccion de cuenta'),
-            ('RNF-05', 'DELETE / cleanup', 'Cascada; backups/temporizador pendientes'),
-            ('RNF-06', 'quota / audit / timeout', 'Limites locales; sin presupuesto duro'),
-            ('RNF-07', 'Produccion / guia', 'Hetzner de esta version pendiente'),
-            ('RE-01', 'Fuente memoria / PDF', 'Borrador; portada/horas pendientes'),
+            ('RNF-05', 'DELETE / export / cleanup', 'Cascada/export; retencion documentada'),
+            ('RNF-06', 'quota / audit / timeout', 'DB:20 cuenta/h;50 global/dia'),
+            ('RNF-07', 'Produccion / guia', '0.4.0 HTTPS; backup/restore aislado'),
+            ('RE-01', 'Fuente memoria / PDF', 'Prevideo; grupo/enlace/minutos pendientes'),
             ('RE-02', 'Guion / MP4', 'Sin grabacion ni enlace'),
             ('RE-03', 'GitHub / MIT / README', 'Rama y commits; tag final pendiente'),
         ]
-    rows += [[identifier, code, test, 'Pendiente'] for identifier, code, test in entries]
-    return table(rows, [64, 132, WIDTH - 260, 64])
+    if kind == 'functional_a':
+        entries = entries[:7]
+    elif kind == 'functional_b':
+        entries = entries[7:]
+    states = {'RNF-01': 'Parcial', 'RNF-04': 'Con limites', 'RNF-05': 'Con limites',
+              'RE-01': 'Parcial', 'RE-02': 'Pendiente', 'RE-03': 'Parcial'}
+    rows += [[identifier, states.get(identifier, 'Cumplido'), code, test,
+              DELIVERY['video']['timestamps'].get(identifier, 'Pendiente')] for identifier, code, test in entries]
+    return table(rows, [48, 65, 113, WIDTH - 290, 64])
 
 
 def footer(canvas, doc):
@@ -136,26 +155,30 @@ def footer(canvas, doc):
     canvas.line(2 * cm, 1.65 * cm, A4[0] - 2 * cm, 1.65 * cm)
     canvas.setFont('Helvetica', 8)
     canvas.setFillColor(colors.HexColor('#50606b'))
-    canvas.drawString(2 * cm, 1.2 * cm, 'HotelSec | BORRADOR: revision del alumno y video pendientes')
+    canvas.drawString(2 * cm, 1.2 * cm, 'HotelSec | Practica 3 | ' + ('Version de entrega' if args.final else 'Version previa al video'))
     canvas.drawRightString(A4[0] - 2 * cm, 1.2 * cm, str(doc.page))
 
 
 def build(locations=None):
     story = [Spacer(1, 3 * cm), p('EVOLVE ACADEMY · CIBERSEGURIDAD CON IA', 'Kicker'),
              Heading('HotelSec PolicyForge AI', 'Portada', 'front'), p('Practica 3: del prototipo al producto', 'Heading2'),
-             Spacer(1, cm), p('MEMORIA DE DESARROLLO · BORRADOR', 'Kicker'),
-             p('Autor: ' + SOURCE['author']), p('Grupo: ' + SOURCE['group']), p('Revision: ' + SOURCE['date']),
+             Spacer(1, cm), p('MEMORIA TECNICA' + ('' if args.final else ' · VERSION PREVIA AL VIDEO'), 'Kicker'),
+             p('Autor: ' + SOURCE['author']),
+             *([p('Grupo: ' + str(DELIVERY['group_number']))] if DELIVERY['group_number'] is not None else []),
+             p('Revision: ' + SOURCE['date']),
              p('GitHub: https://github.com/PablitoPeke/hotelsec-policyforge-ai'), p('Rama: practica3'),
-             p('Video: ' + SOURCE['video']), Spacer(1, cm),
+             p('Aplicacion: https://178-105-149-202.sslip.io/'),
+             p('Version del producto: 0.4.0; codigo verificado 83d7b9b'),
+             p('Video: ' + (DELIVERY['video']['url'] or SOURCE['video'])), Spacer(1, cm),
              p('La version anterior obtuvo 9/10; el alumno indica que no hubo comentarios del docente. Trabajo individual con asistencia IA declarada.'),
-             p('No entregar como final sin completar datos, horas, video, trazabilidad y revision personal. Fecha limite indicada: 16/10/2026; confirmar hora en campus.'),
+             p('Fecha limite: 16/10/2026; confirmar hora en campus.' if args.final else 'Pendientes para entregar: grupo real, video/enlace/minutos, prueba de instalacion por persona externa y revision personal. Horas estimadas por el alumno: 40. No se fabrica evidencia ni se marca esta version como entrega final.'),
              PageBreak(), Heading('Indice de contenidos', 'Indice', 'front')]
     groups = list(dict.fromkeys(page['section'] for page in SOURCE['pages'])) + ['Anexo A. Instalacion y uso', 'Anexo B. Glosario y referencias']
     pages = {}
     for location in locations or []:
         pages.setdefault(location['section'], location['page'])
     story.append(table([['Apartado', 'Pagina']] + [[s, str(pages.get(s, '-'))] for s in groups], [WIDTH - 60, 60]))
-    story += [Spacer(1, 20), p('Cuerpo: 11 puntos. Portada, indice y anexos no cuentan como paginas de contenido. Capturas reales con datos ficticios; el video no se ha grabado.'), PageBreak()]
+    story += [Spacer(1, 20), p('Cuerpo: 11 puntos. Portada, indice y anexos no cuentan como paginas de contenido. Capturas reales con datos ficticios. Evidencias locales y remotas diferenciadas.'), PageBreak()]
     for index, page in enumerate(SOURCE['pages']):
         if index: story.append(PageBreak())
         story += [p(page['section'].upper(), 'Kicker'), Heading(page['title'], page['section'])]
@@ -169,11 +192,11 @@ def build(locations=None):
             figure.hAlign = 'LEFT'
             story += [figure, Spacer(1, 8), p(page['caption'], 'Caption9')]
         if page.get('results'):
-            b, browser = RESULTS['backend'], RESULTS['browser']
+            b, browser = CLOSEOUT['backend'], CURRENT['browser_hetzner']
             story += [table([['Comprobacion', 'Resultado'], ['Backend pytest', f"{b['tests']} tests; {b['failures']} fallos; {b['errors']} errores"],
-                ['Navegador Chromium', f"{browser['expected']} escenarios correctos; {browser['unexpected']} inesperados"],
-                ['pip-audit', f"{RESULTS['python_known_vulnerabilities']} vulnerabilidades conocidas"],
-                ['npm audit', f"{RESULTS['npm_vulnerabilities']['total']} vulnerabilidades conocidas"], ['DB tras reinicio', '4 snapshots antes; 4 despues'], ['Restore local', '10 snapshots; checksum de bundles/estados coincidente']]), Spacer(1, 15)]
+                ['Chromium remoto y local', f"{browser['expected']} escenarios correctos en cada entorno; {browser['unexpected']} inesperados"],
+                ['pip-audit', f"{CLOSEOUT['python_known_vulnerabilities']} vulnerabilidades conocidas"],
+                ['npm audit', f"{CLOSEOUT['npm_vulnerabilities']['total']} vulnerabilidades conocidas"], ['Backup Hetzner13/10', 'pg_restore aislado correcto; DB en uso conservada'], ['Gitleaks historial', '0 hallazgos accionables; 2 falsos positivos revisados']]), Spacer(1, 15)]
         for paragraph in page.get('paragraphs', []): story.append(p(paragraph))
         if page.get('table'):
             widths = [WIDTH * ratio for ratio in page['widths']] if page.get('widths') else None
@@ -185,7 +208,7 @@ def build(locations=None):
         p('La guia completa reproducible esta en README.md y docs/practica3/05_despliegue.md. El codigo se puede editar en VS Code; seleccionar el interprete del venv de backend. Requisitos locales: Git, Docker Desktop Linux/Compose v2 y Python para setup_local.'),
         Preformatted('python scripts/setup_local.py --port 8085\n# Desde raiz, conservar nombre de proyecto:\ndocker compose --env-file .env.local -p hotelsec-p3\n  -f docker-compose.hetzner.yml up -d --build', styles['Code11']),
         p('La ultima orden se escribe como una sola linea en terminal. Abrir http://localhost:8085. No hay usuarios de fabrica: crear cuenta ficticia, minimo 12 caracteres de contrasena. Las cuentas del navegador automatizado no son cuentas de clientes ni administradores.'),
-        table([['Paso de uso', 'Comprobacion'], ['Acceder o crear cuenta', 'Ver Dashboard sin hashes ni secretos'], ['Nuevo analisis', 'Responder controles/contexto y elegir consentimiento IA'], ['Analizar y guardar', 'Resolver conflictos si existen; ver puntuacion'], ['Plan de mejora', 'Cambiar estado y recargar para verificar'], ['Historial', 'Abrir un resultado propio o reevaluarlo'], ['Informe', 'Descargar PDF y comprobar todas sus secciones'], ['Mi cuenta', 'Ver eventos; borrado exige contrasena y confirmacion']]),
+        table([['Paso de uso', 'Comprobacion'], ['Acceder o crear cuenta', 'Ver Dashboard sin hashes ni secretos'], ['Nuevo analisis', 'Responder controles/contexto y elegir consentimiento IA'], ['Analizar y guardar', 'Resolver conflictos si existen; ver puntuacion'], ['Plan de mejora', 'Cambiar estado y recargar para verificar'], ['Historial', 'Abrir un resultado propio o reevaluarlo'], ['Informe', 'Descargar PDF y comprobar todas sus secciones'], ['Mi cuenta', 'Editar perfil, contrasena y sesiones; exportar datos; borrado confirmado']]),
         Spacer(1, 15), p('No publicar la configuracion HTTP local en Internet. Produccion usa Compose separado con dominio, cookies Secure y Caddy. No usar down -v para actualizar: elimina el volumen. La instalacion asistida no reemplaza probar personalmente desde cero.'),
         PageBreak(), Heading('Glosario y fuentes', 'Anexo B. Glosario y referencias', 'annex'),
         table([['Termino', 'Significado en este proyecto'], ['API', 'Contrato HTTP entre interfaz y backend'], ['Migracion', 'Cambio versionado de tablas e indices'], ['Snapshot', 'Evaluacion guardada con entradas y resultados'], ['CSRF', 'Proteccion ante mutaciones inducidas por otro sitio'], ['HttpOnly', 'Cookie no accesible al JavaScript de la pagina'], ['Fallback', 'Resultado alternativo por reglas cuando no se usa o falla IA'], ['MFA', 'Mas de un factor para autenticar'], ['PMS', 'Sistema de gestion del alojamiento'], ['STRIDE', 'Categorias de amenazas para estructurar la revision']]), Spacer(1, 15)]
@@ -199,12 +222,12 @@ def build(locations=None):
         'AEPD Facilita RGPD: https://www.aepd.es/guias-y-herramientas/herramientas/facilita-rgpd',
         'INCIBE politicas: https://www.incibe.es/empresas/herramientas/politicas',
         'ISO familia 27000: https://www.iso.org/standard/iso-iec-27000-family',
-        'Evidencias: docs/practica3/evidence; revision 12/10/2026. Capturas locales y resultados estructurados; backup del 30/09 conservado con su fecha original; no traces privados.',
+        'Evidencias: docs/practica3/evidence; revision13/10/2026. Capturas locales/remotas separadas, pruebas con su fecha real, restauracion aislada y revisiones sanitizadas; no traces privados.',
     ]
     story.extend(p(reference) for reference in references)
     output = BytesIO()
     document = Report(output, pagesize=A4, leftMargin=2*cm, rightMargin=2*cm, topMargin=1.8*cm, bottomMargin=2*cm,
-                      title='HotelSec - Practica 3 - Borrador', author=SOURCE['author'])
+                      title='HotelSec - Practica 3 - ' + ('Entrega' if args.final else 'Prevideo'), author=SOURCE['author'])
     document.build(story, onFirstPage=footer, onLaterPages=footer)
     return output.getvalue(), document.locations
 
@@ -219,6 +242,6 @@ count = annex_start - content_start
 if not 20 <= count <= 40:
     raise ValueError(f'Content page count outside rubric: {count}')
 metadata = {'pdf': str(OUTPUT.relative_to(ROOT)), 'total_pages': len(reader.pages), 'content_pages': count,
-            'content_start': content_start, 'annex_start': annex_start, 'body_font_size': 11, 'draft': True, 'sections': locations}
+            'content_start': content_start, 'annex_start': annex_start, 'body_font_size': 11, 'draft': not args.final, 'sections': locations}
 (DOCS / 'evidence/memory-layout.json').write_text(json.dumps(metadata, indent=2, ensure_ascii=False), encoding='utf-8')
 print(json.dumps({k: v for k, v in metadata.items() if k != 'sections'}, indent=2))

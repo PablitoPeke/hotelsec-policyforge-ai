@@ -75,6 +75,14 @@ test('perfil persistente, contrasena, revocacion, exportacion y modal accesible'
     path: resolve(evidence, '08_cuenta_perfil.png'),
     fullPage: true,
   })
+  await page.setViewportSize({ width: 1000, height: 900 })
+  await page
+    .locator('.account-form')
+    .first()
+    .screenshot({
+      path: resolve(evidence, '08_cuenta_perfil_detalle.png'),
+    })
+  await page.setViewportSize({ width: 1440, height: 1000 })
 
   async function otherSession(): Promise<APIRequestContext> {
     const context = await playwright.request.newContext({

@@ -1,6 +1,6 @@
 # Guion y cierre de entrega
 
-Este guion es una propuesta de grabacion de 12-14 minutos, NO un video producido ni minutos reales de evidencia. Grabar la version probada, con datos ficticios y sin `.env`, API keys, contrasenas o IP privada visible.
+Este guion actualizado a0.4.0 propone14-16 minutos, NO es un video producido ni minutos reales de evidencia. Grabar la version probada, con datos ficticios y sin `.env`, API keys ni contrasenas. La URL publica puede mostrarse; no mostrar credenciales del VPS.
 
 | Tiempo previsto | Demostracion real | Requisitos |
 |---|---|---|
@@ -13,9 +13,10 @@ Este guion es una propuesta de grabacion de 12-14 minutos, NO un video producido
 | 06:30-07:30 | Politicas, evidencia necesaria, fuentes RGPD/ISO, indicador reglas/IA | RF-04, RF-05, RF-13 |
 | 07:30-08:30 | Cambiar accion a completada, recargar, volver al historial | RF-06, RF-07, RF-09 |
 | 08:30-09:30 | Reevaluar mismo hotel y comparar; descargar/abrir PDF completo | RF-08, RF-10 |
-| 09:30-10:30 | Segunda cuenta sin ver el historial; caso de error; tests permisos/CSRF | RF-11, RNF-02, RNF-03 |
-| 10:30-11:30 | Tests y auditorias reales, funciones con respuestas simuladas, riesgos residuales | RNF-04, RNF-06 |
-| 11:30-13:00 | Codigo editable, arquitectura, pendientes/despliegue, declaracion IA y conclusiones | RE-01, RNF-07 |
+| 09:30-11:00 | Mi cuenta: editar nombre/cargo y recargar; sesiones, actividad/exportacion y correo desactivado | RF-11, RNF-05 |
+| 11:00-12:00 | Segunda cuenta sin historial ajeno; caso de error; explicar tests permisos/CSRF | RF-11, RNF-02, RNF-03 |
+| 12:00-13:00 | 99 tests, auditorias, Gitleaks y limites IA20/50; CI bloqueado sin fingir exito | RNF-04, RNF-06 |
+| 13:00-14:30 | Codigo editable, arquitectura, HTTPS/backup, limites y declaracion IA | RE-01, RE-03, RNF-07 |
 
 Explicar con tus palabras: frontend es la pantalla; API valida y calcula; base guarda; proxy publica; migracion crea las tablas; sesion identifica la cuenta; CSRF comprueba que la peticion fue iniciada por ella. No memorizar afirmaciones de seguridad que no puedas demostrar.
 
@@ -29,7 +30,7 @@ Explicar con tus palabras: frontend es la pantalla; API valida y calcula; base g
 
 ## Finalizar memoria
 
-Nombre de portada confirmado: Pablo Cortes, trabajo individual. Confirmar numero de grupo y horas reales. Incorporar URL de video y minutos exactos a cada fila de matriz. Sustituir marcado borrador solo despues de revisar PDF y contar 20-40 paginas de contenido (portada/indice/anexos excluidos). Capturas de `evidence` son reales de pruebas locales, no de Hetzner. El alumno confirma pruebas manuales correctas el 12/10/2026; no implica que ya exista video o revision de cada linea.
+Autor Pablo Cortes, individual. Grupo omitido por ahora a su peticion; confirmar antes de entregar. Las40horas son su estimacion aproximada. Incorporar URL y minutos reales a delivery_metadata.json; el generador final valida pendientes. La memoria previa al video ya incorpora0.4.0, evidencia remota diferenciada y cuenta. Mantener20-40paginas de contenido y revisar el PDF regenerado. El alumno confirma la web publica, no grabacion ni revision de cada linea. Ver12_cierre_tecnico.md y13_prueba_persona_externa.md.
 
 Crear tag `v1.0-practica3` sobre el commit realmente final, con repo/video/enlaces accesibles. La rama actual no se ha fusionado automaticamente a main para preservar la entrega anterior.
 

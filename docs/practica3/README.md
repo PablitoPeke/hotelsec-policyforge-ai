@@ -71,6 +71,8 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 ## Incremento implementado
 
+Cierre tecnico13/10:99 tests, instalacion limpia desde GitHub y memoria actualizada0.4.0. Horas estimadas por el alumno40, grupo omitido a su peticion. Pendientes manuales descritos en [12_cierre_tecnico.md](12_cierre_tecnico.md); [prueba externa](13_prueba_persona_externa.md). No se necesita comprar dominio y no se crea evidencia de video o instalador externo inexistentes. El PDF previo al video sustituye al borrador anterior para revision; no es aun entrega final.
+
 Actualizacion posterior 13/10: el alumno confirma que la web publica funciona. Se publica 0.4.0 con perfil editable, contrasena/sesiones, exportacion y preparacion SMTP sin proveedor contratado. 92 tests backend y cinco escenarios locales/remotos superados; backup y restauracion aislada en Hetzner comprobados. Ver [centro de cuenta y limites para un piloto](11_centro_cuenta.md). El resumen 0.3.0 que sigue se conserva como antecedente. La memoria PDF aun requiere incorporar esta fase antes de entregar.
 
 Usuarios/sesiones, DB/migracion, snapshots, historial, acciones y PDF completo estan implementados en `practica3`. La instalacion local con PostgreSQL esta en http://localhost:8085. Revision 12/10/2026: 50 casos de backend/operaciones y 2 escenarios de navegador superados; auditorias npm/pip-audit: cero vulnerabilidades conocidas a fecha de ejecucion. Ver resultados estructurados, no asumir equivalencia con un pentest.

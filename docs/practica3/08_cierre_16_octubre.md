@@ -1,5 +1,7 @@
 # Cierre de entrega: 16 de octubre de 2026
 
+Este plan se conserva como antecedente. Estado actualizado:0.4.0 publicada,99 tests, instalacion limpia comprobada y memoria regenerada. Horas estimadas por Pablo:40; grupo omitido a su peticion. Seguir [12_cierre_tecnico.md](12_cierre_tecnico.md) para los pendientes reales: video/enlace/minutos, grupo, persona externa, revision y tag/envio final. No repetir el despliegue ni gastar IA para regenerar documentos.
+
 Revision 13/10/2026. Autor confirmado: Pablo Cortes. Trabajo individual; numero de grupo todavia desconocido. Consultar la hora exacta en el campus: no asumir que el plazo termina a medianoche.
 
 ## Estado actual

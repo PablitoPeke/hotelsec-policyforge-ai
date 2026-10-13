@@ -1,0 +1,392 @@
+{
+  "checked_at": "2026-10-13T21:46:09.268275+00:00",
+  "application_commit": "83d7b9b8a20e99bd5636d3bcb404ebc03deadc22",
+  "application_version": "0.4.0",
+  "backend": {
+    "tests": 99,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 41.29
+  },
+  "python_known_vulnerabilities": 0,
+  "npm_vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "gitleaks": {
+    "version": "8.30.1",
+    "scope": "all locally available Git refs; redacted scan",
+    "commits": 50,
+    "raw_findings": 2,
+    "reviewed_false_positives": 2,
+    "actionable_findings": 0,
+    "review": "Exact historical fingerprints: invalid fictional E2E token and Python csrf_token=csrf keyword expression. No broad rule/path exclusions.",
+    "limits": "Pattern-based review, not proof of absence; excludes unversioned data, external services and binary content."
+  },
+  "clean_install": {
+    "source": "fresh GitHub clone, new private config and PostgreSQL volume",
+    "compose_project": "hotelsec-p3-clean-closeout",
+    "port": 8086,
+    "browser": {
+      "startTime": "2026-10-13T21:29:59.074Z",
+      "duration": 19067.864999999998,
+      "expected": 5,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "api": {
+      "checked_at": "2026-10-13T21:32:45.357729+00:00",
+      "origin": "http://localhost:8086",
+      "ai_requested": false,
+      "checks": [
+        "health_and_authentication_required",
+        "registration_and_cookie_attributes",
+        "assessment_saved_with_structured_answers",
+        "csrf_logout_history_and_persisted_progress",
+        "authenticated_pdf_download",
+        "cross_account_read_pdf_edit_delete_denied"
+      ],
+      "passed": true,
+      "cleanup": [
+        "account_deleted",
+        "account_deleted"
+      ],
+      "version": "0.4.0"
+    },
+    "human_external_tester": false,
+    "limits": "Independent automated environment, not the required external-person installation."
+  },
+  "remote_account_release": {
+    "collected_at": "2026-10-13T20:48:31.113138+00:00",
+    "code_commit": "97cc81f79f5621b061cdaf7eca6f9946e620d584",
+    "version": "0.4.0",
+    "backend": {
+      "tests": 92,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 51.73
+    },
+    "smtp_delivery_tested": false,
+    "new_paid_ai_calls": 0,
+    "scope": "Account/profile/session/email preparation and persistent AI quotas; not a pentest or commercial certification.",
+    "browser_local": {
+      "startTime": "2026-10-13T20:41:59.852Z",
+      "duration": 16918.585,
+      "expected": 5,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "browser_hetzner": {
+      "startTime": "2026-10-13T20:44:09.710Z",
+      "duration": 35729.706000000006,
+      "expected": 5,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "account-center-backup": {
+      "snapshot_started_at": "2026-10-13T20:39:52Z",
+      "environment": "Hetzner, project hotelsec-p3-prod",
+      "private_directory": "/root/hotelsec-backups/p3-before-update-20261013T203952Z",
+      "database_dump": "PostgreSQL custom format, pg_dump consistent snapshot",
+      "isolated_restore_succeeded": true,
+      "live_database_replaced": false,
+      "included": [
+        "PostgreSQL data",
+        "private environment",
+        "tracked source archive",
+        "running API and web Docker images",
+        "SHA256 checksums"
+      ],
+      "off_site": false,
+      "encrypted": false,
+      "limits": "Root-only same-VPS checkpoint; no off-site retention/restore-disaster test. Writes after the snapshot are not included."
+    },
+    "account-center-deployment": {
+      "checked_at": "2026-10-13T20:44:22.471169+00:00",
+      "origin": "https://178-105-149-202.sslip.io",
+      "ai_requested": false,
+      "checks": [
+        "health_and_authentication_required",
+        "registration_and_cookie_attributes",
+        "assessment_saved_with_structured_answers",
+        "csrf_logout_history_and_persisted_progress",
+        "authenticated_pdf_download",
+        "cross_account_read_pdf_edit_delete_denied"
+      ],
+      "passed": true,
+      "cleanup": [
+        "account_deleted",
+        "account_deleted"
+      ],
+      "version": "0.4.0"
+    },
+    "account-center-runtime": {
+      "checked_on": "2026-10-13",
+      "origin": "https://178-105-149-202.sslip.io",
+      "version": "0.4.0",
+      "code_commit": "97cc81f",
+      "schema": "0004",
+      "counts_before_upgrade": {
+        "users": 1,
+        "assessments": 0
+      },
+      "counts_after_upgrade_and_test_cleanup": {
+        "users": 1,
+        "assessments": 0
+      },
+      "api_image": "sha256:e3fd02ed277a7656dd503cab972c50655d94535e7b267059938be73a6954f15b",
+      "web_image": "sha256:e9247149d53c46f69d9c585bc9beb61c58cae4b81751dc7b4ae90ee60582bc73",
+      "smtp_configured": false,
+      "hourly_ai_limit": 20,
+      "global_daily_ai_limit": 50,
+      "database_volume_replaced": false,
+      "proxy_recreated": false,
+      "new_paid_ai_calls": 0,
+      "limits": "Point-in-time runtime/count checks; not a load test, continuous monitor, or proof of commercial compliance. Brief 502 during API replacement, then health successful."
+    }
+  },
+  "ci": {
+    "run_id": 38465826974,
+    "url": "https://github.com/PablitoPeke/hotelsec-policyforge-ai/actions/runs/38465826974",
+    "conclusion": "failure",
+    "job_steps": {
+      "backend": 0,
+      "frontend": 0
+    },
+    "reason": "The job was not started because your account is locked due to a billing issue.",
+    "ci_tests_passed": false
+  },
+  "student_hours": {
+    "total_estimated": 40,
+    "basis": "Student estimate in chat on 2026-10-13; not an audited time log."
+  },
+  "new_paid_ai_calls": 0,
+  "remaining_manual_items": [
+    "group number",
+    "video and exact timestamps",
+    "external-person installation",
+    "student PDF/repository review",
+    "final commit/tag and campus submission"
+  ],
+  "remote_account_detail_browser": {
+    "startTime": "2026-10-13T21:36:54.061Z",
+    "duration": 24005.145,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "memory_layout": {
+    "pdf": "output\\pdf\\P3_Pablo_Cortes_Memoria_prevideo.pdf",
+    "total_pages": 31,
+    "content_pages": 27,
+    "content_start": 3,
+    "annex_start": 30,
+    "body_font_size": 11,
+    "draft": true,
+    "sections": [
+      {
+        "title": "HotelSec PolicyForge AI",
+        "section": "Portada",
+        "kind": "front",
+        "page": 1
+      },
+      {
+        "title": "Indice de contenidos",
+        "section": "Indice",
+        "kind": "front",
+        "page": 2
+      },
+      {
+        "title": "De prototipo a producto trazable",
+        "section": "1. Resumen ejecutivo",
+        "kind": "content",
+        "page": 3
+      },
+      {
+        "title": "Revision de la Practica 1",
+        "section": "2. Punto de partida",
+        "kind": "content",
+        "page": 4
+      },
+      {
+        "title": "Requisitos funcionales numerados",
+        "section": "3. Requisitos",
+        "kind": "content",
+        "page": 5
+      },
+      {
+        "title": "Calidad y entregables",
+        "section": "3. Requisitos",
+        "kind": "content",
+        "page": 6
+      },
+      {
+        "title": "Separacion de responsabilidades",
+        "section": "4. Arquitectura y decisiones",
+        "kind": "content",
+        "page": 7
+      },
+      {
+        "title": "Modelo de datos y migraciones",
+        "section": "4. Arquitectura y decisiones",
+        "kind": "content",
+        "page": 8
+      },
+      {
+        "title": "Tecnologias elegidas y alternativas",
+        "section": "4. Arquitectura y decisiones",
+        "kind": "content",
+        "page": 9
+      },
+      {
+        "title": "Perfil hotelero ampliado",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 10
+      },
+      {
+        "title": "Madurez y riesgos comprensibles",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 11
+      },
+      {
+        "title": "Historial, empresa y comparativa",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 12
+      },
+      {
+        "title": "Plan de mejora con seguimiento",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 13
+      },
+      {
+        "title": "Politicas, fuentes e informe completo",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 14
+      },
+      {
+        "title": "Texto libre e IA en un unico flujo",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 15
+      },
+      {
+        "title": "Mi cuenta: perfil y sesiones",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 16
+      },
+      {
+        "title": "Correo preparado y cuotas de IA",
+        "section": "5. Funcionalidades",
+        "kind": "content",
+        "page": 17
+      },
+      {
+        "title": "Modelo de amenazas STRIDE",
+        "section": "6. Seguridad",
+        "kind": "content",
+        "page": 18
+      },
+      {
+        "title": "Autenticacion, acceso y errores",
+        "section": "6. Seguridad",
+        "kind": "content",
+        "page": 19
+      },
+      {
+        "title": "Datos, secretos y conservacion",
+        "section": "6. Seguridad",
+        "kind": "content",
+        "page": 20
+      },
+      {
+        "title": "Resultados automatizados reales",
+        "section": "7. Pruebas y evidencias",
+        "kind": "content",
+        "page": 21
+      },
+      {
+        "title": "Instalacion, fallos y correcciones",
+        "section": "7. Pruebas y evidencias",
+        "kind": "content",
+        "page": 22
+      },
+      {
+        "title": "Hetzner, HTTPS y OpenAI real",
+        "section": "7. Pruebas y evidencias",
+        "kind": "content",
+        "page": 23
+      },
+      {
+        "title": "Funcionalidades: codigo, prueba y figura",
+        "section": "8. Matriz de trazabilidad",
+        "kind": "content",
+        "page": 24
+      },
+      {
+        "title": "Persistencia, acceso e inteligencia artificial",
+        "section": "8. Matriz de trazabilidad",
+        "kind": "content",
+        "page": 25
+      },
+      {
+        "title": "Calidad y entregables: pendientes visibles",
+        "section": "8. Matriz de trazabilidad",
+        "kind": "content",
+        "page": 26
+      },
+      {
+        "title": "Alcance demostrado y riesgo residual",
+        "section": "9. Limitaciones y mejoras",
+        "kind": "content",
+        "page": 27
+      },
+      {
+        "title": "Trabajo individual y registro honesto",
+        "section": "10. Reparto del trabajo",
+        "kind": "content",
+        "page": 28
+      },
+      {
+        "title": "Asistencia al desarrollo y funcion del producto",
+        "section": "11. Uso de inteligencia artificial",
+        "kind": "content",
+        "page": 29
+      },
+      {
+        "title": "Instalacion y manual de uso",
+        "section": "Anexo A. Instalacion y uso",
+        "kind": "annex",
+        "page": 30
+      },
+      {
+        "title": "Glosario y fuentes",
+        "section": "Anexo B. Glosario y referencias",
+        "kind": "annex",
+        "page": 31
+      }
+    ]
+  },
+  "memory_margin_check": {
+    "pdf": "output/pdf/P3_Pablo_Cortes_Memoria_prevideo.pdf",
+    "rendered_pages": 31,
+    "margin_issues": 0,
+    "passed": true,
+    "limits": "Geometric character margins only; not proof of no overlap or screenshot legibility. Visual review remains necessary."
+  }
+}
