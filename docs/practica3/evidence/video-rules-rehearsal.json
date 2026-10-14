@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-10-14T19:52:47.265708+00:00",
+  "passed": true,
+  "scope": "Pure in-memory rules rehearsal of recording inputs; not HTTP/browser/video verification.",
+  "mfa_contradiction_detected": true,
+  "text_resolution_preserves_profile": true,
+  "initial_score": 9,
+  "improved_score": 37,
+  "coherent_followup_has_no_conflict": true,
+  "policies": 10,
+  "paid_ai_calls": 0,
+  "actual_video_recorded": false
+}

@@ -15,7 +15,7 @@ Esto no equivale a pentest ni producto certificado para clientes reales. CI sigu
 
 ## Lo que falta de verdad
 
-1. Video real MP4 >=10min y >=720p. Seguir `07_video_entrega.md`; aportar enlace accesible en incognito y los minutos exactos de cada requisito. No son los tiempos previstos del guion.
+1. Video real MP4 >=10min y >=720p. Seguir el guion literal `14_guion_lectura.md` y su PDF, enlazados desde `07_video_entrega.md`; aportar enlace accesible en incognito y minutos exactos de cada requisito. Los tiempos previstos del guion no son evidencia grabada.
 2. Numero de grupo del campus para portada y nombre obligatorio `P3_GrupoXX_Memoria.pdf`. Por peticion de Pablo, el PDF actual no muestra grupo; no se asigna uno ficticio.
 3. Una persona ajena al grupo debe instalar desde README. El alumno confirma que todavia no ha ocurrido. Facilitar `13_prueba_persona_externa.md` y registrar su resultado real.
 4. Pablo debe revisar el PDF y entender codigo/seguridad. Comprobar acceso del profesor al repo. Si es privado, invitar las cuentas docentes del campus.
