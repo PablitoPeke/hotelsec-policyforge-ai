@@ -66,45 +66,59 @@ md += ['- ' + text for text in data['requirements']]
 md += ['', '## Preparacion antes de REC'] + ['- ' + text for text in data['preflight']]
 md += ['', '## Datos exactos de la demostracion', '', '| Campo | Valor |', '|---|---|']
 md += [f'| {key} | {value} |' for key, value in data['demo_fields']]
+md += ['', '## Recorrido rapido: tres evaluaciones como maximo', '',
+       '1. **Inicial:** rellenar el hotel, provocar la contradiccion MFA, elegir Usar texto y guardar SIN IA.',
+       '2. **Mejorada:** reevaluar el mismo hotel, BORRAR el texto antiguo y activar las seis mejoras, SIN IA.',
+       '3. **IA opcional:** partir de la mejorada, pegar el texto coherente y autorizar una sola peticion; puede consumir credito.',
+       '', 'Para el PDF con la accion completada, abrir la evaluacion INICIAL, no la mejorada.',
+       'No leer esta hoja ni todos los anexos en voz alta. Los tiempos son una referencia; no corras para seguirlos.']
 md += ['', '**Casillas marcadas al empezar:**'] + ['- ' + text for text in data['initial_checked']]
 md += ['', '**Casillas desmarcadas al empezar:**'] + ['- ' + text for text in data['initial_unchecked']]
 story = [Spacer(1, 60), p('GUION DE LECTURA Y DEMOSTRACION', 'label'), p('HotelSec PolicyForge AI', 'title'),
          p('Practica 3 - Pablo Cortes', 'heading'), p(f"Version {data['version']} | {data['date']}"),
-         p(data['target_duration']), p('Texto literal + acciones de pantalla + respuestas alternativas.'),
+         p(data['target_duration']), p('Version breve: mismo recorrido, frases cortas y pasos numerados.'),
          p('No leer las instrucciones ni todas las alternativas. Ensayar antes; explicar con tus palabras si el docente pregunta. No se han grabado video ni minutos reales.'),
          p(data['url']), PageBreak(), p('Lo que exige el enunciado', 'heading')]
 story += [p('- ' + text) for text in data['requirements']]
 story += [p('Fuente: enunciado Practica_3_Evolve (1).pdf, paginas6-8 y11-12, proporcionado por el alumno. No es necesario comprar un dominio ni una webcam.', 'action'),
           PageBreak(), p('Antes de pulsar REC', 'heading')]
 story += [p(f'{i}. {text}') for i, text in enumerate(data['preflight'], 1)]
+story += [PageBreak(), p('Recorrido rapido', 'heading'),
+          p('1. INICIAL: mismo hotel de ejemplo; conflicto MFA; Usar texto; guardar SIN IA.'),
+          p('2. MEJORADA: reevaluar el mismo hotel; BORRAR el texto anterior; activar las seis mejoras; guardar SIN IA.'),
+          p('3. IA OPCIONAL: abrir la mejorada; pegar el texto coherente; autorizar una sola peticion, que puede consumir credito.'),
+          p('PDF: volver a la evaluacion INICIAL para mostrar la accion completada.'),
+          p('No leer los anexos en voz alta. Lee solo LEER y una alternativa si corresponde. Los tiempos orientan, no obligan a acelerar.'),
+          table([['Momento previsto', 'Bloque']] + [[block['time'], block['title']] for block in data['blocks']], [120, width - 120])]
 story += [PageBreak(), p('Ficha del hotel ficticio', 'heading'), table([['Campo', 'Valor']] + data['demo_fields'], [150, width - 150]),
           Spacer(1, 15), p('Estas cifras son datos ficticios, no resultados calculados ni recomendaciones legales.', 'action'),
           PageBreak(), p('Casillas del primer analisis', 'heading'), p('MARCADAS', 'label')]
 story += [p('- ' + text, 'action') for text in data['initial_checked']]
 story += [p('DESMARCADAS', 'label')] + [p('- ' + text, 'action') for text in data['initial_unchecked']]
 
+story += [PageBreak()]
 for block in data['blocks']:
     md += ['', '---', '', f"## {block['id']} | {block['time']} previsto | {block['title']}",
            '', 'Requisitos: ' + ', '.join(block['requirements']), '', '### PANTALLA - NO LEER']
-    md += ['- ' + text for text in block['actions']]
+    md += [f'{i}. {text}' for i, text in enumerate(block['actions'], 1)]
     md += ['', '### LEER', '']
     for text in block['speech']:
         md += [text, '']
-    story += [PageBreak(), p(f"{block['id']} | {block['time']} PREVISTO", 'label'), p(block['title'], 'heading'),
+    block_story = [p(f"{block['id']} | {block['time']} PREVISTO", 'label'), p(block['title'], 'heading'),
               p('Requisitos: ' + ', '.join(block['requirements']), 'action'), p('PANTALLA - NO LEER', 'label')]
-    story += [p('- ' + text, 'action') for text in block['actions']]
-    story += [p('LEER', 'label')] + [p(text, 'speech') for text in block['speech']]
+    block_story += [p(f'{i}. {text}', 'action') for i, text in enumerate(block['actions'], 1)]
+    block_story += [p('LEER', 'label')] + [p(text, 'speech') for text in block['speech']]
     for alternative in block.get('alternatives', []):
         md += ['', '### ' + alternative['condition'], '']
         for text in alternative['speech']:
             md += [text, '']
-        story += [p(alternative['condition'], 'label')] + [p(text, 'speech') for text in alternative['speech']]
+        block_story += [p(alternative['condition'], 'label')] + [p(text, 'speech') for text in alternative['speech']]
     if block.get('closing_speech'):
         md += ['', '### LEER AL FINAL DEL BLOQUE', '']
         for text in block['closing_speech']:
             md += [text, '']
-        story += [KeepTogether([p('LEER AL FINAL DEL BLOQUE', 'label')]
-                               + [p(text, 'speech') for text in block['closing_speech']])]
+        block_story += [p('LEER AL FINAL DEL BLOQUE', 'label')] + [p(text, 'speech') for text in block['closing_speech']]
+    story += [KeepTogether(block_story), Spacer(1, 14)]
 
 md += ['', '---', '', '## Comandos preparados']
 story += [PageBreak(), p('Comandos preparados', 'heading'), p('Solo sistemas propios. Sin llamadas IA de pago en estos comandos. No capturar secretos.')]
@@ -146,7 +160,7 @@ reader = PdfReader(PDF)
 text = '\n'.join(page.extract_text() for page in reader.pages)
 assert all(block['title'] in text for block in data['blocks'])
 assert all(key in text for key in required)
-assert words >= 1600, 'Script unexpectedly short for the requested demonstration.'
+assert 900 <= words <= 1400, 'Keep the short script concise; video duration still needs a real check.'
 metadata = {'generated_at': datetime.now(timezone.utc).isoformat(), 'pdf': PDF.relative_to(ROOT).as_posix(),
             'markdown': MARKDOWN.relative_to(ROOT).as_posix(), 'pages': len(reader.pages), 'spoken_words_longest_path': words,
             'blocks': len(data['blocks']), 'requirements_covered': required,
