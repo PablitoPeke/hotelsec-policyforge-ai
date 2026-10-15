@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-13T22:16:55.739968+00:00",
+  "generated_at": "2026-10-15T19:26:57.532567+00:00",
   "pdf": "output/pdf/P3_Guion_lectura_y_grabacion.pdf",
   "markdown": "docs/practica3/14_guion_lectura.md",
-  "pages": 27,
-  "spoken_words_longest_path": 2019,
+  "pages": 23,
+  "spoken_words_longest_path": 996,
   "blocks": 16,
   "requirements_covered": [
     "RF-01",

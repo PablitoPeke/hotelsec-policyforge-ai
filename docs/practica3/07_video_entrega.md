@@ -1,8 +1,8 @@
 # Guion y cierre de entrega
 
-Guion literal listo para leer, con acciones y alternativas: [14_guion_lectura.md](14_guion_lectura.md). Version de lectura en PDF: [P3_Guion_lectura_y_grabacion.pdf](../../output/pdf/P3_Guion_lectura_y_grabacion.pdf). Incluye16 bloques, datos ficticios exactos, comandos sin IA de pago, incidencias y hoja de minutos reales. La duracion prevista completa es17-20minutos; medir el MP4. La tabla breve inferior es antecedente orientativo, no un video ni evidencia temporal.
+Guion breve listo para leer, con pasos numerados y alternativas: [14_guion_lectura.md](14_guion_lectura.md). Version de lectura en PDF: [P3_Guion_lectura_y_grabacion.pdf](../../output/pdf/P3_Guion_lectura_y_grabacion.pdf). Mantiene los 16 bloques y los mismos ejemplos, con menos narracion. Duracion prevista: 12-14 minutos con las acciones; medir el MP4 y comprobar el minimo de 10 minutos. Los anexos no se leen en voz alta. La tabla inferior es un antecedente orientativo, no evidencia temporal.
 
-Este guion actualizado a0.4.0 propone14-16 minutos, NO es un video producido ni minutos reales de evidencia. Grabar la version probada, con datos ficticios y sin `.env`, API keys ni contrasenas. La URL publica puede mostrarse; no mostrar credenciales del VPS.
+La tabla anterior a esta revision proponia 14-16 minutos. Para grabar usa el guion breve enlazado arriba. NO es un video producido ni minutos reales de evidencia. Grabar la version probada, con datos ficticios y sin `.env`, API keys ni contrasenas. La URL publica puede mostrarse; no mostrar credenciales del VPS.
 
 | Tiempo previsto | Demostracion real | Requisitos |
 |---|---|---|
