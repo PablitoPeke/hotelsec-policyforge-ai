@@ -71,6 +71,14 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 ## Incremento implementado
 
+Estado actualizado 16/10: Pablo confirma el video local definitivo (18:54,
+1080p) y comunica instalacion correcta de Carlos Cortes el 15/10. Entrega
+individual sin numero por indicacion del alumno. La revision visual detecta
+contrasenas en pantalla cerca de 15:30: proteger el video antes de subirlo.
+Faltan enlace accesible, minutos reales y PDF definitivo. Ver
+[preparacion de entrega](15_preparacion_entrega.md). Las notas de fechas
+anteriores que siguen son antecedentes, no el estado actual.
+
 Cierre tecnico13/10:99 tests, instalacion limpia desde GitHub y memoria actualizada0.4.0. Horas estimadas por el alumno40, grupo omitido a su peticion. Pendientes manuales descritos en [12_cierre_tecnico.md](12_cierre_tecnico.md); [prueba externa](13_prueba_persona_externa.md). No se necesita comprar dominio y no se crea evidencia de video o instalador externo inexistentes. El PDF previo al video sustituye al borrador anterior para revision; no es aun entrega final.
 
 Actualizacion posterior 13/10: el alumno confirma que la web publica funciona. Se publica 0.4.0 con perfil editable, contrasena/sesiones, exportacion y preparacion SMTP sin proveedor contratado. 92 tests backend y cinco escenarios locales/remotos superados; backup y restauracion aislada en Hetzner comprobados. Ver [centro de cuenta y limites para un piloto](11_centro_cuenta.md). El resumen 0.3.0 que sigue se conserva como antecedente. La memoria PDF aun requiere incorporar esta fase antes de entregar.
@@ -86,13 +94,13 @@ Para cerrar la entrega del 16/10, seguir `08_cierre_16_octubre.md`. El 13/10 se 
 - [Guion de video y envio al campus](07_video_entrega.md).
 - [Memoria borrador](../../output/pdf/HotelSec_P3_Memoria_borrador.pdf): 23 paginas de contenido, 27 totales, cuerpo11. Fuente editable `memoria_content.json`; generador `scripts/generate_practica3_report.py`.
 
-No esta cerrada la entrega: grupo, horas reales, revision personal remota, video/minutos, revision de CI y tag final pendientes. El PDF sigue siendo el borrador del 12/10, aun sin el avance remoto del 13/10. Las decisiones sobre tecnologias alternativas estan documentadas; los documentos de revision inicial se mantienen como evidencia del punto de partida.
+La memoria mas reciente es `P3_Pablo_Cortes_Memoria_prevideo.pdf`, actualizada con 0.4.0 y el cierre del 13/10. Todavia no es el PDF definitivo: falta incorporar el video protegido, enlace/minutos reales y revision personal. Las40 horas son una estimacion del alumno. Los documentos iniciales y sus estados historicos se conservan como antecedente; el tag final no esta creado.
 
 ## Informacion pendiente
 
 - Numero de grupo; nombre de portada confirmado: Pablo Cortes.
-- Enlace del video, cuando se grabe, y minutos de demostracion.
-- Horas reales del alumno: registrarlas por sesion, no sustituirlas por estimaciones ficticias.
+- Enlace del video protegido y minutos reales de demostracion.
+- Revision personal del PDF definitivo; las40 horas ya se registran como estimacion comunicada, no horas auditadas.
 - Confirmar al cerrar que la memoria final de Practica 1 del repositorio es la misma que se subio al campus.
 
 ## Uso de IA

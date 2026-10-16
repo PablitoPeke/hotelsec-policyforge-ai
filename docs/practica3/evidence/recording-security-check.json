@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-16T18:59:22.638507+00:00",
+  "origin": "https://178-105-149-202.sslip.io",
+  "ai_requested": false,
+  "checks": [
+    "health_and_authentication_required",
+    "registration_and_cookie_attributes",
+    "assessment_saved_with_structured_answers",
+    "csrf_logout_history_and_persisted_progress",
+    "authenticated_pdf_download",
+    "cross_account_read_pdf_edit_delete_denied"
+  ],
+  "passed": true,
+  "cleanup": ["account_deleted", "account_deleted"],
+  "version": "0.4.0"
+}

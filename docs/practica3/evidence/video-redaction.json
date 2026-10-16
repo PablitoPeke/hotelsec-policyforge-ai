@@ -1,0 +1,25 @@
+{
+  "source_file": "2026-10-16 19-41-38.mp4",
+  "output_file": "HotelSec_Practica3_Demo_segura.mp4",
+  "source_sha256": "0b65bfeead889bdc990cf1f916b50ac849eca72e1d4b9459e1e0545c5cce4535",
+  "output_sha256": "f50353f6ddd24537ee02936afe39ab582136733e1676cee23fc54de3a3618dd8",
+  "source_unchanged": true,
+  "audio": "Copied without re-encoding",
+  "audio_stream_hash_matches_source": true,
+  "three_password_regions_opaque_at_15_30": true,
+  "output_fps": 30,
+  "redaction_seconds": [
+    922,
+    936
+  ],
+  "redaction_label": "Credenciales ocultas por seguridad (edicion del video)",
+  "purpose": "Protect visible credentials; no cuts or changes to test results.",
+  "visual_output_reviewed": true,
+  "visual_review_date": "2026-10-16",
+  "visual_sample_seconds": [920, 922, 925, 928, 930, 933, 936, 938, 1080, 1133],
+  "duration_seconds": 1134.134,
+  "width": 1920,
+  "height": 1080,
+  "full_content_and_audio_reviewed": false,
+  "limit": "Protects reviewed screen coordinates, not an automatic secret detector."
+}

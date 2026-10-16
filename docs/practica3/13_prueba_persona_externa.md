@@ -1,6 +1,6 @@
 # Prueba por persona ajena al grupo
 
-Este documento prepara una comprobacion pendiente. No es evidencia de que ya se haya hecho. No hace falta contratar a nadie: puede realizarla un companero que no forme parte del grupo, con Docker disponible. Abrir solo la web publica no equivale a instalar.
+Actualizacion 16/10/2026: Pablo comunica que Carlos Cortes instalo siguiendo el README el 15/10/2026 y todo funciono. Se registra como declaracion del alumno, no observacion directa del asistente. Los detalles no proporcionados siguen sin confirmar; no se atribuye a Carlos la ejecucion de cada paso por separado. Abrir solo la web publica no equivale a instalar.
 
 ## Instrucciones para quien prueba
 
@@ -17,16 +17,16 @@ Anotar cualquier paso confuso o error tal como ocurre. Si necesita una correccio
 
 | Campo | Dato real |
 |---|---|
-| Alias o nombre permitido | Pendiente |
-| Fecha | Pendiente |
+| Alias o nombre permitido | Carlos Cortes, comunicado por Pablo |
+| Fecha | 15/10/2026, comunicada por Pablo |
 | Equipo/SO y Docker | Pendiente |
 | Commit descargado | Pendiente |
-| Instalacion siguiendo README | Pendiente |
+| Instalacion siguiendo README | Correcta, segun la declaracion del alumno |
 | Analisis, progreso y recarga | Pendiente |
 | Historial, PDF y perfil | Pendiente |
 | Logout/login y persistencia | Pendiente |
 | Borrado de cuenta ficticia | Pendiente |
 | Problemas y ayuda necesaria | Pendiente |
-| Resultado final y observaciones | Pendiente |
+| Resultado final y observaciones | Pablo indica que todo ha funcionado. No se han facilitado capturas ni detalles del equipo o de cada recorrido. |
 
 Una captura de salud/resultado sin secretos y este registro bastan para documentar el ensayo manual. Incorporar datos reales a `delivery_metadata.json.external_installation`; no copiar como propia la instalacion automatizada del asistente.

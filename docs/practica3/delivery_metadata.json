@@ -1,6 +1,8 @@
 {
   "author": "Pablo Cortes",
   "group_number": null,
+  "submission_mode": "individual",
+  "submission_mode_basis": "El alumno indica el 16/10/2026 que entrega sin numero de grupo. No se asigna uno ficticio; confirmar que el campus acepta el nombre individual.",
   "estimated_student_hours": {
     "desarrollo": 10,
     "pruebas": 10,
@@ -9,21 +11,73 @@
   },
   "hours_basis": "Estimacion aproximada comunicada por el alumno el 13/10/2026; no registro horario ni tiempo del asistente.",
   "video": {
+    "file_name": "HotelSec_Practica3_Demo_segura.mp4",
     "url": null,
-    "duration_seconds": null,
-    "width": null,
-    "height": null,
+    "duration_seconds": 1134,
+    "width": 1920,
+    "height": 1080,
     "format": "mp4",
+    "frames_per_second": 30,
     "access_checked_in_incognito": false,
-    "timestamps": {}
+    "timestamps": {
+      "RF-01": "06:00",
+      "RF-02": "06:30",
+      "RF-03": "08:00",
+      "RF-04": "09:30",
+      "RF-05": "12:00",
+      "RF-06": "11:00",
+      "RF-07": "06:30",
+      "RF-08": "14:00",
+      "RF-09": "18:00",
+      "RF-10": "09:00",
+      "RF-11": "18:00",
+      "RF-12": "07:30",
+      "RF-13": "13:30",
+      "RNF-02": "03:30",
+      "RNF-03": "18:00",
+      "RNF-05": "15:45",
+      "RNF-07": "06:30"
+    },
+    "timestamp_basis": "Instantes de capturas realmente observadas del MP4, no tiempos del guion ni inicios exactos de cada accion. Filas sin instante verificado permanecen pendientes."
+  },
+  "video_protected_copy": {
+    "file_name": "HotelSec_Practica3_Demo_segura.mp4",
+    "duration_seconds": 1134.134,
+    "width": 1920,
+    "height": 1080,
+    "audio_channels": 2,
+    "redaction_seconds": [922, 936],
+    "redaction_label_visible": true,
+    "original_unchanged": true,
+    "audio_stream_hash_matches_source": true,
+    "reviewed_password_regions_hidden": true,
+    "student_full_playback_reviewed": false,
+    "evidence": "evidence/video-redaction.json",
+    "limits": "Muestreo visual y proteccion de zonas identificadas; pendiente reproduccion completa por el alumno. No garantiza ausencia de otros datos sensibles."
+  },
+  "video_local_candidate": {
+    "file_name": "2026-10-16 19-41-38.mp4",
+    "duration_seconds": 1134.066,
+    "width": 1920,
+    "height": 1080,
+    "frames_per_second": 60,
+    "audio_channels": 2,
+    "metadata_source": "Propiedades Windows Shell del archivo local de Videos. No acredita revision de contenido, legibilidad ni calidad de audio.",
+    "definitive_file_confirmed": true,
+    "content_reviewed": false,
+    "visual_sample_review": "39 capturas de pantalla, cada 30 segundos y al final. No acredita revision del audio ni de cada instante.",
+    "approved_for_sharing": false,
+    "sharing_blocker": "Contrasenas visibles en el formulario de Seguridad alrededor de 15:30. Preparar copia protegida o regrabar antes de subir. No se copian los valores sensibles."
   },
   "external_installation": {
-    "completed": false,
-    "tester_alias": null,
-    "date": null,
-    "result": null
+    "completed": true,
+    "tester_alias": "Carlos Cortes",
+    "date": "2026-10-15",
+    "result": "El alumno comunica que Carlos Cortes ha instalado siguiendo el README y todo ha funcionado.",
+    "verification_basis": "Declaracion del alumno recibida el 16/10/2026: Carlos instalo el 15/10/2026. Detalles del equipo y recorridos individuales no facilitados; no se atribuye observacion directa al asistente."
   },
   "narrative_updated_for_submission": false,
   "student_pdf_reviewed": false,
-  "repository_access_checked": false
+  "repository_access_checked": true,
+  "repository_access_basis": "git ls-remote HTTPS sin credential.helper ni http.extraHeader y sin peticion interactiva: lectura correcta de main/practica3 el16/10/2026."
 }

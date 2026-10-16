@@ -1,8 +1,8 @@
 {
   "author": "Pablo Cortes",
-  "group": "Pendiente de confirmar",
-  "video": "Pendiente de grabacion y enlace",
-  "date": "13 de octubre de 2026",
+  "group": "Entrega individual sin numero, por indicacion del alumno",
+  "video": "Grabacion confirmada; copia protegida de 18:54. Enlace accesible y minutos reales pendientes",
+  "date": "16 de octubre de 2026",
   "pages": [
     {
       "section": "1. Resumen ejecutivo",
@@ -12,7 +12,7 @@
         "Parto del prototipo entregado en la Practica 1, calificado con 9/10 sin comentarios del profesor. La revision del repositorio ha permitido distinguir lo ya funcional de lo que solo estaba previsto: persistencia, autenticacion, historico, seguimiento y un PDF completo necesitaban implementacion. Esta nueva entrega conserva el producto y sus compromisos; no empieza un proyecto distinto.",
         "El incremento introduce cuentas con sesiones revocables y aislamiento por propietario, PostgreSQL con migraciones, evaluaciones guardadas, historial por alojamiento y estados de acciones. Amplia el perfil hotelero, incorpora probabilidad e impacto orientativos y genera diez politicas. El texto libre complementa el formulario y solicita una decision cuando contradice controles marcados. La IA puede extraer contexto y personalizar redaccion con autorizacion explicita; el scoring sigue siendo determinista y existe respaldo por reglas.",
         "La version 0.4.0 esta publicada en Hetzner por HTTPS. La suite de aplicacion suma 92 tests y cinco escenarios Chromium locales y remotos. Se comprueban secretos y dependencias, IA real autorizada y restauracion aislada de un backup privado del VPS. La memoria distingue pruebas con mocks, pruebas reales y limitaciones operativas.",
-        "Esta version previa al video incorpora perfil editable, contrasenas/sesiones, exportacion y cuotas IA persistentes. El alumno estima40 horas personales y confirma que la web funciona. Faltan numero de grupo, video/enlace/minutos, instalacion por persona externa y revision personal del PDF. No se presentan como realizados ni se fabrica evidencia; el tag final se crea al cerrar la documentacion."
+        "El alumno estima40 horas personales y confirma la grabacion definitiva el16/10. Se verifica un MP4 de18:54 y1080p; se genera una copia con campos de contrasena ocultos y aviso visible, sin modificar el original. Carlos Cortes instalo siguiendo el README el15/10 y todo funciono, segun declaracion de Pablo. La entrega es individual sin numero por indicacion del alumno. Quedan enlace accesible, minutos reales, revision completa del video y del PDF; no se acredita envio al campus ni tag final."
       ]
     },
     {
@@ -276,7 +276,7 @@
       "section": "7. Pruebas y evidencias",
       "title": "Instalacion, fallos y correcciones",
       "paragraphs": [
-        "Se repite la instalacion desde un clon limpio de GitHub, configuracion aleatoria nueva, puerto8086 y proyecto Compose separado. No se reutiliza el volumen habitual ni claves OpenAI. Esta ejecucion automatizada complementa el VPS, pero no sustituye la instalacion humana externa del checklist, que el alumno confirma pendiente.",
+        "Se repite la instalacion desde un clon limpio de GitHub, configuracion aleatoria nueva, puerto8086 y proyecto Compose separado. No se reutiliza el volumen habitual ni claves OpenAI. Esta ejecucion automatizada complementa el VPS. Separadamente, el16/10 Pablo comunica que Carlos Cortes instalo siguiendo el README el15/10 y todo funciono. Se registra como declaracion del alumno, sin atribuir observacion directa al asistente ni inventar detalles del equipo o de cada recorrido.",
         "Durante la actualizacion, Vite no construia con el Node global 19 y faltaba un binding nativo optional. Se utilizo Node 24 explicito y se reinstalo el componente; despues el build paso en Windows y en Docker Linux. La guia exige Node 24 para evitar repetir el fallo.",
         "Una prueba nueva fallo por importar test_product fuera de su paquete; la pasada tuvo 1 fallo y 21 exitos. Corregido el import, hubo 22 exitos. Las primeras pruebas de navegador tambien fallaron por etiqueta compuesta de contrasena y por selector exacto de continuidad. Se ajustaron accesibilidad/selector y ambos escenarios pasaron.",
         "La revision de respuesta IA encontro estructuras que podian causar AttributeError. Se validan objeto/lista/entradas antes de extraer texto y se probaron formatos malformados, timeout y respuesta valida simulada. Se documentan los fallos en lugar de presentar un desarrollo sin incidencias.",
@@ -298,7 +298,7 @@
       "section": "8. Matriz de trazabilidad",
       "title": "Funcionalidades: codigo, prueba y figura",
       "trace": "functional_a",
-      "paragraphs": ["La matriz siguiente enlaza implementacion y pruebas reales. Los nombres de prueba se encuentran en backend/tests o frontend/e2e. Todas las marcas del video estan pendientes. El guion no es evidencia grabada y no se atribuyen segundos ficticios."],
+      "paragraphs": ["La matriz siguiente enlaza implementacion y pruebas reales. Los nombres de prueba se encuentran en backend/tests o frontend/e2e. Las marcas verificadas del video proceden de capturas del MP4 real; las filas sin instante observado permanecen pendientes. El guion no se utiliza como evidencia temporal ni se atribuyen segundos ficticios."],
       "closing": "RF-01 a RF-07 cubren entrada y resultado de negocio. Los perfiles debiles/fuertes se contrastan por reglas; el pack mantiene diez piezas y el plan conserva estados al recargar. La demo debe mostrar estos recorridos y explicar que una puntuacion no acredita una medida real."
     },
     {
@@ -313,7 +313,7 @@
       "title": "Calidad y entregables: pendientes visibles",
       "trace": "quality",
       "paragraphs": ["La version no se etiqueta como final solo porque el codigo compile. Estas filas concentran requisitos con trabajo operativo o participacion del alumno. La matriz completa editable esta en docs/practica3/06_estado_entrega.md."],
-      "closing": "Hetzner esta publicado y probado; no se exige comprar dominio. El tag final, MP4, permisos y envio al campus solo se acreditan cuando ocurren. El cierre automatico rechaza generar memoria final si faltan grupo, video, minutos o comprobaciones manuales. Preparacion no equivale a entrega."
+      "closing": "Hetzner esta publicado y probado; no se exige comprar dominio. El MP4 local existe y tiene una copia protegida; enlace accesible, permisos, revision final, tag y envio al campus solo se acreditan cuando ocurren. El cierre automatico acepta la entrega individual expresamente declarada sin inventar grupo, pero rechaza generar memoria final si faltan enlace, minutos o comprobaciones manuales. Preparacion no equivale a entrega."
     },
     {
       "section": "9. Limitaciones y mejoras",
@@ -332,7 +332,7 @@
       ],
       "paragraphs": [
         "El producto no escanea hoteles, no obtiene configuracion del PMS y no verifica medidas fisicas. Un resultado favorable requiere respuestas veraces; no prueba cumplimiento. Los textos IA deben revisarse antes de aprobar politicas. Las fechas/responsables sugeridos del plan no acreditan que direccion lo haya firmado.",
-        "Segundo entorno, IA real y HTTPS ya tienen evidencia fechada. Quedan video, grupo, instalacion humana externa, revision personal y tag. Las funciones adicionales no compensan requisitos originales sin cerrar. Los pendientes comerciales no se disfrazan de garantias academicas ni se contratan servicios sin autorizacion."
+        "Segundo entorno, IA real y HTTPS tienen evidencia fechada. El video local esta grabado y la instalacion de Carlos consta como declaracion del alumno; la entrega se identifica como individual sin numero. Quedan enlace accesible, minutos reales, revision completa y tag final. Las funciones adicionales no compensan requisitos originales sin cerrar. Los pendientes comerciales no se disfrazan de garantias academicas ni se contratan servicios sin autorizacion."
       ]
     },
     {

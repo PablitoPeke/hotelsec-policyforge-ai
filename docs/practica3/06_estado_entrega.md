@@ -2,6 +2,8 @@
 
 Revision de cierre: 13/10/2026. Version0.4.0 publica y codigo de aplicacion congelado en83d7b9b; los cambios de cierre son documentacion, evidencia y herramientas de entrega. Las figuras1-6 proceden del navegador local; figura7 de Hetzner. Todos los minutos de video siguen pendientes: no usar tiempos del guion como evidencia.
 
+Actualizacion 16/10/2026: video definitivo confirmado por Pablo (`2026-10-16 19-41-38.mp4`), 18:54.066, 1920x1080, 60fps y pista de audio segun propiedades del archivo. Falta enlace accesible y revision completa con minutos reales; estos metadatos no prueban por si solos que el contenido cumpla. Carlos Cortes instalo el 15/10/2026 y todo funciono, segun declaracion de Pablo. Entrega individual sin numero, por indicacion del alumno. El registro anterior se conserva como estado historico.
+
 Autor Pablo Cortes, individual; grupo omitido hasta confirmar por decision del alumno. Estimacion propia:40 horas (10 desarrollo,10 pruebas,10 documentacion,10 preparacion). El alumno confirma funcionamiento de la URL publica. Suite final99 tests (92 de aplicacion/operaciones y7 de validacion de entrega),5 escenarios en instalacion limpia y5 remotos, auditorias sin vulnerabilidades conocidas y Gitleaks sin hallazgos accionables tras revisar2 falsos positivos. CI no ejecutado por bloqueo de facturacion; no es obligatorio CI verde. Falta persona externa que instale el proyecto: no sustituirla por el asistente. Ver `evidence/closeout-verification.json`.
 
 | ID | Implementacion | Prueba ejecutada / evidencia | Estado de cierre |
@@ -27,7 +29,7 @@ Autor Pablo Cortes, individual; grupo omitido hasta confirmar por decision del a
 | RNF-06 | usage_service; ai_quota; audit/timeout | test_quota_reservation_is_atomic_under_concurrency; test_global_quota_shared_between_users_and_persists_across_sessions | Cumplido:20 cuenta/h,50 global/dia; no techo monetario |
 | RNF-07 | docker-compose.production.yml; Caddy |0.4.0 HTTPS,5E2E remotos,API y backup/restauracion aislada | Cumplido puntual13/10; no garantia de uptime |
 | RE-01 | memoria_content.json; generate_practica3_report.py | PDF previo al video, cuerpo11, indice y evidencias; metadata/layout | Parcial: grupo, enlace/minutos y revision personal |
-| RE-02 | guion07 | No hay MP4 nuevo | Pendiente grabacion >=10min y URL |
+| RE-02 | MP4 local confirmado; guion07 | 18:54.066 y 1920x1080 comprobados en metadatos; contenido por revisar | Parcial: falta URL accesible y minutos reales |
 | RE-03 | GitHub; README; MIT; .gitignore; commits | Rama practica3 y codigo editable; secretos revisados | Parcial: tag final tras incorporar video y revision |
 
 ## Comprobacion del alumno antes de cierre
