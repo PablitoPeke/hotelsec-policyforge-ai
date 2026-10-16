@@ -19,6 +19,14 @@ def test_complete_declared_metadata_is_accepted():
     assert validate_delivery(complete()) == []
 
 
+def test_protected_video_requires_personal_playback_review():
+    data = complete()
+    data["video_protected_copy"] = {"student_full_playback_reviewed": False}
+    assert len(validate_delivery(data)) == 1
+    data["video_protected_copy"]["student_full_playback_reviewed"] = True
+    assert validate_delivery(data) == []
+
+
 def test_explicit_individual_submission_has_no_invented_group():
     data = complete()
     data.update(group_number=None, submission_mode="individual", author="Pablo Cortes")

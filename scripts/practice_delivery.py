@@ -46,6 +46,9 @@ def validate_delivery(data):
         pending.append("Resolucion de video al menos 1280x720.")
     if video.get("access_checked_in_incognito") is not True:
         pending.append("Comprobar permisos del enlace de video en incognito.")
+    protected = data.get("video_protected_copy")
+    if protected is not None and protected.get("student_full_playback_reviewed") is not True:
+        pending.append("Reproducir y revisar completamente la copia protegida del video antes de publicarla.")
     for requirement in REQUIREMENTS:
         try:
             seconds = timestamp_seconds(video.get("timestamps", {}).get(requirement))
