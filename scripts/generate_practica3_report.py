@@ -20,13 +20,16 @@ CURRENT = json.loads((DOCS / 'evidence/account-center-verification.json').read_t
 CLOSEOUT = json.loads((DOCS / 'evidence/closeout-verification.json').read_text(encoding='utf-8'))
 DELIVERY = json.loads((DOCS / 'delivery_metadata.json').read_text(encoding='utf-8'))
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--final', action='store_true', help='Requires complete real group, video and manual verification metadata')
+mode = parser.add_mutually_exclusive_group()
+mode.add_argument('--final', action='store_true', help='Requires complete real group, video and manual verification metadata')
+mode.add_argument('--delivery-copy', action='store_true', help='Publish current report with unverified delivery facts explicitly disclosed; does not validate final completion')
 args = parser.parse_args()
 if args.final:
     pending = validate_delivery(DELIVERY)
     if pending:
         parser.error('No generar final: ' + '; '.join(pending))
-OUTPUT = ROOT / 'output/pdf' / (submission_filename(DELIVERY) if args.final else 'P3_Pablo_Cortes_Memoria_prevideo.pdf')
+OUTPUT = ROOT / 'output/pdf' / (submission_filename(DELIVERY) if args.final or args.delivery_copy else 'P3_Pablo_Cortes_Memoria_prevideo.pdf')
+VERSION_LABEL = 'Version de entrega' if args.final else ('Revision documental 16/10/2026' if args.delivery_copy else 'Version previa al video')
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 WIDTH = A4[0] - 4 * cm
 styles = getSampleStyleSheet()
@@ -40,6 +43,10 @@ styles.add(ParagraphStyle(name='Code11', fontName='Courier', fontSize=11, leadin
 
 def p(text, style='Body11'):
     return Paragraph(escape(str(text)), styles[style])
+
+
+def web_link(label, url):
+    return Paragraph(f'<link href="{escape(url, quote=True)}" color="#08776f">{escape(label)}</link>', styles['Body11'])
 
 
 class Heading(Paragraph):
@@ -128,23 +135,23 @@ def trace(kind):
         ]
     else:
         entries = [
-            ('RNF-01', 'Compose / README', 'Local limpio y VPS; externo humano pendiente'),
+            ('RNF-01', 'Compose / README', 'Clon limpio; Carlos15/10, declarado por Pablo'),
             ('RNF-02', 'Pydantic / errores', '422/413/404; entrada negativa'),
             ('RNF-03', 'Argon2 / Caddy / env', 'Hashes, TLS; Gitleaks historial'),
             ('RNF-04', 'Auditorias / CI', '0 conocidas; CI sin iniciar por restriccion de cuenta'),
             ('RNF-05', 'DELETE / export / cleanup', 'Cascada/export; retencion documentada'),
             ('RNF-06', 'quota / audit / timeout', 'DB:20 cuenta/h;50 global/dia'),
             ('RNF-07', 'Produccion / guia', '0.4.0 HTTPS; backup/restore aislado'),
-            ('RE-01', 'Fuente memoria / PDF', 'Prevideo; grupo/enlace/minutos pendientes'),
-            ('RE-02', 'Guion / MP4', 'Sin grabacion ni enlace'),
+            ('RE-01', 'Fuente memoria / PDF', 'Revision16/10 individual; enlace pendiente'),
+            ('RE-02', 'MP4 protegido', '18:54,1080p; enlace y revision completa pendientes'),
             ('RE-03', 'GitHub / MIT / README', 'Rama y commits; tag final pendiente'),
         ]
     if kind == 'functional_a':
         entries = entries[:7]
     elif kind == 'functional_b':
         entries = entries[7:]
-    states = {'RNF-01': 'Parcial', 'RNF-04': 'Con limites', 'RNF-05': 'Con limites',
-              'RE-01': 'Parcial', 'RE-02': 'Pendiente', 'RE-03': 'Parcial'}
+    states = {'RNF-01': 'Declarado', 'RNF-04': 'Con limites', 'RNF-05': 'Con limites',
+              'RE-01': 'Parcial', 'RE-02': 'Parcial', 'RE-03': 'Parcial'}
     rows += [[identifier, states.get(identifier, 'Cumplido'), code, test,
               DELIVERY['video']['timestamps'].get(identifier, 'Pendiente')] for identifier, code, test in entries]
     return table(rows, [48, 65, 113, WIDTH - 290, 64])
@@ -155,23 +162,23 @@ def footer(canvas, doc):
     canvas.line(2 * cm, 1.65 * cm, A4[0] - 2 * cm, 1.65 * cm)
     canvas.setFont('Helvetica', 8)
     canvas.setFillColor(colors.HexColor('#50606b'))
-    canvas.drawString(2 * cm, 1.2 * cm, 'HotelSec | Practica 3 | ' + ('Version de entrega' if args.final else 'Version previa al video'))
+    canvas.drawString(2 * cm, 1.2 * cm, 'HotelSec | Practica 3 | ' + VERSION_LABEL)
     canvas.drawRightString(A4[0] - 2 * cm, 1.2 * cm, str(doc.page))
 
 
 def build(locations=None):
     story = [Spacer(1, 3 * cm), p('EVOLVE ACADEMY · CIBERSEGURIDAD CON IA', 'Kicker'),
              Heading('HotelSec PolicyForge AI', 'Portada', 'front'), p('Practica 3: del prototipo al producto', 'Heading2'),
-             Spacer(1, cm), p('MEMORIA TECNICA' + ('' if args.final else ' · VERSION PREVIA AL VIDEO'), 'Kicker'),
+             Spacer(1, cm), p('MEMORIA TECNICA' + ('' if args.final or args.delivery_copy else ' · VERSION PREVIA AL VIDEO'), 'Kicker'),
              p('Autor: ' + SOURCE['author']),
              *([p('Grupo: ' + str(DELIVERY['group_number']))] if DELIVERY['group_number'] is not None else []),
              p('Revision: ' + SOURCE['date']),
-             p('GitHub: https://github.com/PablitoPeke/hotelsec-policyforge-ai'), p('Rama: practica3'),
-             p('Aplicacion: https://178-105-149-202.sslip.io/'),
+             web_link('GitHub: PablitoPeke/hotelsec-policyforge-ai (rama practica3)', 'https://github.com/PablitoPeke/hotelsec-policyforge-ai/tree/practica3'),
+             web_link('Aplicacion: https://178-105-149-202.sslip.io/', 'https://178-105-149-202.sslip.io/'),
              p('Version del producto: 0.4.0; codigo verificado 83d7b9b'),
-             p('Video: ' + (DELIVERY['video']['url'] or SOURCE['video'])), Spacer(1, cm),
+             (web_link('Video de demostracion', DELIVERY['video']['url']) if DELIVERY['video']['url'] else p('Video: MP4 de 18:54, 1920x1080. Enlace de visualizacion no facilitado al cerrar este documento; adjuntarlo en el campus.')), Spacer(1, cm),
              p('La version anterior obtuvo 9/10; el alumno indica que no hubo comentarios del docente. Trabajo individual con asistencia IA declarada.'),
-             p('Fecha limite: 16/10/2026; confirmar hora en campus.' if args.final else 'Pendientes para entregar: grupo real, video/enlace/minutos, prueba de instalacion por persona externa y revision personal. Horas estimadas por el alumno: 40. No se fabrica evidencia ni se marca esta version como entrega final.'),
+             p('Fecha limite: 16/10/2026; confirmar hora en campus.' if args.final else ('Entrega individual, sin numero de grupo por indicacion del alumno. Horas personales estimadas: 40. Esta revision incorpora el video local y la instalacion externa comunicada; el enlace, permisos, revision personal y marcas no verificadas se declaran en el cierre documental.' if args.delivery_copy else 'Pendientes para entregar: enlace/minutos del video y revision personal. Horas estimadas por el alumno: 40. No se fabrica evidencia ni se marca esta version como entrega final.')),
              PageBreak(), Heading('Indice de contenidos', 'Indice', 'front')]
     groups = list(dict.fromkeys(page['section'] for page in SOURCE['pages'])) + ['Anexo A. Instalacion y uso', 'Anexo B. Glosario y referencias']
     pages = {}
@@ -193,7 +200,7 @@ def build(locations=None):
             story += [figure, Spacer(1, 8), p(page['caption'], 'Caption9')]
         if page.get('results'):
             b, browser = CLOSEOUT['backend'], CURRENT['browser_hetzner']
-            story += [table([['Comprobacion', 'Resultado'], ['Backend pytest', f"{b['tests']} tests; {b['failures']} fallos; {b['errors']} errores"],
+            story += [table([['Comprobacion', 'Resultado'], ['Suite guardada13/10', f"{b['tests']} tests; {b['failures']} fallos; {b['errors']} errores"],
                 ['Chromium remoto y local', f"{browser['expected']} escenarios correctos en cada entorno; {browser['unexpected']} inesperados"],
                 ['pip-audit', f"{CLOSEOUT['python_known_vulnerabilities']} vulnerabilidades conocidas"],
                 ['npm audit', f"{CLOSEOUT['npm_vulnerabilities']['total']} vulnerabilidades conocidas"], ['Backup Hetzner13/10', 'pg_restore aislado correcto; DB en uso conservada'], ['Gitleaks historial', '0 hallazgos accionables; 2 falsos positivos revisados']]), Spacer(1, 15)]
@@ -227,7 +234,7 @@ def build(locations=None):
     story.extend(p(reference) for reference in references)
     output = BytesIO()
     document = Report(output, pagesize=A4, leftMargin=2*cm, rightMargin=2*cm, topMargin=1.8*cm, bottomMargin=2*cm,
-                      title='HotelSec - Practica 3 - ' + ('Entrega' if args.final else 'Prevideo'), author=SOURCE['author'])
+                      title='HotelSec - Practica 3 - ' + VERSION_LABEL, author=SOURCE['author'])
     document.build(story, onFirstPage=footer, onLaterPages=footer)
     return output.getvalue(), document.locations
 
@@ -242,6 +249,7 @@ count = annex_start - content_start
 if not 20 <= count <= 40:
     raise ValueError(f'Content page count outside rubric: {count}')
 metadata = {'pdf': str(OUTPUT.relative_to(ROOT)), 'total_pages': len(reader.pages), 'content_pages': count,
-            'content_start': content_start, 'annex_start': annex_start, 'body_font_size': 11, 'draft': not args.final, 'sections': locations}
+            'content_start': content_start, 'annex_start': annex_start, 'body_font_size': 11, 'draft': not args.final,
+            'delivery_copy': args.delivery_copy, 'delivery_validation_pending': validate_delivery(DELIVERY), 'sections': locations}
 (DOCS / 'evidence/memory-layout.json').write_text(json.dumps(metadata, indent=2, ensure_ascii=False), encoding='utf-8')
 print(json.dumps({k: v for k, v in metadata.items() if k != 'sections'}, indent=2))

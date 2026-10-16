@@ -1,11 +1,24 @@
 {
-  "pdf": "output\\pdf\\P3_Pablo_Cortes_Memoria_prevideo.pdf",
-  "total_pages": 31,
-  "content_pages": 27,
+  "pdf": "output\\pdf\\P3_Pablo_Cortes_Memoria.pdf",
+  "total_pages": 32,
+  "content_pages": 28,
   "content_start": 3,
-  "annex_start": 30,
+  "annex_start": 31,
   "body_font_size": 11,
   "draft": true,
+  "delivery_copy": true,
+  "delivery_validation_pending": [
+    "Enlace HTTPS del video, sin credenciales.",
+    "Comprobar permisos del enlace de video en incognito.",
+    "Reproducir y revisar completamente la copia protegida del video antes de publicarla.",
+    "Minuto real MM:SS de RNF-01 dentro del video.",
+    "Minuto real MM:SS de RNF-04 dentro del video.",
+    "Minuto real MM:SS de RNF-06 dentro del video.",
+    "Minuto real MM:SS de RE-01 dentro del video.",
+    "Minuto real MM:SS de RE-02 dentro del video.",
+    "Minuto real MM:SS de RE-03 dentro del video.",
+    "Revision personal del PDF definitivo."
+  ],
   "sections": [
     {
       "title": "HotelSec PolicyForge AI",
@@ -182,16 +195,22 @@
       "page": 29
     },
     {
+      "title": "Entrega individual y demostracion",
+      "section": "12. Cierre documental",
+      "kind": "content",
+      "page": 30
+    },
+    {
       "title": "Instalacion y manual de uso",
       "section": "Anexo A. Instalacion y uso",
       "kind": "annex",
-      "page": 30
+      "page": 31
     },
     {
       "title": "Glosario y fuentes",
       "section": "Anexo B. Glosario y referencias",
       "kind": "annex",
-      "page": 31
+      "page": 32
     }
   ]
 }

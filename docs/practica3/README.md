@@ -71,6 +71,8 @@ Calendario orientativo, sujeto a disponibilidad del alumno: hasta el 2/10, persi
 
 ## Incremento implementado
 
+Memoria actualizada al 16/10: [PDF para la entrega individual](../../output/pdf/P3_Pablo_Cortes_Memoria.pdf). El documento recoge las comprobaciones disponibles y declara el enlace del video no facilitado; no acredita entrega al campus ni validacion final completa. Sustituye al PDF previo al video para la revision actual.
+
 Estado actualizado 16/10: Pablo confirma el video local definitivo (18:54,
 1080p) y comunica instalacion correcta de Carlos Cortes el 15/10. Entrega
 individual sin numero por indicacion del alumno. La revision visual detecta

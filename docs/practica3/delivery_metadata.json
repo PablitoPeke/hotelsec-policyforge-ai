@@ -76,7 +76,7 @@
     "result": "El alumno comunica que Carlos Cortes ha instalado siguiendo el README y todo ha funcionado.",
     "verification_basis": "Declaracion del alumno recibida el 16/10/2026: Carlos instalo el 15/10/2026. Detalles del equipo y recorridos individuales no facilitados; no se atribuye observacion directa al asistente."
   },
-  "narrative_updated_for_submission": false,
+  "narrative_updated_for_submission": true,
   "student_pdf_reviewed": false,
   "repository_access_checked": true,
   "repository_access_basis": "git ls-remote HTTPS sin credential.helper ni http.extraHeader y sin peticion interactiva: lectura correcta de main/practica3 el16/10/2026."

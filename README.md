@@ -119,6 +119,8 @@ Para remoto usar origen HTTPS. Anadir `--output RUTA.json` para conservar eviden
 
 ## Entrega
 
+Memoria actualizada al 16/10: [P3_Pablo_Cortes_Memoria.pdf](output/pdf/P3_Pablo_Cortes_Memoria.pdf), entrega individual sin numero. Incorpora el video local de 18:54, marcas observadas y la instalacion de Carlos comunicada por Pablo. El enlace del video todavia no se ha facilitado y las comprobaciones no acreditadas se indican en el documento. Regenerar esta revision con `python scripts/generate_practica3_report.py --delivery-copy`; esta opcion no marca como superada la validacion `--final`. Subir el video protegido y adjuntar su enlace accesible junto al PDF.
+
 Para grabar: [guion literal con acciones](docs/practica3/14_guion_lectura.md) y [PDF de lectura](output/pdf/P3_Guion_lectura_y_grabacion.pdf). Fuente editable `docs/practica3/video_script.json`; regenerar con `python scripts/generate_video_script.py`. El ensayo de datos por reglas se ejecuta con `python scripts/rehearse_video_rules.py`, sin HTTP, escrituras DB ni IA de pago; no sustituye al video ni a una demostracion real.
 
 [Seguimiento de Practica 3](docs/practica3/README.md), [matriz inicial](docs/practica3/01_matriz_requisitos.md), [cierre y trazabilidad](docs/practica3/06_estado_entrega.md), [guion del video](docs/practica3/07_video_entrega.md). La memoria marcada como borrador no sustituye la entrega final mientras falten datos de portada, horas reales, video y comprobaciones indicadas. No se crea `v1.0-practica3` hasta cerrar esos pendientes.
