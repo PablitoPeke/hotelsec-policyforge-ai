@@ -2,6 +2,7 @@
 import argparse
 import json
 import re
+import unicodedata
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -20,8 +21,10 @@ def timestamp_seconds(value):
 def validate_delivery(data):
     pending = []
     group = data.get("group_number")
-    if type(group) is not int or not 1 <= group <= 99:
-        pending.append("Numero real de grupo (1-99) para portada y nombre P3_GrupoXX_Memoria.pdf.")
+    individual = (group is None and data.get("submission_mode") == "individual"
+                  and isinstance(data.get("author"), str) and bool(data["author"].strip()))
+    if not individual and (type(group) is not int or not 1 <= group <= 99):
+        pending.append("Numero real de grupo (1-99), o declaracion explicita de entrega individual con autor y sin numero.")
     hours = data.get("estimated_student_hours", {})
     if not hours or any(type(v) not in (int, float) or not 0 <= v <= 10000 for v in hours.values()):
         pending.append("Estimacion personal valida de horas por actividad.")
@@ -60,6 +63,18 @@ def validate_delivery(data):
     if data.get("repository_access_checked") is not True:
         pending.append("Comprobar acceso del docente al repositorio.")
     return pending
+
+
+def submission_filename(data):
+    group = data.get("group_number")
+    if type(group) is int and 1 <= group <= 99:
+        return f"P3_Grupo{group:02}_Memoria.pdf"
+    if group is None and data.get("submission_mode") == "individual":
+        author = unicodedata.normalize("NFKD", data.get("author", "")).encode("ascii", "ignore").decode()
+        name = re.sub(r"[^A-Za-z0-9]+", "_", author).strip("_")
+        if name:
+            return f"P3_{name}_Memoria.pdf"
+    raise ValueError("Falta grupo real o entrega individual explicitamente declarada.")
 
 
 def main():

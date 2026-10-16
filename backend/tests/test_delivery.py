@@ -2,7 +2,7 @@ from copy import deepcopy
 
 import pytest
 
-from scripts.practice_delivery import REQUIREMENTS, timestamp_seconds, validate_delivery
+from scripts.practice_delivery import REQUIREMENTS, submission_filename, timestamp_seconds, validate_delivery
 
 
 def complete():
@@ -17,6 +17,34 @@ def complete():
 
 def test_complete_declared_metadata_is_accepted():
     assert validate_delivery(complete()) == []
+
+
+def test_explicit_individual_submission_has_no_invented_group():
+    data = complete()
+    data.update(group_number=None, submission_mode="individual", author="Pablo Cortes")
+    assert validate_delivery(data) == []
+    assert submission_filename(data) == "P3_Pablo_Cortes_Memoria.pdf"
+    assert submission_filename(complete()) == "P3_Grupo07_Memoria.pdf"
+
+
+def test_individual_submission_still_requires_real_video_and_external_date():
+    data = complete()
+    data.update(group_number=None, submission_mode="individual", author="Pablo Cortes")
+    data["video"]["url"] = None
+    data["external_installation"]["date"] = None
+    assert len(validate_delivery(data)) == 2
+
+
+def test_individual_submission_does_not_accept_missing_author_or_invalid_group():
+    data = complete()
+    data.update(group_number=None, submission_mode="individual", author=" ")
+    assert len(validate_delivery(data)) == 1
+    with pytest.raises(ValueError):
+        submission_filename(data)
+    data.update(group_number=0, author="Pablo Cortes")
+    assert len(validate_delivery(data)) == 1
+    with pytest.raises(ValueError):
+        submission_filename(data)
 
 
 def test_missing_human_facts_are_not_inferred():

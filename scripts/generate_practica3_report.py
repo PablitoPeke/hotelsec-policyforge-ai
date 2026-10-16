@@ -10,7 +10,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, Image, Preformatted, Flowable
 from pypdf import PdfReader
-from practice_delivery import validate_delivery
+from practice_delivery import submission_filename, validate_delivery
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs/practica3'
@@ -26,7 +26,7 @@ if args.final:
     pending = validate_delivery(DELIVERY)
     if pending:
         parser.error('No generar final: ' + '; '.join(pending))
-OUTPUT = ROOT / 'output/pdf' / (f"P3_Grupo{DELIVERY['group_number']:02}_Memoria.pdf" if args.final else 'P3_Pablo_Cortes_Memoria_prevideo.pdf')
+OUTPUT = ROOT / 'output/pdf' / (submission_filename(DELIVERY) if args.final else 'P3_Pablo_Cortes_Memoria_prevideo.pdf')
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 WIDTH = A4[0] - 4 * cm
 styles = getSampleStyleSheet()
